@@ -1,34 +1,41 @@
-import Versions from './components/Versions'
-import electronLogo from './assets/electron.svg'
+import { JSX, useEffect, useState } from 'react'
+import { api, CalendarEntry } from './services/api'
 
-function App(): React.JSX.Element {
-  const ipcHandle = (): void => window.electron.ipcRenderer.send('ping')
+function App(): JSX.Element {
+  const [status, setStatus] = useState<string>('Connexion...')
+  const [entries, setEntries] = useState<CalendarEntry[]>([])
+
+  useEffect(() => {
+    // 1. On teste le ping
+    api.ping().then((msg) => setStatus(msg))
+
+    // 2. On récupère les entrées
+    api
+      .getCalendar()
+      .then((data) => setEntries(data))
+      .catch(() => setStatus('Erreur de récupération'))
+  }, [])
 
   return (
-    <>
-      <img alt="logo" className="logo" src={electronLogo} />
-      <div className="creator">Powered by electron-vite</div>
-      <div className="text">
-        Build an Electron app with <span className="react">React</span>
-        &nbsp;and <span className="ts">TypeScript</span>
+    <div style={{ padding: '20px', fontFamily: 'sans-serif', color: '#333' }}>
+      <h1>💌 Zatyshok - Test Connexion</h1>
+
+      <div
+        style={{ marginBottom: '20px', padding: '10px', background: '#eee', borderRadius: '8px' }}
+      >
+        <strong>État du serveur :</strong> {status}
       </div>
-      <p className="tip">
-        Please try pressing <code>F12</code> to open the devTool
-      </p>
-      <div className="actions">
-        <div className="action">
-          <a href="https://electron-vite.org/" target="_blank" rel="noreferrer">
-            Documentation
-          </a>
-        </div>
-        <div className="action">
-          <a target="_blank" rel="noreferrer" onClick={ipcHandle}>
-            Send IPC
-          </a>
-        </div>
-      </div>
-      <Versions></Versions>
-    </>
+
+      <h3>📅 Entrées trouvées ({entries.length}) :</h3>
+      <ul>
+        {entries.map((entry) => (
+          <li key={entry.id}>
+            <strong>{entry.date}</strong> : {entry.text}
+            <small> ({entry.moment})</small>
+          </li>
+        ))}
+      </ul>
+    </div>
   )
 }
 
