@@ -2,45 +2,57 @@ const API_URL = import.meta.env.VITE_API_URL
 const TOKEN = import.meta.env.VITE_API_TOKEN
 
 export interface CalendarEntry {
-  id: number
+  id?: number
   text: string
-  date?: string
-  moment?: string
-  created_by: 'me' | 'her'
+  date?: string | null
+  moment: 'morning' | 'afternoon' | 'evening'
+  category: 'note' | 'goal' | 'event'
+  created_by?: 'me' | 'her'
+}
+
+export interface MoodEntry {
+  id?: number
+  mood: 'great' | 'ok' | 'meh' | 'bad'
+  note: string
+  date: string
 }
 
 export const api = {
   getCalendar: async (): Promise<CalendarEntry[]> => {
     try {
       const response = await fetch(`${API_URL}/calendar`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: TOKEN
-        }
+        headers: { Authorization: TOKEN }
       })
-
-      if (!response.ok) {
-        throw new Error(`Erreur serveur: ${response.status}`)
-      }
-
-      return await response.json()
-    } catch (error) {
-      console.error('❌ Impossible de joindre le serveur', error)
-      throw error
+      return response.json()
+    } catch {
+      return []
     }
   },
 
-  ping: async (): Promise<string> => {
+  postCalendar: async (entry: Omit<CalendarEntry, 'id'>): Promise<void> => {
+    await fetch(`${API_URL}/calendar`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Authorization: TOKEN },
+      body: JSON.stringify(entry)
+    })
+  },
+
+  getMoods: async (): Promise<MoodEntry[]> => {
     try {
-      const response = await fetch(`${API_URL}/`, {
+      const response = await fetch(`${API_URL}/moods`, {
         headers: { Authorization: TOKEN }
       })
-      const data = await response.json()
-      return data.message || 'Pas de message'
-    } catch (error) {
-      console.error(error) // On utilise la variable pour calmer le linter
-      return '❌ Déconnecté'
+      return response.json()
+    } catch {
+      return []
     }
+  },
+
+  postMood: async (entry: MoodEntry): Promise<void> => {
+    await fetch(`${API_URL}/moods`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Authorization: TOKEN },
+      body: JSON.stringify(entry)
+    })
   }
 }

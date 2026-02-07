@@ -1,41 +1,24 @@
-import { JSX, useEffect, useState } from 'react'
-import { api, CalendarEntry } from './services/api'
+import { JSX, useState } from 'react'
+import { BentoView } from './components/BentoView'
+import { WriteView } from './components/WriteView'
 
 function App(): JSX.Element {
-  const [status, setStatus] = useState<string>('Connexion...')
-  const [entries, setEntries] = useState<CalendarEntry[]>([])
-
-  useEffect(() => {
-    // 1. On teste le ping
-    api.ping().then((msg) => setStatus(msg))
-
-    // 2. On récupère les entrées
-    api
-      .getCalendar()
-      .then((data) => setEntries(data))
-      .catch(() => setStatus('Erreur de récupération'))
-  }, [])
+  // État pour savoir si on est en mode "Écriture"
+  const [isWriting, setIsWriting] = useState(false)
 
   return (
-    <div style={{ padding: '20px', fontFamily: 'sans-serif', color: '#333' }}>
-      <h1>💌 Zatyshok - Test Connexion</h1>
-
-      <div
-        style={{ marginBottom: '20px', padding: '10px', background: '#eee', borderRadius: '8px' }}
-      >
-        <strong>État du serveur :</strong> {status}
+    <>
+      <div className="title-bar">
+        <span>Затишок 💌</span>
+        <button onClick={() => setIsWriting(!isWriting)} className="nav-button">
+          {isWriting ? 'Voir' : 'Écrire'}
+        </button>
       </div>
-
-      <h3>📅 Entrées trouvées ({entries.length}) :</h3>
-      <ul>
-        {entries.map((entry) => (
-          <li key={entry.id}>
-            <strong>{entry.date}</strong> : {entry.text}
-            <small> ({entry.moment})</small>
-          </li>
-        ))}
-      </ul>
-    </div>
+      <div className="app-container">
+        {/* Affichage conditionnel */}
+        {isWriting ? <WriteView onBack={() => setIsWriting(false)} /> : <BentoView />}
+      </div>
+    </>
   )
 }
 
