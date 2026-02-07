@@ -7,40 +7,25 @@ export function BentoView(): JSX.Element {
   const [data, setData] = useState<CalendarEntry[]>([])
   const [moods, setMoods] = useState<MoodEntry[]>([])
   const [loading, setLoading] = useState<boolean>(true)
-
   const [selectedMood, setSelectedMood] = useState<MoodType | null>(null)
   const [moodNote, setMoodNote] = useState<string>('')
-  const [isSendingMood, setIsSendingMood] = useState<boolean>(false)
+  const [apiIndex, setApiIndex] = useState(0)
 
   const isoToday = new Date().toISOString().split('T')[0]
 
-  const fetchData = (): void => {
+  useEffect((): void => {
     api.getCalendar().then((res) => {
       setData(res)
       setLoading(false)
     })
     api.getMoods().then(setMoods)
-  }
-
-  useEffect((): void => {
-    fetchData()
   }, [])
 
-  const handleMoodSubmit = async (): Promise<void> => {
-    if (!selectedMood) return
-    setIsSendingMood(true)
-    try {
-      await api.postMood({ mood: selectedMood, note: moodNote, date: isoToday })
-      alert('Humeur enregistrée ! ✨')
-      setSelectedMood(null)
-      setMoodNote('')
-      fetchData()
-    } catch {
-      alert("Erreur lors de l'enregistrement")
-    } finally {
-      setIsSendingMood(false)
-    }
-  }
+  const apiWidgets = [
+    { icon: '⛅', label: 'Metz', value: '14°C' },
+    { icon: '🎵', label: 'Spotify', value: 'Lofi Girl' },
+    { icon: '🌙', label: 'Demain', value: '12°C' }
+  ]
 
   return (
     <div className="bento-grid">
@@ -51,15 +36,14 @@ export function BentoView(): JSX.Element {
         </div>
       </header>
 
-      {/* ZONE MILIEU : PLANNING */}
       <div className="soft-ui main-card">
         <h2 className="main-title">Ton programme du jour ✨</h2>
         <div className="planner-container">
           {loading ? (
-            <p>Chargement du planning...</p>
-          ) : data.filter((e) => e.date === isoToday && e.category !== 'note').length > 0 ? (
+            <p>Chargement...</p>
+          ) : data.filter((e) => e.date === isoToday).length > 0 ? (
             data
-              .filter((e) => e.date === isoToday && e.category !== 'note')
+              .filter((e) => e.date === isoToday)
               .map((item) => (
                 <div key={item.id} className="soft-ui planner-item">
                   <span className="planner-icon">{item.category === 'goal' ? '🎯' : '📅'}</span>
@@ -72,11 +56,12 @@ export function BentoView(): JSX.Element {
         </div>
       </div>
 
-      {/* ZONE DROITE */}
       <div className="sidebar">
-        {/* MOOD TRACKER */}
-        <div className="soft-ui widget-card">
-          <h3 className="sidebar-title">Comment vas-tu ? (Hier : {moods[0]?.mood || '?'})</h3>
+        <div className="soft-ui widget-card mood-widget">
+          <h3 className="sidebar-title">
+            Comment vas-tu ?{' '}
+            {moods[0] && <span className="mood-yesterday">(Hier: {moods[0].mood})</span>}
+          </h3>
           <div className="mood-grid">
             {(['great', 'ok', 'meh', 'bad'] as MoodType[]).map((m) => (
               <button
@@ -95,33 +80,37 @@ export function BentoView(): JSX.Element {
             onChange={(e): void => setMoodNote(e.target.value)}
             className="soft-input mood-input"
           />
-          <button
-            className="soft-btn-primary mood-submit"
-            onClick={handleMoodSubmit}
-            disabled={!selectedMood || isSendingMood}
-          >
-            {isSendingMood ? '...' : 'Valider'}
+          <button className="soft-btn-primary" disabled={!selectedMood}>
+            Valider
           </button>
         </div>
 
-        {/* API SCROLL */}
-        <div className="soft-ui widget-card api-container">
-          <div className="api-scroll-wrapper">
-            <div className="api-item">
-              <span className="api-icon">⛅</span>
-              <p className="api-value">14°C</p>
-              <small>Metz</small>
+        <div className="soft-ui widget-card api-slider-container">
+          <div className="api-content-box">
+            <span className="api-icon">{apiWidgets[apiIndex].icon}</span>
+            <p className="api-value">{apiWidgets[apiIndex].value}</p>
+            <small className="api-label">{apiWidgets[apiIndex].label}</small>
+          </div>
+          <div className="api-navigation">
+            <button
+              className="api-nav-btn"
+              onClick={() =>
+                setApiIndex((prev) => (prev - 1 + apiWidgets.length) % apiWidgets.length)
+              }
+            >
+              ‹
+            </button>
+            <div className="api-dots-group">
+              {apiWidgets.map((_, i) => (
+                <div key={i} className={`api-dot ${i === apiIndex ? 'active' : ''}`} />
+              ))}
             </div>
-            <div className="api-item">
-              <span className="api-icon">🎵</span>
-              <p className="api-value">Spotify</p>
-              <small>En cours</small>
-            </div>
-            <div className="api-item">
-              <span className="api-icon">🌙</span>
-              <p className="api-value">12°C</p>
-              <small>Demain</small>
-            </div>
+            <button
+              className="api-nav-btn"
+              onClick={() => setApiIndex((prev) => (prev + 1) % apiWidgets.length)}
+            >
+              ›
+            </button>
           </div>
         </div>
       </div>

@@ -14,16 +14,21 @@ export function WriteView({ onBack }: { onBack: () => void }): JSX.Element {
 
   const handleSend = async (): Promise<void> => {
     if (!text.trim()) return
-    await api.postCalendar({ text, category, date: hasDate ? date : null, moment: 'morning' })
+    await api.postCalendar({
+      text,
+      category,
+      date: hasDate ? date : null,
+      moment: 'morning'
+    })
     onBack()
   }
 
   return (
-    <div className="soft-ui" style={{ padding: '40px', maxWidth: '600px', margin: '50px auto' }}>
+    <div className="soft-ui write-card">
       <h2 className="main-title">Ajouter au tiroir</h2>
 
-      {/* SÉLECTEUR DE CATÉGORIE - Visuel CLAIR grâce aux classes CSS */}
-      <div style={{ display: 'flex', gap: '12px', marginBottom: '25px' }}>
+      {/* SÉLECTEUR DE CATÉGORIE */}
+      <div className="category-selector">
         <button
           className={`soft-btn ${category === 'goal' ? 'active' : ''}`}
           onClick={(): void => {
@@ -53,13 +58,10 @@ export function WriteView({ onBack }: { onBack: () => void }): JSX.Element {
         </button>
       </div>
 
+      {/* CHAMP DATE */}
       {hasDate && (
-        <div style={{ marginBottom: '20px' }}>
-          <label
-            style={{ fontSize: '0.8rem', opacity: 0.7, marginBottom: '5px', display: 'block' }}
-          >
-            Date choisie :
-          </label>
+        <div className="date-group">
+          <label className="date-label">Date choisie :</label>
           <input
             type="date"
             value={date}
@@ -69,6 +71,7 @@ export function WriteView({ onBack }: { onBack: () => void }): JSX.Element {
         </div>
       )}
 
+      {/* ZONE DE TEXTE */}
       <textarea
         ref={textareaRef}
         className="soft-textarea"
@@ -77,7 +80,8 @@ export function WriteView({ onBack }: { onBack: () => void }): JSX.Element {
         placeholder="Décris l'objectif ou ta pensée..."
       />
 
-      <div style={{ marginTop: '30px', display: 'flex', justifyContent: 'space-between' }}>
+      {/* ACTIONS FINALES */}
+      <div className="write-actions">
         <button onClick={onBack} className="soft-btn">
           Annuler
         </button>

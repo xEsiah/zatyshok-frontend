@@ -19,7 +19,7 @@ export function DailyView(): JSX.Element {
     api
       .getCalendar()
       .then((data) => {
-        setEntries(data) // On stocke les vraies données
+        setEntries(data)
         setLoading(false)
       })
       .catch((err) => {
