@@ -26,6 +26,7 @@ body {
   height: 100%;
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
 /* --- STRUCTURE GLOBALE --- */
@@ -37,18 +38,8 @@ body {
   align-items: center;
   padding-left: 20px;
   font-size: 0.8rem;
-  font-weight: bold;
   color: var(--color-lilas-doux);
   user-select: none;
-}
-
-.app-container {
-  flex: 1;
-  width: 90%;
-  max-width: 1100px;
-  margin: 0 auto;
-  padding-bottom: 40px;
-  box-sizing: border-box;
 }
 
 .soft-ui {
@@ -100,15 +91,16 @@ body {
 }
 
 .nav-button {
-  margin-left: 15px;
   background: var(--color-rose-poudre);
   border: none;
-  border-radius: 10px;
+  border-radius: 25px;
   color: white;
-  font-size: 0.7rem;
-  padding: 4px 12px;
+  font-size: 1rem;
+  padding: 8px 24px;
   cursor: pointer;
   -webkit-app-region: no-drag;
+  text-align: left;
+  align-self: flex-start;
 }
 
 /* --- FORMULAIRES --- */
@@ -139,14 +131,25 @@ body {
   grid-template-rows: auto 1fr;
   gap: 25px;
   height: 100%;
+  width: 90%;
 }
 
 .header-area {
-  grid-column: 1 / -1;
+  margin-top: 2%;
+  margin-bottom: 2%;
+  text-align: left;
+  width: 90%;
+  font-size: 1.4rem;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: flex-start;
+  min-height: 15%;
+  h2 {
+    margin: 0;
+  }
 }
+
 .main-card {
   grid-column: 1 / 2;
   padding: 30px;
@@ -276,10 +279,12 @@ body {
 }
 
 /* --- ATELIER ÉCRITURE --- */
-.write-card {
-  padding: 40px;
-  max-width: 600px;
-  margin: 50px auto;
+
+.write-grid {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  height: 100%;
 }
 
 /* Le groupe qui contient les 3 boutons de catégorie */

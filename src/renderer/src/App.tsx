@@ -9,15 +9,16 @@ function App(): JSX.Element {
   return (
     <>
       <div className="title-bar">
-        <span>Затишок 💌</span>
+        <h1>Затишок 💌</h1>
+      </div>
+      <header className="header-area">
+        <h2>Bonjour ma chérie,</h2>
         <button onClick={() => setIsWriting(!isWriting)} className="nav-button">
           {isWriting ? 'Voir' : 'Écrire'}
         </button>
-      </div>
-      <div className="app-container">
-        {/* Affichage conditionnel */}
-        {isWriting ? <WriteView onBack={() => setIsWriting(false)} /> : <BentoView />}
-      </div>
+      </header>
+
+      {isWriting ? <WriteView onBack={() => setIsWriting(false)} /> : <BentoView />}
     </>
   )
 }

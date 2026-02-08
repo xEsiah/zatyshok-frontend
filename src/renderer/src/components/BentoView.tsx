@@ -1,58 +1,31 @@
 import { useState, useEffect, JSX } from 'react'
-import { api, CalendarEntry, MoodEntry } from '../services/api'
+import { api, MoodEntry } from '../services/api'
+import { DailyView } from './DailyView'
 
 type MoodType = 'great' | 'ok' | 'meh' | 'bad'
 
 export function BentoView(): JSX.Element {
-  const [data, setData] = useState<CalendarEntry[]>([])
   const [moods, setMoods] = useState<MoodEntry[]>([])
-  const [loading, setLoading] = useState<boolean>(true)
   const [selectedMood, setSelectedMood] = useState<MoodType | null>(null)
   const [moodNote, setMoodNote] = useState<string>('')
   const [apiIndex, setApiIndex] = useState(0)
 
-  const isoToday = new Date().toISOString().split('T')[0]
-
   useEffect((): void => {
-    api.getCalendar().then((res) => {
-      setData(res)
-      setLoading(false)
-    })
     api.getMoods().then(setMoods)
   }, [])
 
   const apiWidgets = [
     { icon: '⛅', label: 'Metz', value: '14°C' },
-    { icon: '🎵', label: 'Spotify', value: 'Lofi Girl' },
+    { icon: '🎵', label: 'Spotify', value: 'Laufey' },
     { icon: '🌙', label: 'Demain', value: '12°C' }
   ]
 
   return (
     <div className="bento-grid">
-      <header className="header-area">
-        <div className="welcome-text">
-          <span>Bonjour ma chérie,</span>
-          <h1>Затишок</h1>
-        </div>
-      </header>
-
       <div className="soft-ui main-card">
         <h2 className="main-title">Ton programme du jour ✨</h2>
         <div className="planner-container">
-          {loading ? (
-            <p>Chargement...</p>
-          ) : data.filter((e) => e.date === isoToday).length > 0 ? (
-            data
-              .filter((e) => e.date === isoToday)
-              .map((item) => (
-                <div key={item.id} className="soft-ui planner-item">
-                  <span className="planner-icon">{item.category === 'goal' ? '🎯' : '📅'}</span>
-                  <span className="planner-text">{item.text}</span>
-                </div>
-              ))
-          ) : (
-            <p className="empty-state">Rien de prévu pour aujourd&apos;hui... ✨</p>
-          )}
+          <DailyView />
         </div>
       </div>
 

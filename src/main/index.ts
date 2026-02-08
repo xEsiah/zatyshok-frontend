@@ -8,6 +8,8 @@ function createWindow(): void {
   const mainWindow = new BrowserWindow({
     width: 1366,
     height: 768,
+    minWidth: 1366,
+    minHeight: 768,
     show: false,
     frame: false,
     autoHideMenuBar: true,
@@ -18,7 +20,7 @@ function createWindow(): void {
       symbolColor: '#7D5C9B',
       height: 35
     },
-    ...(process.platform === 'linux' ? { icon } : {}),
+    ...(process.platform === 'linux' ? { icon } : { icon }),
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
       sandbox: false
