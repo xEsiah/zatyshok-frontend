@@ -19,7 +19,7 @@ function createWindow(): void {
   const mainWindow = new BrowserWindow({
     width: 1600,
     height: 900,
-    minWidth: 900, // Correction : plus petit pour permettre le resize
+    minWidth: 900,
     minHeight: 600,
     show: false,
     frame: false,
