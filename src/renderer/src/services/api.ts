@@ -37,6 +37,14 @@ export const api = {
     })
   },
 
+  deleteCalendar: async (id: number): Promise<void> => {
+    const response = await fetch(`${API_URL}/calendar/${id}`, {
+      method: 'DELETE',
+      headers: { Authorization: TOKEN }
+    })
+    if (!response.ok) throw new Error('Delete error')
+  },
+
   getMoods: async (): Promise<MoodEntry[]> => {
     try {
       const response = await fetch(`${API_URL}/moods`, {

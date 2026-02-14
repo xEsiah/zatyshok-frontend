@@ -4,20 +4,31 @@ import { api } from '../services/api'
 export function WriteView({ onBack }: { onBack: () => void }): JSX.Element {
   const [text, setText] = useState<string>('')
   const [category, setCategory] = useState<'goal' | 'event' | 'note'>('goal')
-  const [date, setDate] = useState<string>(new Date().toISOString().split('T')[0])
+
+  // FIX: Utilise la date locale (YYYY-MM-DD) pour éviter les décalages horaires
+  const [date, setDate] = useState<string>(new Date().toLocaleDateString('en-CA'))
+
+  // AJOUT: Gestion de l'heure
+  const [time, setTime] = useState<string>('')
+
   const [hasDate, setHasDate] = useState<boolean>(true)
   const textareaRef = useRef<HTMLTextAreaElement>(null)
-
+  const todayStr = new Date().toLocaleDateString('en-CA')
   useEffect((): void => {
     textareaRef.current?.focus()
   }, [])
 
   const handleSend = async (): Promise<void> => {
     if (!text.trim()) return
+
+    // On ajoute l'heure au début du texte si elle est définie
+    const finalText = time ? `[${time}] ${text}` : text
+
     await api.postCalendar({
-      text,
+      text: finalText,
       category,
-      date: hasDate ? date : null,
+
+      date: hasDate ? date : todayStr,
       moment: 'morning'
     })
     onBack()
@@ -59,16 +70,28 @@ export function WriteView({ onBack }: { onBack: () => void }): JSX.Element {
           </button>
         </div>
 
-        {/* CHAMP DATE */}
+        {/* CHAMP DATE & HEURE */}
         {hasDate && (
-          <div className="date-group">
-            <label className="date-label">Date choisie :</label>
-            <input
-              type="date"
-              value={date}
-              onChange={(e): void => setDate(e.target.value)}
-              className="soft-input"
-            />
+          <div className="date-group" style={{ display: 'flex', gap: '15px' }}>
+            <div style={{ flex: 1 }}>
+              <label className="date-label">Date :</label>
+              <input
+                type="date"
+                value={date}
+                onChange={(e): void => setDate(e.target.value)}
+                className="soft-input"
+              />
+            </div>
+            {/* AJOUT: Champ Heure */}
+            <div style={{ width: '110px' }}>
+              <label className="date-label">Heure :</label>
+              <input
+                type="time"
+                value={time}
+                onChange={(e): void => setTime(e.target.value)}
+                className="soft-input"
+              />
+            </div>
           </div>
         )}
 

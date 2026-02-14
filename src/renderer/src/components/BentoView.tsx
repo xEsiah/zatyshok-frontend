@@ -1,8 +1,16 @@
-import { useState, useEffect, JSX } from 'react'
+import { useState, useEffect, useCallback, JSX } from 'react'
 import { api, MoodEntry } from '../services/api'
 import { DailyView } from './DailyView'
 
 type MoodType = 'great' | 'ok' | 'meh' | 'bad'
+
+// Helper functions sorties du composant pour éviter les soucis de dépendances
+const getLocalToday = (): string => new Date().toLocaleDateString('en-CA')
+const getYesterday = (): string => {
+  const d = new Date()
+  d.setDate(d.getDate() - 1)
+  return d.toLocaleDateString('en-CA')
+}
 
 export function BentoView(): JSX.Element {
   const [moods, setMoods] = useState<MoodEntry[]>([])
@@ -10,9 +18,24 @@ export function BentoView(): JSX.Element {
   const [moodNote, setMoodNote] = useState<string>('')
   const [apiIndex, setApiIndex] = useState(0)
 
+  const todayStr = getLocalToday()
+  const yesterdayStr = getYesterday()
+
+  // Utilisation de useCallback pour stabiliser la fonction et satisfaire le linter
+  const fetchMoods = useCallback((): void => {
+    api.getMoods().then((res) => {
+      setMoods(res)
+      const todayEntry = res.find((m) => m.date === todayStr)
+      if (todayEntry) {
+        setSelectedMood(todayEntry.mood as MoodType)
+        setMoodNote(todayEntry.note || '')
+      }
+    })
+  }, [todayStr])
+
   useEffect((): void => {
-    api.getMoods().then(setMoods)
-  }, [])
+    fetchMoods()
+  }, [fetchMoods])
 
   const apiWidgets = [
     { icon: '⛅', label: 'Metz', value: '14°C' },
@@ -20,21 +43,49 @@ export function BentoView(): JSX.Element {
     { icon: '🌙', label: 'Demain', value: '12°C' }
   ]
 
+  const handleMoodSubmit = async (): Promise<void> => {
+    if (!selectedMood) return
+
+    try {
+      await api.postMood({
+        mood: selectedMood,
+        note: moodNote,
+        date: todayStr
+      })
+      alert('Humeur enregistrée ! ✨')
+      fetchMoods()
+    } catch {
+      alert("Erreur lors de l'enregistrement")
+    }
+  }
+
+  const yesterdayMood = moods.find((m) => m.date === yesterdayStr)
+
   return (
     <div className="bento-grid">
       <div className="soft-ui main-card">
-        <h2 className="main-title">Ton programme du jour ✨</h2>
-        <div className="planner-container">
-          <DailyView />
-        </div>
+        <DailyView />
       </div>
 
       <div className="sidebar">
         <div className="soft-ui widget-card mood-widget">
           <h3 className="sidebar-title">
             Comment vas-tu ?{' '}
-            {moods[0] && <span className="mood-yesterday">(Hier: {moods[0].mood})</span>}
+            {yesterdayMood && (
+              <span className="mood-yesterday">
+                (Hier:{' '}
+                {yesterdayMood.mood === 'great'
+                  ? '✨'
+                  : yesterdayMood.mood === 'ok'
+                    ? '🙂'
+                    : yesterdayMood.mood === 'meh'
+                      ? '☁️'
+                      : '🌧️'}
+                )
+              </span>
+            )}
           </h3>
+
           <div className="mood-grid">
             {(['great', 'ok', 'meh', 'bad'] as MoodType[]).map((m) => (
               <button
@@ -46,15 +97,17 @@ export function BentoView(): JSX.Element {
               </button>
             ))}
           </div>
+
           <input
             type="text"
-            placeholder="Petite note..."
+            placeholder={selectedMood ? 'Modifie ta note...' : 'Une petite note...'}
             value={moodNote}
             onChange={(e): void => setMoodNote(e.target.value)}
             className="soft-input mood-input"
           />
-          <button className="soft-btn-primary" disabled={!selectedMood}>
-            Valider
+
+          <button className="soft-btn-primary" onClick={handleMoodSubmit} disabled={!selectedMood}>
+            {moods.find((m) => m.date === todayStr) ? 'Mettre à jour' : 'Valider'}
           </button>
         </div>
 
@@ -67,7 +120,7 @@ export function BentoView(): JSX.Element {
           <div className="api-navigation">
             <button
               className="api-nav-btn"
-              onClick={() =>
+              onClick={(): void =>
                 setApiIndex((prev) => (prev - 1 + apiWidgets.length) % apiWidgets.length)
               }
             >
@@ -80,7 +133,7 @@ export function BentoView(): JSX.Element {
             </div>
             <button
               className="api-nav-btn"
-              onClick={() => setApiIndex((prev) => (prev + 1) % apiWidgets.length)}
+              onClick={(): void => setApiIndex((prev) => (prev + 1) % apiWidgets.length)}
             >
               ›
             </button>
