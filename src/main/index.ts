@@ -1,22 +1,26 @@
-import { app, shell, BrowserWindow, ipcMain, dialog } from 'electron'
+import { app, shell, BrowserWindow, dialog } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
 import { autoUpdater } from 'electron-updater'
-// CORRECTION ICI : On utilise import au lieu de require
 import log from 'electron-log'
 
 // --- CONFIGURATION DU LOGGER ---
-// On configure le logger proprement avec la syntaxe import
 log.transports.file.level = 'info'
 autoUpdater.logger = log
+
+// --- CONFIGURATION UPDATER ---
+autoUpdater.allowDowngrade = false
+autoUpdater.allowPrerelease = false
+// Important pour les apps non-signées
+autoUpdater.forceDevUpdateConfig = true
 
 function createWindow(): void {
   const mainWindow = new BrowserWindow({
     width: 1600,
     height: 900,
-    minWidth: 900,
-    minHeight: 900,
+    minWidth: 900, // Correction : plus petit pour permettre le resize
+    minHeight: 600,
     show: false,
     frame: false,
     autoHideMenuBar: true,
@@ -36,7 +40,7 @@ function createWindow(): void {
 
   mainWindow.on('ready-to-show', () => {
     mainWindow.show()
-    // Vérification des mises à jour en prod uniquement
+    // On ne vérifie les updates que si on n'est pas en développement
     if (!is.dev) {
       autoUpdater.checkForUpdatesAndNotify()
     }
@@ -55,52 +59,46 @@ function createWindow(): void {
 }
 
 // --- ÉVÉNEMENTS AUTO-UPDATER ---
-
 autoUpdater.on('update-available', () => {
-  log.info('Update available.') // On utilise le log importé
+  log.info('Update available, starting download...')
 })
 
-autoUpdater.on('update-downloaded', () => {
-  log.info('Update downloaded.')
+autoUpdater.on('update-downloaded', (info) => {
+  log.info('Update downloaded: ', info.version)
   dialog
     .showMessageBox({
       type: 'info',
       title: 'Update Ready',
-      message: 'A new version of Zatyshok has been downloaded. Restart now to install?',
+      message: `A new version (${info.version}) is ready. Restart now?`,
       buttons: ['Restart', 'Later']
     })
-    .then((returnValue) => {
-      if (returnValue.response === 0) {
+    .then((result) => {
+      if (result.response === 0) {
         autoUpdater.quitAndInstall()
       }
     })
 })
 
-autoUpdater.on('error', (message) => {
-  log.error('There was a problem updating the application')
-  log.error(message)
+autoUpdater.on('error', (err) => {
+  log.error('Error in auto-updater: ', err)
 })
 
-// --- CYCLE DE VIE DE L'APP ---
-
+// --- CYCLE DE VIE ---
 app.whenReady().then(() => {
+  // Doit matcher exactement l'appId du package.json
   electronApp.setAppUserModelId('com.zatyshok.app')
 
   app.on('browser-window-created', (_, window) => {
     optimizer.watchWindowShortcuts(window)
   })
 
-  ipcMain.on('ping', () => console.log('pong'))
-
   createWindow()
 
-  app.on('activate', function () {
+  app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) createWindow()
   })
 })
 
 app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
-    app.quit()
-  }
+  if (process.platform !== 'darwin') app.quit()
 })
