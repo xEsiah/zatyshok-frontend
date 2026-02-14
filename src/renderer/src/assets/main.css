@@ -166,7 +166,6 @@ small {
 .sidebar {
   grid-column: 2 / 3;
   display: grid;
-  grid-template-rows: 1.2fr 0.8fr;
   gap: 25px;
 }
 
@@ -197,9 +196,42 @@ small {
 .mood-input-group {
   margin-bottom: 15px;
 }
-.mood-yesterday {
+
+.mood-history {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 15px;
+  background-color: rgba(255, 255, 255, 0.4);
+  padding: 10px;
+  border-radius: 12px;
+}
+
+.mood-history-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.9rem;
+}
+
+.mood-label {
+  font-weight: 700;
+  color: var(--color-lilas-doux);
+  min-width: 40px;
+}
+
+.mood-emoji-display {
+  font-size: 1.1rem;
+}
+
+.mood-note-display {
+  font-style: italic;
+  opacity: 0.7;
   font-size: 0.8rem;
-  opacity: 0.6;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; /* Coupe le texte proprement s'il est trop long */
+  color: var(--color-profond);
 }
 
 /* --- API SLIDER --- */
@@ -313,6 +345,15 @@ small {
 /* Le bloc contenant le label et l'input date */
 .date-group {
   margin-bottom: 20px;
+  display: flex;
+  gap: 15px;
+  justify-content: space-between;
+  .date {
+    width: 90%;
+  }
+  .hour {
+    width: 10%;
+  }
 }
 
 /* Le label spécifique pour la date */
