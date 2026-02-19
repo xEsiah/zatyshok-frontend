@@ -19,11 +19,21 @@ export interface MoodEntry {
   date: string
 }
 
-const getHeaders = (isJson = false): Record<string, string> => {
-  const headers: Record<string, string> = {
-    Authorization: `Bearer ${TOKEN}`,
-    'X-App-Version': APP_VERSION
+const checkAuthError = (res: Response): void => {
+  if (res.status === 401 || res.status === 403) {
+    localStorage.removeItem('user_token')
+    window.location.reload()
   }
+}
+const getHeaders = (isJson = false): Record<string, string> => {
+  const userToken = localStorage.getItem('user_token')
+
+  const headers: Record<string, string> = {
+    'X-App-Token': TOKEN,
+    'X-App-Version': APP_VERSION,
+    Authorization: userToken ? `Bearer ${userToken}` : ''
+  }
+
   if (isJson) {
     headers['Content-Type'] = 'application/json'
   }
@@ -43,6 +53,8 @@ export const api = {
         headers: getHeaders()
       })
       checkVersionError(response)
+      checkAuthError(response)
+      checkAuthError(response)
       return response.json()
     } catch {
       return []
@@ -56,6 +68,7 @@ export const api = {
       body: JSON.stringify(entry)
     })
     checkVersionError(response)
+    checkAuthError(response)
   },
 
   deleteCalendar: async (id: number): Promise<void> => {
@@ -64,6 +77,7 @@ export const api = {
       headers: getHeaders()
     })
     checkVersionError(response)
+    checkAuthError(response)
     if (!response.ok) throw new Error('Delete error')
   },
 
@@ -73,6 +87,7 @@ export const api = {
         headers: getHeaders()
       })
       checkVersionError(response)
+      checkAuthError(response)
       return response.json()
     } catch {
       return []
@@ -86,5 +101,6 @@ export const api = {
       body: JSON.stringify(entry)
     })
     checkVersionError(response)
+    checkAuthError(response)
   }
 }

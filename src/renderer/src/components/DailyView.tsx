@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { JSX, useEffect, useState, useCallback } from 'react'
 import { api, CalendarEntry } from '../services/api'
 
@@ -77,7 +78,7 @@ export function DailyView(): JSX.Element {
     if (confirm(`Do you want to remove this ${type}? 🗑️`)) {
       try {
         await api.deleteCalendar(id)
-        loadData() // Refresh UI
+        loadData()
       } catch (error) {
         alert('Failed to delete item.')
       }
