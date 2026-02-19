@@ -32,3 +32,12 @@ $ npm run build:mac
 # For Linux
 $ npm run build:linux
 ```
+
+## Add next update:
+
+```
+CSS improve (scroll bar horizontal pour post it & scroll bar vertical pour Upcoming schedule)
+Remote access to dbHabits tracker - dans un tableurcalendar
+overview (like apple, thingies when u have events)
+connecting spotify API
+```
