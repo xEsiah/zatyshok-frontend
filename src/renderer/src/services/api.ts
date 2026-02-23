@@ -102,5 +102,35 @@ export const api = {
     })
     checkVersionError(response)
     checkAuthError(response)
+  },
+
+  register: async (
+    username: string,
+    password: string
+  ): Promise<{ message?: string; error?: string }> => {
+    try {
+      const response = await fetch(`${API_URL}/register`, {
+        method: 'POST',
+        headers: getHeaders(true),
+        body: JSON.stringify({ username, password })
+      })
+      checkVersionError(response)
+      return response.json()
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (err) {
+      return { error: 'Server unreachable' }
+    }
+  },
+
+  login: async (username: string, password: string) => {
+    const response = await fetch(`${API_URL}/login`, {
+      method: 'POST',
+      headers: getHeaders(true),
+      body: JSON.stringify({ username, password })
+    })
+    const data = await response.json()
+    if (!response.ok) throw new Error(data.error || 'Login failed')
+
+    return data
   }
 }

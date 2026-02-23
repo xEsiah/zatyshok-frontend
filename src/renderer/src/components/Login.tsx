@@ -1,45 +1,48 @@
 import { JSX, useState } from 'react'
-import pkg from '../../../../package.json'
-const APP_VERSION = pkg.version
+import { api } from '../services/api' // Assure-toi du chemin
 
 interface LoginProps {
   onLoginSuccess: () => void
 }
 
 export function Login({ onLoginSuccess }: LoginProps): JSX.Element {
+  const [isRegister, setIsRegister] = useState(false)
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
+  const [message, setMessage] = useState('')
   const [loading, setLoading] = useState(false)
 
-  const handleLogin = async (e: React.FormEvent): Promise<void> => {
+  const handleSubmit = async (e: React.FormEvent): Promise<void> => {
     e.preventDefault()
     setLoading(true)
     setError('')
+    setMessage('')
 
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/login`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-App-Token': import.meta.env.VITE_API_TOKEN,
-          'X-App-Version': APP_VERSION
-        },
-        body: JSON.stringify({ username, password })
-      })
-
-      const data = await response.json()
-
-      if (response.ok) {
+      if (isRegister) {
+        // --- LOGIQUE INSCRIPTION ---
+        const res = await api.register(username, password)
+        if (res.error) {
+          setError(res.error)
+        } else {
+          setMessage(res.message || 'Request sent! Wait for validation.')
+          setIsRegister(false)
+          setPassword('')
+        }
+      } else {
+        // --- LOGIQUE CONNEXION ---
+        const data = await api.login(username, password)
         localStorage.setItem('user_token', data.token)
         localStorage.setItem('username', data.username)
         onLoginSuccess()
-      } else {
-        setError(data.error || 'Invalid credentials')
       }
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    } catch (_err) {
-      setError('Server unreachable')
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message || 'Server unreachable')
+      } else {
+        setError('An unexpected error occurred')
+      }
     } finally {
       setLoading(false)
     }
@@ -50,10 +53,10 @@ export function Login({ onLoginSuccess }: LoginProps): JSX.Element {
       <div className="soft-ui login-card">
         <div className="login-header">
           <h1>Затишок 💌</h1>
-          <p>Welcome Home</p>
+          <p>{isRegister ? 'Request Access' : 'Welcome Home'}</p>
         </div>
 
-        <form onSubmit={handleLogin} className="login-form">
+        <form onSubmit={handleSubmit} className="login-form">
           <div className="input-group">
             <small>Username</small>
             <input
@@ -79,11 +82,23 @@ export function Login({ onLoginSuccess }: LoginProps): JSX.Element {
           </div>
 
           {error && <p className="login-error">{error}</p>}
+          {message && <p className="login-success">{message}</p>}
 
           <button type="submit" className="soft-btn active login-submit" disabled={loading}>
-            {loading ? 'Entering...' : 'Unlock'}
+            {loading ? 'Processing...' : isRegister ? 'Join' : 'Unlock'}
           </button>
         </form>
+
+        <p
+          className="toggle-mode"
+          onClick={() => {
+            setIsRegister(!isRegister)
+            setError('')
+            setMessage('')
+          }}
+        >
+          {isRegister ? 'Already have an account? Login' : 'Need access? Register'}
+        </p>
       </div>
     </div>
   )
