@@ -21,12 +21,15 @@ export interface MoodEntry {
 
 const checkAuthError = (res: Response): void => {
   if (res.status === 401 || res.status === 403) {
-    localStorage.removeItem('user_token')
+    window.api.deleteStoreValue('user_token')
     window.location.reload()
   }
 }
-const getHeaders = (isJson = false): Record<string, string> => {
-  const userToken = localStorage.getItem('user_token')
+
+// Transformé en fonction ASYNCHRONE pour pouvoir utiliser await
+const getHeaders = async (isJson = false): Promise<Record<string, string>> => {
+  // On récupère le token depuis electron-store
+  const userToken = await window.api.getStoreValue('user_token')
 
   const headers: Record<string, string> = {
     'X-App-Token': TOKEN,
@@ -49,11 +52,9 @@ const checkVersionError = (res: Response): void => {
 export const api = {
   getCalendar: async (): Promise<CalendarEntry[]> => {
     try {
-      const response = await fetch(`${API_URL}/calendar`, {
-        headers: getHeaders()
-      })
+      const headers = await getHeaders()
+      const response = await fetch(`${API_URL}/calendar`, { headers })
       checkVersionError(response)
-      checkAuthError(response)
       checkAuthError(response)
       return response.json()
     } catch {
@@ -62,9 +63,10 @@ export const api = {
   },
 
   postCalendar: async (entry: Omit<CalendarEntry, 'id'>): Promise<void> => {
+    const headers = await getHeaders(true)
     const response = await fetch(`${API_URL}/calendar`, {
       method: 'POST',
-      headers: getHeaders(true),
+      headers,
       body: JSON.stringify(entry)
     })
     checkVersionError(response)
@@ -72,9 +74,10 @@ export const api = {
   },
 
   deleteCalendar: async (id: number): Promise<void> => {
+    const headers = await getHeaders()
     const response = await fetch(`${API_URL}/calendar/${id}`, {
       method: 'DELETE',
-      headers: getHeaders()
+      headers
     })
     checkVersionError(response)
     checkAuthError(response)
@@ -83,9 +86,8 @@ export const api = {
 
   getMoods: async (): Promise<MoodEntry[]> => {
     try {
-      const response = await fetch(`${API_URL}/moods`, {
-        headers: getHeaders()
-      })
+      const headers = await getHeaders()
+      const response = await fetch(`${API_URL}/moods`, { headers })
       checkVersionError(response)
       checkAuthError(response)
       return response.json()
@@ -95,9 +97,10 @@ export const api = {
   },
 
   postMood: async (entry: MoodEntry): Promise<void> => {
+    const headers = await getHeaders(true)
     const response = await fetch(`${API_URL}/moods`, {
       method: 'POST',
-      headers: getHeaders(true),
+      headers,
       body: JSON.stringify(entry)
     })
     checkVersionError(response)
@@ -109,23 +112,27 @@ export const api = {
     password: string
   ): Promise<{ message?: string; error?: string }> => {
     try {
+      const headers = await getHeaders(true)
       const response = await fetch(`${API_URL}/register`, {
         method: 'POST',
-        headers: getHeaders(true),
+        headers,
         body: JSON.stringify({ username, password })
       })
       checkVersionError(response)
       return response.json()
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    } catch (err) {
+    } catch {
       return { error: 'Server unreachable' }
     }
   },
 
-  login: async (username: string, password: string) => {
+  login: async (
+    username: string,
+    password: string
+  ): Promise<{ token: string; username: string }> => {
+    const headers = await getHeaders(true)
     const response = await fetch(`${API_URL}/login`, {
       method: 'POST',
-      headers: getHeaders(true),
+      headers,
       body: JSON.stringify({ username, password })
     })
     const data = await response.json()

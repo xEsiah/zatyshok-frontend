@@ -1,13 +1,28 @@
-import { JSX, useState } from 'react'
+import { JSX, useState, useEffect } from 'react'
 import { BentoView } from './components/BentoView'
 import { WriteView } from './components/WriteView'
 import { Login } from './components/Login'
 
 function App(): JSX.Element {
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(
-    !!localStorage.getItem('user_token')
-  )
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false)
+  const [isLoading, setIsLoading] = useState<boolean>(true)
   const [isWriting, setIsWriting] = useState(false)
+
+  useEffect(() => {
+    const checkAuth = async (): Promise<void> => {
+      try {
+        const token = await window.api.getStoreValue('user_token')
+        if (token) {
+          setIsAuthenticated(true)
+        }
+      } catch (error) {
+        console.error('Erreur lors de la lecture du store', error)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+    checkAuth()
+  }, [])
 
   const [greeting] = useState<string>(() => {
     const messages = [
@@ -21,9 +36,19 @@ function App(): JSX.Element {
   })
 
   const handleLogout = (): void => {
-    localStorage.removeItem('user_token')
-    localStorage.removeItem('username')
+    window.api.deleteStoreValue('user_token')
+    window.api.deleteStoreValue('username')
     setIsAuthenticated(false)
+  }
+
+  if (isLoading) {
+    return (
+      <div className="login-container">
+        <div className="soft-ui login-card" style={{ textAlign: 'center' }}>
+          <h2>Chargement... 💌</h2>
+        </div>
+      </div>
+    )
   }
 
   if (!isAuthenticated) {

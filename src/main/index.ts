@@ -1,9 +1,10 @@
-import { app, shell, BrowserWindow, dialog } from 'electron'
+import { app, shell, BrowserWindow, dialog, ipcMain } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
 import { autoUpdater } from 'electron-updater'
 import log from 'electron-log'
+import Store from 'electron-store'
 
 // --- CONFIGURATION DU LOGGER ---
 log.transports.file.level = 'info'
@@ -14,6 +15,10 @@ autoUpdater.allowDowngrade = false
 autoUpdater.allowPrerelease = false
 // Important pour les apps non-signées
 autoUpdater.forceDevUpdateConfig = true
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const StoreClass = (Store as any).default || Store
+const store = new StoreClass()
 
 function createWindow(): void {
   const mainWindow = new BrowserWindow({
@@ -83,13 +88,23 @@ autoUpdater.on('error', (err) => {
   log.error('Error in auto-updater: ', err)
 })
 
-// --- CYCLE DE VIE ---
 app.whenReady().then(() => {
-  // Doit matcher exactement l'appId du package.json
   electronApp.setAppUserModelId('com.zatyshok.app')
 
   app.on('browser-window-created', (_, window) => {
     optimizer.watchWindowShortcuts(window)
+  })
+
+  ipcMain.on('set-store', (_, key, value) => {
+    store.set(key, value)
+  })
+
+  ipcMain.handle('get-store', (_, key) => {
+    return store.get(key)
+  })
+
+  ipcMain.on('delete-store', (_, key) => {
+    store.delete(key)
   })
 
   createWindow()

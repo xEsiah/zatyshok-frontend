@@ -33,8 +33,8 @@ export function Login({ onLoginSuccess }: LoginProps): JSX.Element {
       } else {
         // --- LOGIQUE CONNEXION ---
         const data = await api.login(username, password)
-        localStorage.setItem('user_token', data.token)
-        localStorage.setItem('username', data.username)
+        window.api.setStoreValue('user_token', data.token)
+        window.api.setStoreValue('username', data.username)
         onLoginSuccess()
       }
     } catch (err: unknown) {

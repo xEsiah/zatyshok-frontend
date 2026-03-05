@@ -86,6 +86,7 @@ export function BentoView(): JSX.Element {
       })
       alert('Mood saved! ✨')
       fetchMoods()
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (_e) {
       alert('Error saving mood')
     }
