@@ -1,10 +1,9 @@
 import { useState, useEffect, useCallback, JSX } from 'react'
 import { api, MoodEntry } from '../services/api'
 import { DailyView } from './DailyView'
+import { useModal } from './ModalContext'
 
 type MoodType = 'great' | 'ok' | 'meh' | 'bad'
-
-// --- HELPER FUNCTIONS ---
 
 /**
  * Normalizes a date string to Local YYYY-MM-DD format.
@@ -43,7 +42,8 @@ export function BentoView(): JSX.Element {
   const [moodNote, setMoodNote] = useState<string>('')
   const [apiIndex, setApiIndex] = useState(0)
 
-  // Local Dates
+  const { showModal } = useModal()
+
   const todayStr = new Date().toLocaleDateString('en-CA')
 
   const getYesterday = (): string => {
@@ -53,7 +53,6 @@ export function BentoView(): JSX.Element {
   }
   const yesterdayStr = getYesterday()
 
-  // Fetch moods and pre-fill today's data if it exists
   const fetchMoods = useCallback((): void => {
     api.getMoods().then((res) => {
       setMoods(res)
@@ -69,7 +68,6 @@ export function BentoView(): JSX.Element {
     fetchMoods()
   }, [fetchMoods])
 
-  // Mock data for the API Slider (Translated)
   const apiWidgets = [
     { icon: '⛅', label: 'Metz', value: '14°C' },
     { icon: '🎵', label: 'Spotify', value: 'Laufey' },
@@ -84,34 +82,35 @@ export function BentoView(): JSX.Element {
         note: moodNote,
         date: todayStr
       })
-      alert('Mood saved! ✨')
       fetchMoods()
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    } catch (_e) {
-      alert('Error saving mood')
+      showModal({
+        title: 'Got it! ✨',
+        message: 'Your mood has been securely saved.',
+        type: 'alert'
+      })
+    } catch {
+      showModal({
+        title: 'Oops...',
+        message: 'Error saving mood. Please try again.',
+        type: 'alert'
+      })
     }
   }
 
-  // Get specific entries for the History display
   const yesterdayEntry = moods.find((m) => normalizeDate(m.date) === yesterdayStr)
   const todayEntry = moods.find((m) => normalizeDate(m.date) === todayStr)
 
   return (
     <div className="bento-grid">
-      {/* MAIN PANEL: DAILY VIEW */}
       <div className="soft-ui main-card">
         <DailyView />
       </div>
 
-      {/* SIDEBAR */}
       <div className="sidebar">
-        {/* --- MOOD WIDGET --- */}
         <div className="soft-ui widget-card mood-widget">
           <h3 className="sidebar-title">How are you feeling?</h3>
 
-          {/* HISTORY ZONE (Yesterday & Today) */}
           <div className="mood-history">
-            {/* Yesterday Row */}
             <div className="mood-history-row">
               <span className="mood-label">Yesterday:</span>
               <span className="mood-emoji-display">
@@ -120,7 +119,6 @@ export function BentoView(): JSX.Element {
               <span className="mood-note-display">{yesterdayEntry?.note || ''}</span>
             </div>
 
-            {/* Today Row */}
             <div className="mood-history-row">
               <span className="mood-label">Today:</span>
               <span className="mood-emoji-display">
@@ -130,7 +128,6 @@ export function BentoView(): JSX.Element {
             </div>
           </div>
 
-          {/* MOOD SELECTOR */}
           <div className="mood-grid">
             {(['great', 'ok', 'meh', 'bad'] as MoodType[]).map((m) => (
               <button
@@ -143,7 +140,6 @@ export function BentoView(): JSX.Element {
             ))}
           </div>
 
-          {/* INPUT FIELD */}
           <input
             type="text"
             placeholder={todayEntry ? 'Update your note...' : 'A small note...'}
@@ -152,14 +148,11 @@ export function BentoView(): JSX.Element {
             className="soft-input mood-input-group"
           />
 
-          {/* SUBMIT BUTTON */}
           <button className="soft-btn-primary" onClick={handleMoodSubmit} disabled={!selectedMood}>
             {todayEntry ? 'Update' : 'Submit'}
           </button>
         </div>
-        {/* --- END MOOD WIDGET --- */}
 
-        {/* API SLIDER */}
         <div className="soft-ui widget-card api-slider-container">
           <div className="api-content-box">
             <span className="api-icon">{apiWidgets[apiIndex].icon}</span>

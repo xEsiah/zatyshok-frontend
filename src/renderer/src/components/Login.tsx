@@ -1,5 +1,6 @@
 import { JSX, useState } from 'react'
-import { api } from '../services/api' // Assure-toi du chemin
+import { api } from '../services/api'
+import { useModal } from './ModalContext'
 
 interface LoginProps {
   onLoginSuccess: () => void
@@ -9,29 +10,29 @@ export function Login({ onLoginSuccess }: LoginProps): JSX.Element {
   const [isRegister, setIsRegister] = useState(false)
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
-  const [error, setError] = useState('')
-  const [message, setMessage] = useState('')
   const [loading, setLoading] = useState(false)
+
+  const { showModal } = useModal()
 
   const handleSubmit = async (e: React.FormEvent): Promise<void> => {
     e.preventDefault()
     setLoading(true)
-    setError('')
-    setMessage('')
 
     try {
       if (isRegister) {
-        // --- LOGIQUE INSCRIPTION ---
         const res = await api.register(username, password)
         if (res.error) {
-          setError(res.error)
+          showModal({ title: 'Oops...', message: res.error, type: 'alert' })
         } else {
-          setMessage(res.message || 'Request sent! Wait for validation.')
+          showModal({
+            title: 'Welcome! 💌',
+            message: res.message || 'Request sent! Wait for manual validation.',
+            type: 'alert'
+          })
           setIsRegister(false)
           setPassword('')
         }
       } else {
-        // --- LOGIQUE CONNEXION ---
         const data = await api.login(username, password)
         window.api.setStoreValue('user_token', data.token)
         window.api.setStoreValue('username', data.username)
@@ -39,9 +40,9 @@ export function Login({ onLoginSuccess }: LoginProps): JSX.Element {
       }
     } catch (err: unknown) {
       if (err instanceof Error) {
-        setError(err.message || 'Server unreachable')
+        showModal({ title: 'Error', message: err.message || 'Server unreachable', type: 'alert' })
       } else {
-        setError('An unexpected error occurred')
+        showModal({ title: 'Error', message: 'An unexpected error occurred', type: 'alert' })
       }
     } finally {
       setLoading(false)
@@ -81,9 +82,6 @@ export function Login({ onLoginSuccess }: LoginProps): JSX.Element {
             />
           </div>
 
-          {error && <p className="login-error">{error}</p>}
-          {message && <p className="login-success">{message}</p>}
-
           <button type="submit" className="soft-btn active login-submit" disabled={loading}>
             {loading ? 'Processing...' : isRegister ? 'Join' : 'Unlock'}
           </button>
@@ -93,8 +91,12 @@ export function Login({ onLoginSuccess }: LoginProps): JSX.Element {
           className="toggle-mode"
           onClick={() => {
             setIsRegister(!isRegister)
-            setError('')
-            setMessage('')
+          }}
+          style={{
+            cursor: 'pointer',
+            marginTop: '20px',
+            fontSize: '0.9rem',
+            color: 'var(--color-lilas-doux)'
           }}
         >
           {isRegister ? 'Already have an account? Login' : 'Need access? Register'}

@@ -230,7 +230,7 @@ small {
   font-size: 0.8rem;
   white-space: nowrap;
   overflow: hidden;
-  text-overflow: ellipsis; /* Coupe le texte proprement s'il est trop long */
+  text-overflow: ellipsis;
   color: var(--color-profond);
 }
 
@@ -309,9 +309,12 @@ small {
   display: flex;
   align-items: center;
   gap: 12px;
+  flex-shrink: 0;
   box-shadow:
     4px 4px 8px var(--shadow-dark),
     -4px -4px 8px var(--shadow-light);
+  height: 70px;
+  box-sizing: border-box;
 }
 .planner-icon {
   font-size: 1.2rem;
@@ -324,6 +327,25 @@ small {
   flex-direction: column;
   gap: 10px;
   margin-top: 10px;
+  max-height: calc((70px * 3) + (10px * 3));
+
+  overflow-y: auto;
+  padding-right: 10px;
+  padding-left: 5px;
+  padding-bottom: 15px;
+  padding-top: 15px;
+}
+
+.planner-list::-webkit-scrollbar {
+  width: 6px;
+}
+.planner-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+.planner-list::-webkit-scrollbar-thumb {
+  background-color: var(--color-lilas-doux);
+  opacity: 0.5;
+  border-radius: 10px;
 }
 
 /* --- ATELIER ÉCRITURE --- */
@@ -378,36 +400,45 @@ small {
   flex-direction: column;
   height: 100%;
   justify-content: space-between;
-  overflow: hidden; /* Important pour contenir le scroll */
+  overflow: hidden;
 }
 
 .planner-scroll-area {
   flex: 1;
-  overflow-y: auto;
-  padding-right: 10px;
-  padding-left: 10px;
+  display: flex;
+  flex-direction: column;
 }
 
 .post-it-area {
   margin-top: 15px;
   padding-top: 10px;
   border-top: 2px dashed rgba(255, 255, 255, 0.5);
-  /* On limite la hauteur pour ne pas manger tout l'écran */
   max-height: 180px;
+  width: 100%;
 }
 
 /* LE SLIDER HORIZONTAL */
 .post-it-grid {
   display: flex;
   gap: 15px;
-  overflow-x: auto; /* Active le scroll horizontal */
-  padding: 10px 5px;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  padding-top: 10px;
+  padding-bottom: 10px;
   scroll-behavior: smooth;
-  /* Masquer la scrollbar moche mais garder la fonction */
-  scrollbar-width: none;
+  width: 100%;
 }
+
 .post-it-grid::-webkit-scrollbar {
-  display: none;
+  height: 6px;
+}
+.post-it-grid::-webkit-scrollbar-track {
+  background: transparent;
+}
+.post-it-grid::-webkit-scrollbar-thumb {
+  background-color: var(--color-lilas-doux);
+  opacity: 0.5;
+  border-radius: 10px;
 }
 
 .post-it {
@@ -420,7 +451,6 @@ small {
   font-size: 0.9rem;
   font-style: italic;
 
-  /* Taille fixe pour le slider */
   min-width: 140px;
   max-width: 140px;
   min-height: 100px;
@@ -429,8 +459,10 @@ small {
   transition: transform 0.2s;
   position: relative;
 
-  /* Pour gérer le texte long */
   display: flex;
+
+  flex: 0 0 auto;
+
   align-items: center;
   justify-content: center;
   text-align: center;
@@ -544,4 +576,75 @@ small {
   background: var(--color-lilas-vif);
   color: white;
   border-color: var(--color-lilas-vif);
+}
+
+/* --- MODAL (POP-UP) --- */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(70, 47, 95, 0.4);
+  backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  width: 350px;
+  padding: 30px;
+  text-align: center;
+  /* On force le drag à 'no-drag' au cas où il serait sur la title-bar */
+  -webkit-app-region: no-drag;
+  animation: modalPop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.modal-title {
+  margin-top: 0;
+  color: var(--color-lilas-vif);
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+}
+
+.modal-message {
+  color: var(--color-profond);
+  margin-bottom: 25px;
+  line-height: 1.4;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+/* Petite animation d'apparition pour faire plus "app" */
+@keyframes modalPop {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Effet de survol pour le bouton classique */
+.soft-btn:not(.active):hover {
+  background-color: var(--color-rose-poudre);
+  color: white;
+  box-shadow:
+    6px 6px 12px var(--shadow-dark),
+    -6px -6px 12px var(--shadow-light);
+  transform: translateY(-2px);
+}
+
+/* Effet de survol pour le bouton principal */
+.soft-btn.active:hover {
+  filter: brightness(1.15);
+  box-shadow: inset 6px 6px 12px rgba(0, 0, 0, 0.25);
 }

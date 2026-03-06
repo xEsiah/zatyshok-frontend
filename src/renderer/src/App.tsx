@@ -2,8 +2,9 @@ import { JSX, useState, useEffect } from 'react'
 import { BentoView } from './components/BentoView'
 import { WriteView } from './components/WriteView'
 import { Login } from './components/Login'
+import { ModalProvider } from './components/ModalContext'
 
-function App(): JSX.Element {
+function AppContent(): JSX.Element {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false)
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const [isWriting, setIsWriting] = useState(false)
@@ -77,4 +78,10 @@ function App(): JSX.Element {
   )
 }
 
-export default App
+export default function App(): JSX.Element {
+  return (
+    <ModalProvider>
+      <AppContent />
+    </ModalProvider>
+  )
+}
