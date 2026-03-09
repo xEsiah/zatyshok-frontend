@@ -5,18 +5,13 @@ import { useModal } from './ModalContext'
 
 type MoodType = 'great' | 'ok' | 'meh' | 'bad'
 
-/**
- * Normalizes a date string to Local YYYY-MM-DD format.
- * Essential for comparing dates ignoring time components.
- */
+// --- HELPER FUNCTIONS ---
+
 const normalizeDate = (dateString?: string): string => {
   if (!dateString) return ''
   return new Date(dateString).toLocaleDateString('en-CA')
 }
 
-/**
- * Returns the corresponding emoji for a mood type.
- */
 const getMoodEmoji = (mood?: string): string => {
   switch (mood) {
     case 'great':
@@ -32,15 +27,14 @@ const getMoodEmoji = (mood?: string): string => {
   }
 }
 
-/**
- * BentoView Component (Dashboard)
- * Contains the DailyView (Planning), Mood Widget, and API Slider.
- */
 export function BentoView(): JSX.Element {
   const [moods, setMoods] = useState<MoodEntry[]>([])
   const [selectedMood, setSelectedMood] = useState<MoodType | null>(null)
   const [moodNote, setMoodNote] = useState<string>('')
   const [apiIndex, setApiIndex] = useState(0)
+
+  // Nouvel état pour basculer la vue
+  const [isHistoryView, setIsHistoryView] = useState(false)
 
   const { showModal } = useModal()
 
@@ -107,52 +101,114 @@ export function BentoView(): JSX.Element {
       </div>
 
       <div className="sidebar">
-        <div className="soft-ui widget-card mood-widget">
-          <h3 className="sidebar-title">How are you feeling?</h3>
-
-          <div className="mood-history">
-            <div className="mood-history-row">
-              <span className="mood-label">Yesterday:</span>
-              <span className="mood-emoji-display">
-                {yesterdayEntry ? getMoodEmoji(yesterdayEntry.mood) : '-'}
-              </span>
-              <span className="mood-note-display">{yesterdayEntry?.note || ''}</span>
-            </div>
-
-            <div className="mood-history-row">
-              <span className="mood-label">Today:</span>
-              <span className="mood-emoji-display">
-                {todayEntry ? getMoodEmoji(todayEntry.mood) : '-'}
-              </span>
-              <span className="mood-note-display">{todayEntry?.note || ''}</span>
-            </div>
-          </div>
-
-          <div className="mood-grid">
-            {(['great', 'ok', 'meh', 'bad'] as MoodType[]).map((m) => (
-              <button
-                key={m}
-                onClick={(): void => setSelectedMood(m)}
-                className={`soft-ui mood-btn ${selectedMood === m ? 'active' : ''}`}
-              >
-                {getMoodEmoji(m)}
-              </button>
-            ))}
-          </div>
-
-          <input
-            type="text"
-            placeholder={todayEntry ? 'Update your note...' : 'A small note...'}
-            value={moodNote}
-            onChange={(e): void => setMoodNote(e.target.value)}
-            className="soft-input mood-input-group"
-          />
-
-          <button className="soft-btn-primary" onClick={handleMoodSubmit} disabled={!selectedMood}>
-            {todayEntry ? 'Update' : 'Submit'}
+        {/* --- MOOD WIDGET --- */}
+        <div className="soft-ui widget-card mood-widget" style={{ position: 'relative' }}>
+          {/* Bouton de switch en haut à droite */}
+          <button
+            className="logout-button"
+            style={{ position: 'absolute', top: '15px', right: '15px', margin: 0 }}
+            onClick={() => setIsHistoryView(!isHistoryView)}
+          >
+            {isHistoryView ? 'Back' : 'History'}
           </button>
+
+          <h3 className="sidebar-title">
+            {isHistoryView ? 'Mood History' : 'How are you feeling?'}
+          </h3>
+
+          {isHistoryView ? (
+            /* VUE HISTORIQUE COMPLÈTE */
+            <div
+              className="mood-list-container"
+              style={{
+                marginTop: '15px',
+                overflowY: 'auto',
+                maxHeight: '250px',
+                paddingRight: '5px'
+              }}
+            >
+              {moods.length === 0 ? (
+                <p style={{ opacity: 0.6, fontSize: '0.9rem' }}>No history yet...</p>
+              ) : (
+                moods.map((m, idx) => (
+                  <div
+                    key={idx}
+                    className="mood-history-row"
+                    style={{
+                      marginBottom: '10px',
+                      borderBottom: '1px solid rgba(0,0,0,0.05)',
+                      paddingBottom: '5px'
+                    }}
+                  >
+                    <small style={{ minWidth: '80px', display: 'inline-block' }}>
+                      {new Date(m.date).toLocaleDateString('en-GB', {
+                        day: 'numeric',
+                        month: 'short'
+                      })}
+                    </small>
+                    <span className="mood-emoji-display" style={{ margin: '0 10px' }}>
+                      {getMoodEmoji(m.mood)}
+                    </span>
+                    <span className="mood-note-display" style={{ fontSize: '0.8rem' }}>
+                      {m.note}
+                    </span>
+                  </div>
+                ))
+              )}
+            </div>
+          ) : (
+            /* VUE SAISIE CLASSIQUE */
+            <>
+              <div className="mood-history">
+                <div className="mood-history-row">
+                  <span className="mood-label">Yesterday:</span>
+                  <span className="mood-emoji-display">
+                    {yesterdayEntry ? getMoodEmoji(yesterdayEntry.mood) : '-'}
+                  </span>
+                  <span className="mood-note-display">{yesterdayEntry?.note || ''}</span>
+                </div>
+
+                <div className="mood-history-row">
+                  <span className="mood-label">Today:</span>
+                  <span className="mood-emoji-display">
+                    {todayEntry ? getMoodEmoji(todayEntry.mood) : '-'}
+                  </span>
+                  <span className="mood-note-display">{todayEntry?.note || ''}</span>
+                </div>
+              </div>
+
+              <div className="mood-grid">
+                {(['great', 'ok', 'meh', 'bad'] as MoodType[]).map((m) => (
+                  <button
+                    key={m}
+                    onClick={(): void => setSelectedMood(m)}
+                    className={`soft-ui mood-btn ${selectedMood === m ? 'active' : ''}`}
+                  >
+                    {getMoodEmoji(m)}
+                  </button>
+                ))}
+              </div>
+
+              <input
+                type="text"
+                placeholder={todayEntry ? 'Update your note...' : 'A small note...'}
+                value={moodNote}
+                onChange={(e): void => setMoodNote(e.target.value)}
+                className="soft-input mood-input-group"
+              />
+
+              <button
+                className="soft-btn-primary"
+                onClick={handleMoodSubmit}
+                disabled={!selectedMood}
+              >
+                {todayEntry ? 'Update' : 'Submit'}
+              </button>
+            </>
+          )}
         </div>
 
+        {/* --- API SLIDER --- */}
         <div className="soft-ui widget-card api-slider-container">
           <div className="api-content-box">
             <span className="api-icon">{apiWidgets[apiIndex].icon}</span>
