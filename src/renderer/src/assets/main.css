@@ -89,6 +89,12 @@ small {
   border-radius: 15px;
   font-weight: 700;
   cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.soft-btn-primary:hover:not(:disabled) {
+  filter: brightness(1.15);
+  transform: translateY(-2px);
 }
 
 .soft-btn-primary:disabled {
@@ -107,6 +113,12 @@ small {
   -webkit-app-region: no-drag;
   text-align: left;
   align-self: flex-start;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nav-button:hover {
+  filter: brightness(1.15);
+  transform: translateY(-2px);
 }
 
 /* --- FORMULAIRES --- */
@@ -134,10 +146,11 @@ small {
 .bento-grid {
   display: grid;
   grid-template-columns: 2fr 1fr;
-  grid-template-rows: auto 1fr;
+  grid-template-rows: 1fr;
   gap: 25px;
   height: 100%;
   width: 90%;
+  padding-bottom: 10%;
 }
 
 .header-area {
@@ -160,13 +173,17 @@ small {
   grid-column: 1 / 2;
   padding: 30px;
   display: flex;
+  min-width: 0;
   flex-direction: column;
   overflow-y: auto;
 }
+
 .sidebar {
   grid-column: 2 / 3;
-  display: grid;
-  gap: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: 0;
 }
 
 /* --- MOOD WIDGET --- */
@@ -178,7 +195,7 @@ small {
 }
 .mood-grid {
   display: flex;
-  gap: 10px;
+  gap: 5px;
   margin: 15px 0;
   justify-content: center;
 }
@@ -186,11 +203,26 @@ small {
   font-size: 1.4rem;
   flex: 1;
   padding: 10px 0;
+  border-radius: 50px;
 }
 .mood-btn.active {
   background: var(--color-lilas-vif);
   box-shadow: inset 4px 4px 8px rgba(0, 0, 0, 0.15);
   transform: scale(0.96);
+}
+.mood-btn:not(.active):hover {
+  background-color: var(--color-rose-poudre);
+  color: white;
+  box-shadow:
+    6px 6px 12px var(--shadow-dark),
+    -6px -6px 12px var(--shadow-light);
+  transform: translateY(-2px);
+}
+
+/* Effet de survol pour le bouton principal */
+.mood-btn.active:hover {
+  filter: brightness(1.15);
+  box-shadow: inset 6px 6px 12px rgba(0, 0, 0, 0.25);
 }
 
 .mood-input-group {
@@ -210,14 +242,11 @@ small {
 .mood-history-row {
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-size: 0.9rem;
 }
 
 .mood-label {
   font-weight: 700;
   color: var(--color-lilas-doux);
-  min-width: 40px;
 }
 
 .mood-emoji-display {
@@ -232,6 +261,37 @@ small {
   overflow: hidden;
   text-overflow: ellipsis;
   color: var(--color-profond);
+}
+
+/* --- Mood History List --- */
+.mood-list-container {
+  margin-top: 15px;
+  overflow-y: auto;
+  max-height: 250px;
+  padding-right: 5px;
+}
+
+.mood-list-container::-webkit-scrollbar {
+  width: 6px;
+}
+.mood-list-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+.mood-list-container::-webkit-scrollbar-thumb {
+  background-color: var(--color-lilas-doux);
+  opacity: 0.5;
+  border-radius: 10px;
+}
+.mood-list-container .mood-history-row {
+  margin-bottom: 10px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  padding-bottom: 5px;
+}
+
+/* Permet au texte des notes de l'historique de revenir à la ligne */
+.mood-list-container .mood-note-display {
+  white-space: normal;
+  overflow: visible;
 }
 
 /* --- API SLIDER --- */

@@ -30,7 +30,8 @@ function AppContent(): JSX.Element {
       'Hey cutie pie !!',
       'Bonjour ma chérie !',
       "What's up baby ?",
-      'Bello i love you'
+      'Bello i love you',
+      'привіт, моя кохана'
     ]
     const randomIndex = Math.floor(Math.random() * messages.length)
     return messages[randomIndex]
