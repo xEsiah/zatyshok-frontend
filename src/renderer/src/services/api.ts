@@ -139,5 +139,26 @@ export const api = {
     if (!response.ok) throw new Error(data.error || 'Login failed')
 
     return data
+  },
+
+  // --- WIDGETS API ---
+  getWeather: async (): Promise<any> => {
+    try {
+      const headers = await getHeaders()
+      const response = await fetch(`${API_URL}/weather`, { headers })
+      return response.json()
+    } catch {
+      return { error: 'Weather unavailable' }
+    }
+  },
+
+  getSpotify: async (): Promise<any> => {
+    try {
+      const headers = await getHeaders()
+      const response = await fetch(`${API_URL}/spotify/current`, { headers })
+      return response.json()
+    } catch {
+      return { isPlaying: false, message: 'Spotify unavailable' }
+    }
   }
 }
