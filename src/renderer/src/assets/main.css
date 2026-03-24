@@ -1,5 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap');
 
+/* ==========================================================================
+   1. VARIABLES & BASE
+   ========================================================================== */
 :root {
   --color-rose-poudre: #d0a3c9;
   --color-lilas-vif: #b174e8;
@@ -20,12 +23,6 @@ body {
   height: 100vh;
   overflow: hidden;
 }
-small {
-  display: 'block';
-  margin-bottom: '10px';
-  opacity: 0.7;
-  font-size: '0.8rem';
-}
 
 #root {
   width: 100%;
@@ -35,7 +32,16 @@ small {
   align-items: center;
 }
 
-/* --- STRUCTURE GLOBALE --- */
+small {
+  display: block; /* Corrigé : suppression des guillemets */
+  margin-bottom: 10px;
+  opacity: 0.7;
+  font-size: 0.8rem;
+}
+
+/* ==========================================================================
+   2. LAYOUT PRINCIPAL (GRID & STRUCTURE)
+   ========================================================================== */
 .title-bar {
   height: 35px;
   width: 100%;
@@ -48,6 +54,54 @@ small {
   user-select: none;
 }
 
+.header-area {
+  margin-top: 2%;
+  margin-bottom: 2%;
+  text-align: left;
+  width: 90%;
+  font-size: 1.4rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: flex-start;
+  min-height: 15%;
+}
+
+.header-area h2 {
+  margin: 0;
+}
+
+.bento-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows: 1fr;
+  gap: 25px;
+  height: 100%;
+  width: 90%;
+  padding-bottom: 10%;
+}
+
+.main-card {
+  grid-column: 1 / 2;
+  padding: 30px;
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.sidebar {
+  grid-column: 2 / 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: 0;
+  gap: 5vh;
+}
+
+/* ==========================================================================
+   3. COMPOSANTS UI (BOUTONS, INPUTS, SOFT-UI)
+   ========================================================================== */
 .soft-ui {
   background: var(--card-bg);
   border-radius: var(--radius-bento);
@@ -58,7 +112,7 @@ small {
   transition: all 0.3s ease;
 }
 
-/* --- BOUTONS & ÉTATS --- */
+/* -- Boutons basiques -- */
 .soft-btn {
   border: none;
   border-radius: 12px;
@@ -74,6 +128,15 @@ small {
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+.soft-btn:not(.active):hover {
+  background-color: var(--color-rose-poudre);
+  color: white;
+  box-shadow:
+    6px 6px 12px var(--shadow-dark),
+    -6px -6px 12px var(--shadow-light);
+  transform: translateY(-2px);
+}
+
 .soft-btn.active {
   background: var(--color-lilas-vif);
   color: white !important;
@@ -81,6 +144,12 @@ small {
   transform: scale(0.96);
 }
 
+.soft-btn.active:hover {
+  filter: brightness(1.15);
+  box-shadow: inset 6px 6px 12px rgba(0, 0, 0, 0.25);
+}
+
+/* -- Boutons Primaires -- */
 .soft-btn-primary {
   background: var(--color-lilas-vif);
   color: white;
@@ -102,6 +171,7 @@ small {
   cursor: not-allowed;
 }
 
+/* -- Bouton Navigation Header -- */
 .nav-button {
   background: var(--color-rose-poudre);
   border: none;
@@ -121,7 +191,7 @@ small {
   transform: translateY(-2px);
 }
 
-/* --- FORMULAIRES --- */
+/* -- Inputs & Textareas -- */
 .soft-input,
 .soft-textarea {
   width: 100%;
@@ -137,79 +207,45 @@ small {
   outline: none;
   box-sizing: border-box;
 }
+
 .soft-textarea {
   resize: none;
   min-height: 120px;
 }
 
-/* --- GRID BENTO --- */
-.bento-grid {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  grid-template-rows: 1fr;
-  gap: 25px;
-  height: 100%;
-  width: 90%;
-  padding-bottom: 10%;
-}
+/* ==========================================================================
+   4. WIDGETS SPÉCIFIQUES
+   ========================================================================== */
 
-.header-area {
-  margin-top: 2%;
-  margin-bottom: 2%;
-  text-align: left;
-  width: 90%;
-  font-size: 1.4rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: flex-start;
-  min-height: 15%;
-  h2 {
-    margin: 0;
-  }
-}
-
-.main-card {
-  grid-column: 1 / 2;
-  padding: 30px;
-  display: flex;
-  min-width: 0;
-  flex-direction: column;
-  overflow-y: auto;
-}
-
-.sidebar {
-  grid-column: 2 / 3;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  min-width: 0;
-}
-
-/* --- MOOD WIDGET --- */
+/* --- 4.1 Mood Widget --- */
 .mood-widget {
   padding: 25px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  min-height: 36vh;
 }
+
 .mood-grid {
   display: flex;
   gap: 5px;
   margin: 15px 0;
   justify-content: center;
 }
+
 .mood-btn {
   font-size: 1.4rem;
   flex: 1;
   padding: 10px 0;
   border-radius: 50px;
 }
+
 .mood-btn.active {
   background: var(--color-lilas-vif);
   box-shadow: inset 4px 4px 8px rgba(0, 0, 0, 0.15);
   transform: scale(0.96);
 }
+
 .mood-btn:not(.active):hover {
   background-color: var(--color-rose-poudre);
   color: white;
@@ -219,7 +255,6 @@ small {
   transform: translateY(-2px);
 }
 
-/* Effet de survol pour le bouton principal */
 .mood-btn.active:hover {
   filter: brightness(1.15);
   box-shadow: inset 6px 6px 12px rgba(0, 0, 0, 0.25);
@@ -263,7 +298,6 @@ small {
   color: var(--color-profond);
 }
 
-/* --- Mood History List --- */
 .mood-list-container {
   margin-top: 15px;
   overflow-y: auto;
@@ -282,54 +316,60 @@ small {
   opacity: 0.5;
   border-radius: 10px;
 }
+
 .mood-list-container .mood-history-row {
   margin-bottom: 10px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
   padding-bottom: 5px;
 }
 
-/* Permet au texte des notes de l'historique de revenir à la ligne */
 .mood-list-container .mood-note-display {
   white-space: normal;
   overflow: visible;
 }
 
-/* --- API SLIDER --- */
+/* --- 4.2 API Slider & Spotify --- */
 .api-slider-container {
-  padding: 25px;
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
+  min-height: 200px; /* Important pour garder une taille fixe */
 }
+
 .api-content-box {
   flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
+  width: 100%;
 }
+
 .api-icon {
   font-size: 2.5rem;
   display: block;
   margin-bottom: 5px;
 }
+
 .api-value {
   font-weight: bold;
   font-size: 1.2rem;
   margin: 5px 0;
 }
+
 .api-label {
   color: var(--color-lilas-doux);
   font-size: 0.8rem;
 }
-.api-navigation {
-  display: flex;
-  gap: 15px;
-  align-items: center;
-  margin-top: 15px;
-}
-.api-nav-btn {
+
+/* Nouvelles flèches sur les côtés */
+.api-nav-side-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
   width: 30px;
   height: 30px;
   border-radius: 50%;
@@ -337,14 +377,41 @@ small {
   background: var(--card-bg);
   color: var(--color-lilas-vif);
   box-shadow:
-    3px 3px 6px var(--shadow-dark),
-    -3px -3px 6px var(--shadow-light);
+    2px 2px 5px var(--shadow-dark),
+    -2px -2px 5px var(--shadow-light);
   cursor: pointer;
-}
-.api-dots-group {
   display: flex;
-  gap: 5px;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  z-index: 10;
+  transition: all 0.2s;
+  padding-bottom: 2px; /* Centre visuellement la flèche */
 }
+
+.api-nav-side-btn:hover {
+  background: var(--color-rose-poudre);
+  color: white;
+  box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.api-nav-side-btn.left {
+  left: 10px;
+}
+.api-nav-side-btn.right {
+  right: 10px;
+}
+
+/* Points en bas du widget */
+.api-dots-absolute {
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 6px;
+}
+
 .api-dot {
   width: 6px;
   height: 6px;
@@ -352,11 +419,80 @@ small {
   background: var(--shadow-dark);
   transition: 0.3s;
 }
+
 .api-dot.active {
   background: var(--color-lilas-vif);
 }
 
-/* --- PLANNING --- */
+/* - Spécifique Spotify - */
+.spotify-widget-visual {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--color-bg);
+  margin: 0 auto;
+}
+
+.album-bg-blur {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.4;
+  filter: blur(2px);
+  z-index: 1;
+}
+
+.api-icon-text {
+  position: relative;
+  z-index: 2;
+  font-size: 1.8rem;
+}
+
+.spotify-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.ctrl-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.1rem;
+  padding: 5px;
+  transition: transform 0.1s;
+  color: var(--color-profond);
+}
+
+.ctrl-btn:hover {
+  transform: scale(1.2);
+}
+.main-play {
+  font-size: 1.3rem;
+}
+
+.soft-btn-mini {
+  padding: 4px 12px;
+  font-size: 0.75rem;
+  border-radius: 20px;
+  background: var(--color-lilas-doux);
+  border: none;
+  cursor: pointer;
+  margin-top: 5px;
+  color: white;
+}
+
+/* --- 4.3 Daily Planner --- */
 .planner-container {
   display: flex;
   flex-direction: column;
@@ -364,6 +500,7 @@ small {
   margin-top: 20px;
   margin: 10px;
 }
+
 .planner-item {
   padding: 15px;
   display: flex;
@@ -376,19 +513,20 @@ small {
   height: 70px;
   box-sizing: border-box;
 }
+
 .planner-icon {
   font-size: 1.2rem;
 }
 .planner-text {
   font-weight: 600;
 }
+
 .planner-list {
   display: flex;
   flex-direction: column;
   gap: 10px;
   margin-top: 10px;
   max-height: calc((70px * 3) + (10px * 3));
-
   overflow-y: auto;
   padding-right: 10px;
   padding-left: 5px;
@@ -408,53 +546,7 @@ small {
   border-radius: 10px;
 }
 
-/* --- ATELIER ÉCRITURE --- */
-
-.write-grid {
-  display: flex;
-  flex-direction: column;
-  width: 90%;
-  height: 100%;
-}
-
-/* Le groupe qui contient les 3 boutons de catégorie */
-.category-selector {
-  display: flex;
-  gap: 12px;
-  margin-bottom: 25px;
-}
-
-/* Le bloc contenant le label et l'input date */
-.date-group {
-  margin-bottom: 20px;
-  display: flex;
-  gap: 15px;
-  justify-content: space-between;
-  .date {
-    width: 90%;
-  }
-  .hour {
-    width: 10%;
-  }
-}
-
-/* Le label spécifique pour la date */
-.date-label {
-  font-size: 0.8rem;
-  opacity: 0.7;
-  margin-bottom: 5px;
-  display: block;
-}
-
-/* Le conteneur des boutons Annuler / Enregistrer */
-.write-actions {
-  margin-top: 30px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-/* --- SECTION POST-IT (PENSÉES) --- */
+/* --- 4.4 Post-its (Pensées) --- */
 .daily-layout {
   display: flex;
   flex-direction: column;
@@ -477,7 +569,6 @@ small {
   width: 100%;
 }
 
-/* LE SLIDER HORIZONTAL */
 .post-it-grid {
   display: flex;
   gap: 15px;
@@ -504,25 +595,20 @@ small {
 .post-it {
   background-color: var(--color-rose-poudre);
   color: white;
-  padding: 15px 15px 15px 15px;
+  padding: 15px;
   border-radius: 2px 2px 15px 2px;
   box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2);
   font-family: 'Quicksand', sans-serif;
   font-size: 0.9rem;
   font-style: italic;
-
   min-width: 140px;
   max-width: 140px;
   min-height: 100px;
-
   transform: rotate(-1deg);
   transition: transform 0.2s;
   position: relative;
-
   display: flex;
-
   flex: 0 0 auto;
-
   align-items: center;
   justify-content: center;
   text-align: center;
@@ -547,7 +633,6 @@ small {
   font-size: 1rem;
 }
 
-/* BOUTON DE SUPPRESSION (CROIX) */
 .post-it-close {
   position: absolute;
   top: 2px;
@@ -567,7 +652,51 @@ small {
   color: white;
 }
 
-/* --- LOGIN SPECIFIC --- */
+/* --- 4.5 Write View (Atelier Écriture) --- */
+.write-grid {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  height: 100%;
+}
+
+.category-selector {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 25px;
+}
+
+.date-group {
+  margin-bottom: 20px;
+  display: flex;
+  gap: 15px;
+  justify-content: space-between;
+}
+
+.date-group .date {
+  width: 90%;
+}
+.date-group .hour {
+  width: 10%;
+}
+
+.date-label {
+  font-size: 0.8rem;
+  opacity: 0.7;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.write-actions {
+  margin-top: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* ==========================================================================
+   5. LOGIN & AUTHENTIFICATION
+   ========================================================================== */
 .login-container {
   width: 100%;
   height: 100vh;
@@ -618,13 +747,13 @@ small {
   margin: 0;
   font-weight: 600;
 }
+
 .logout-button {
   -webkit-app-region: no-drag;
   background: transparent;
   border: 1px solid var(--color-lilas-doux);
   color: var(--color-lilas-doux);
   border-radius: 8px;
-
   font-size: 0.7rem;
   cursor: pointer;
   margin-left: 15px;
@@ -638,7 +767,9 @@ small {
   border-color: var(--color-lilas-vif);
 }
 
-/* --- MODAL (POP-UP) --- */
+/* ==========================================================================
+   6. MODAL (OVERLAYS)
+   ========================================================================== */
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -657,7 +788,6 @@ small {
   width: 350px;
   padding: 30px;
   text-align: center;
-  /* On force le drag à 'no-drag' au cas où il serait sur la title-bar */
   -webkit-app-region: no-drag;
   animation: modalPop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
@@ -681,7 +811,6 @@ small {
   gap: 15px;
 }
 
-/* Petite animation d'apparition pour faire plus "app" */
 @keyframes modalPop {
   0% {
     opacity: 0;
@@ -691,20 +820,4 @@ small {
     opacity: 1;
     transform: scale(1);
   }
-}
-
-/* Effet de survol pour le bouton classique */
-.soft-btn:not(.active):hover {
-  background-color: var(--color-rose-poudre);
-  color: white;
-  box-shadow:
-    6px 6px 12px var(--shadow-dark),
-    -6px -6px 12px var(--shadow-light);
-  transform: translateY(-2px);
-}
-
-/* Effet de survol pour le bouton principal */
-.soft-btn.active:hover {
-  filter: brightness(1.15);
-  box-shadow: inset 6px 6px 12px rgba(0, 0, 0, 0.25);
 }
