@@ -1,0 +1,94 @@
+{
+  "greetings": [
+    "Hey cutie pie !! 🌸",
+    "Bonjour ma chérie ! ❤️",
+    "What's up baby ? ✨",
+    "Bello i love you 🥰",
+    "привіт, моя кохана 🌻"
+  ],
+  "login": {
+    "title": "Затишок 💌",
+    "requestAccess": "Request Access",
+    "welcomeHome": "Welcome Home",
+    "username": "Username",
+    "usernamePlaceholder": "Your lovely name",
+    "password": "Password",
+    "passwordPlaceholder": "••••••••",
+    "processing": "Opening door...",
+    "join": "Join",
+    "unlock": "Unlock",
+    "toggleToLogin": "Already have an account? Login",
+    "toggleToRegister": "Need access? Register",
+    "modalWaitTitle": "Welcome! 💌",
+    "modalWaitMsg": "Request sent! Wait for manual validation.",
+    "modalOops": "Oops...",
+    "modalErrorTitle": "Oh no!",
+    "modalErrorUnreachable": "Cannot reach the server right now 🥺",
+    "modalErrorUnexpected": "A tiny error occurred 🐛",
+    "modalErrorInvalidData": "Mmmh, that doesn't seem right."
+  },
+  "daily": {
+    "upcoming": "Upcoming Schedule ✨",
+    "todayIs": "Today is",
+    "loading": "Checking the stars...",
+    "nothingPlanned": "Nothing planned today, time to relax! 🍂",
+    "for": "For",
+    "deleteItem": "Delete item",
+    "deleteNote": "Delete note",
+    "plannerTitle": "Your lovely day 🌸",
+    "notesTitle": "Notes & Thoughts 🍃",
+    "modalDeleteTitle": "Are you sure? 🥺",
+    "modalDeleteMsg": "Do you really want to remove this?",
+    "modalDeleteError": "Couldn't delete it."
+  },
+  "mood": {
+    "back": "Back",
+    "history": "History",
+    "historyTitle": "Mood History 📖",
+    "feelingTitle": "How are you feeling today?",
+    "noHistory": "No history yet...",
+    "yesterday": "Yesterday:",
+    "today": "Today:",
+    "placeholderUpdate": "Update your sweet note...",
+    "placeholderNew": "A small note...",
+    "btnUpdate": "Update",
+    "btnSubmit": "Save",
+    "savedTitle": "Noted! 💌",
+    "savedMsg": "Your mood has been securely saved.",
+    "errorTitle": "Oops...",
+    "errorMsg": "Error saving mood. Please try again."
+  },
+  "write": {
+    "tabGoal": "🎯 Goal",
+    "tabEvent": "📅 Event",
+    "tabThought": "💭 Thought",
+    "lblDate": "Date:",
+    "lblTime": "Time:",
+    "placeholder": "Describe your goal or thought...",
+    "btnCancel": "Cancel",
+    "btnSave": "Save ✨",
+    "savedTitle": "Got it! 💌",
+    "savedMsg": "Safely tucked away in the little drawer.",
+    "errorTitle": "Oh no!",
+    "errorMsg": "Failed to save your note."
+  },
+  "bento": {
+    "weather": "Weather",
+    "now": "Now",
+    "tmrw": "Tmrw",
+    "spotify": "Spotify",
+    "notPlaying": "Not playing",
+    "connect": "Connect"
+  },
+  "modal": {
+    "confirm": "Yep, next !",
+    "cancel": "Noppp !",
+    "ok": "OK"
+  },
+  "app": {
+    "loading": "Opening your cozy space... 💌",
+    "logout": "Logout",
+    "btnWrite": "Write",
+    "btnDashboard": "Dashboard"
+  }
+}

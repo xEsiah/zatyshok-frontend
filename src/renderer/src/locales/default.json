@@ -1,0 +1,88 @@
+{
+  "greetings": ["Welcome!", "Have a great day!", "Hello there."],
+  "login": {
+    "title": "Затишок",
+    "requestAccess": "Request Access",
+    "welcomeHome": "Welcome",
+    "username": "Username",
+    "usernamePlaceholder": "Your name",
+    "password": "Password",
+    "passwordPlaceholder": "••••••••",
+    "processing": "Processing...",
+    "join": "Join",
+    "unlock": "Login",
+    "toggleToLogin": "Already have an account? Login",
+    "toggleToRegister": "Need access? Register",
+    "modalWaitTitle": "Welcome!",
+    "modalWaitMsg": "Request sent! Wait for manual validation.",
+    "modalOops": "Oops...",
+    "modalErrorTitle": "Error",
+    "modalErrorUnreachable": "Server unreachable",
+    "modalErrorUnexpected": "An unexpected error occurred",
+    "modalErrorInvalidData": "Invalid connection data returned by the server."
+  },
+  "daily": {
+    "upcoming": "Upcoming Schedule",
+    "todayIs": "Today is",
+    "loading": "Loading...",
+    "nothingPlanned": "Nothing planned yet.",
+    "for": "For",
+    "deleteItem": "Delete item",
+    "deleteNote": "Delete note",
+    "plannerTitle": "Daily Planner",
+    "notesTitle": "Notes",
+    "modalDeleteTitle": "Deletion",
+    "modalDeleteMsg": "Are you sure you want to remove this item?",
+    "modalDeleteError": "Failed to delete item."
+  },
+  "mood": {
+    "back": "Back",
+    "history": "History",
+    "historyTitle": "Mood History",
+    "feelingTitle": "How are you feeling?",
+    "noHistory": "No history yet...",
+    "yesterday": "Yesterday:",
+    "today": "Today:",
+    "placeholderUpdate": "Update your note...",
+    "placeholderNew": "Add a note...",
+    "btnUpdate": "Update",
+    "btnSubmit": "Submit",
+    "savedTitle": "Saved",
+    "savedMsg": "Mood saved.",
+    "errorTitle": "Oops...",
+    "errorMsg": "Error saving mood. Please try again."
+  },
+  "write": {
+    "tabGoal": "🎯 Goal",
+    "tabEvent": "📅 Event",
+    "tabThought": "💭 Thought",
+    "lblDate": "Date:",
+    "lblTime": "Time:",
+    "placeholder": "Describe your goal or thought...",
+    "btnCancel": "Cancel",
+    "btnSave": "Save ✨",
+    "savedTitle": "Success",
+    "savedMsg": "Entry saved successfully.",
+    "errorTitle": "Error",
+    "errorMsg": "Failed to save entry"
+  },
+  "bento": {
+    "weather": "Weather",
+    "now": "Now",
+    "tmrw": "Tmrw",
+    "spotify": "Spotify",
+    "notPlaying": "Not playing",
+    "connect": "Connect"
+  },
+  "modal": {
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "ok": "OK"
+  },
+  "app": {
+    "loading": "Loading... ",
+    "logout": "Logout",
+    "btnWrite": "Write",
+    "btnDashboard": "Dashboard"
+  }
+}

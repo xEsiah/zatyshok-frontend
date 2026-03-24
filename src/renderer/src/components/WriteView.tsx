@@ -1,12 +1,9 @@
+import '../assets/WriteView.css'
 import { useState, useRef, useEffect, JSX } from 'react'
-import { api } from '../services/api'
+import { api } from '../services'
 import { useModal } from './ModalContext'
+import { useUser } from './UserContext'
 
-/**
- * WriteView Component
- * Allows the user to create new entries (Goals, Events, Thoughts).
- * Handles date/time selection and formatting.
- */
 export function WriteView({ onBack }: { onBack: () => void }): JSX.Element {
   const [text, setText] = useState<string>('')
   const [category, setCategory] = useState<'goal' | 'event' | 'note'>('goal')
@@ -17,6 +14,7 @@ export function WriteView({ onBack }: { onBack: () => void }): JSX.Element {
   const todayStr = new Date().toLocaleDateString('en-CA')
 
   const { showModal } = useModal()
+  const { t } = useUser() // 👈
 
   useEffect((): void => {
     textareaRef.current?.focus()
@@ -24,7 +22,6 @@ export function WriteView({ onBack }: { onBack: () => void }): JSX.Element {
 
   const handleSend = async (): Promise<void> => {
     if (!text.trim()) return
-
     const finalText = time ? `[${time}] ${text}` : text
 
     try {
@@ -34,72 +31,72 @@ export function WriteView({ onBack }: { onBack: () => void }): JSX.Element {
         date: hasDate ? date : todayStr,
         moment: 'morning'
       })
-
       showModal({
-        title: 'Got it! ✨',
-        message: 'Safely tucked away in the little drawer.',
+        title: t.write.savedTitle,
+        message: t.write.savedMsg,
         type: 'alert',
         onConfirm: () => {
+          setText('')
           onBack()
         }
       })
-    } catch (error) {
-      console.error('Erreur lors de la sauvegarde', error)
+    } catch (err) {
+      console.error(err)
+      showModal({ title: t.write.errorTitle, message: t.write.errorMsg, type: 'alert' })
     }
   }
 
   return (
-    <div className="write-grid">
-      <div className="soft-ui main-card">
-        <h2 className="main-title">Add to Drawer</h2>
-
+    <div className="write-container">
+      {/* On a retiré le style={} en ligne ici ! */}
+      <div className="soft-ui write-grid">
         <div className="category-selector">
           <button
             className={`soft-btn ${category === 'goal' ? 'active' : ''}`}
-            onClick={(): void => {
+            onClick={() => {
               setCategory('goal')
               setHasDate(true)
             }}
           >
-            🎯 Goal
+            {t.write.tabGoal}
           </button>
           <button
             className={`soft-btn ${category === 'event' ? 'active' : ''}`}
-            onClick={(): void => {
+            onClick={() => {
               setCategory('event')
               setHasDate(true)
             }}
           >
-            📅 Event
+            {t.write.tabEvent}
           </button>
           <button
             className={`soft-btn ${category === 'note' ? 'active' : ''}`}
-            onClick={(): void => {
+            onClick={() => {
               setCategory('note')
               setHasDate(false)
             }}
           >
-            🍃 Thought
+            {t.write.tabThought}
           </button>
         </div>
 
         {hasDate && (
           <div className="date-group">
             <div className="date">
-              <label className="date-label">Date:</label>
+              <label className="date-label">{t.write.lblDate}</label>
               <input
                 type="date"
                 value={date}
-                onChange={(e): void => setDate(e.target.value)}
+                onChange={(e) => setDate(e.target.value)}
                 className="soft-input"
               />
             </div>
             <div className="hour">
-              <label className="date-label">Time:</label>
+              <label className="date-label">{t.write.lblTime}</label>
               <input
                 type="time"
                 value={time}
-                onChange={(e): void => setTime(e.target.value)}
+                onChange={(e) => setTime(e.target.value)}
                 className="soft-input"
               />
             </div>
@@ -110,16 +107,16 @@ export function WriteView({ onBack }: { onBack: () => void }): JSX.Element {
           ref={textareaRef}
           className="soft-textarea"
           value={text}
-          onChange={(e): void => setText(e.target.value)}
-          placeholder="Describe your goal or thought..."
+          onChange={(e) => setText(e.target.value)}
+          placeholder={t.write.placeholder}
         />
 
         <div className="write-actions">
           <button onClick={onBack} className="soft-btn">
-            Cancel
+            {t.write.btnCancel}
           </button>
           <button onClick={handleSend} className="soft-btn-primary">
-            Save 💌
+            {t.write.btnSave}
           </button>
         </div>
       </div>

@@ -1,3 +1,4 @@
+import '../assets/Modal.css'
 import { JSX } from 'react'
 
 interface ModalProps {

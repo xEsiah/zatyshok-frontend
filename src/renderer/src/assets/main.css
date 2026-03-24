@@ -1,18 +1,95 @@
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&display=swap');
 
 /* ==========================================================================
-   1. VARIABLES & BASE
+   VARIABLES & BASE (LES 3 THEMES)
    ========================================================================== */
-:root {
+
+/* THÈME PAR DÉFAUT */
+:root,
+[data-theme='default'] {
+  --color-rose-poudre: #a9a9a9;
+  --color-lilas-vif: #6c757d;
+  --color-lilas-doux: #adb5bd;
+  --color-profond: #343a40;
+
+  --bg-color: #f8f9fa;
+  --card-bg: #e9ecef;
+  --shadow-light: #ffffff;
+  --shadow-dark: #ced4da;
+  --radius-bento: 24px;
+}
+
+/* THÈME POUR ELLE (cute) */
+[data-theme='her'] {
   --color-rose-poudre: #d0a3c9;
   --color-lilas-vif: #b174e8;
   --color-lilas-doux: #9c8ac8;
   --color-profond: #462f5f;
+
   --bg-color: #e8e5ee;
   --card-bg: #f4f1f8;
   --shadow-light: #ffffff;
   --shadow-dark: #c4bccb;
-  --radius-bento: 24px;
+}
+
+/* THÈME POUR TOI (him) */
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&display=swap');
+
+[data-theme='him'] {
+  --color-rose-poudre: #2c3e50;
+  --color-lilas-vif: #ffd31d;
+  --color-lilas-doux: #b0bec5;
+  --color-profond: #eceff1;
+
+  --bg-color: #0a0b10;
+  --card-bg: #11141a;
+  --shadow-light: #1a1e26;
+  --shadow-dark: #000000;
+  --radius-bento: 12px;
+
+  --font-dev: 'Fira Code', monospace;
+}
+
+[data-theme='him'] body,
+[data-theme='him'] button,
+[data-theme='him'] input,
+[data-theme='him'] textarea {
+  font-family: var(--font-dev) !important;
+}
+
+[data-theme='him'] small,
+[data-theme='him'] .mood-label,
+[data-theme='him'] .api-label {
+  color: var(--color-lilas-doux) !important;
+  opacity: 1;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+[data-theme='him'] .soft-ui {
+  border: 1px solid #1c2128;
+  box-shadow:
+    10px 10px 20px #000000,
+    -5px -5px 15px #151921;
+}
+
+[data-theme='him'] .soft-input,
+[data-theme='him'] .soft-textarea {
+  background: #080a0e;
+  color: var(--color-lilas-vif);
+  border: 1px solid #1c2128;
+}
+
+[data-theme='him'] .soft-btn-primary {
+  background: var(--color-lilas-vif);
+  color: #000000;
+}
+
+[data-theme='him'] .nav-button {
+  background: #1c2128;
+  border: 1px solid #2d3436;
+  color: var(--color-lilas-vif);
 }
 
 body {
@@ -33,75 +110,16 @@ body {
 }
 
 small {
-  display: block; /* Corrigé : suppression des guillemets */
+  display: block;
   margin-bottom: 10px;
   opacity: 0.7;
   font-size: 0.8rem;
 }
 
 /* ==========================================================================
-   2. LAYOUT PRINCIPAL (GRID & STRUCTURE)
+   COMPOSANTS UI
    ========================================================================== */
-.title-bar {
-  height: 35px;
-  width: 100%;
-  -webkit-app-region: drag;
-  display: flex;
-  align-items: center;
-  padding-left: 20px;
-  font-size: 0.8rem;
-  color: var(--color-lilas-doux);
-  user-select: none;
-}
 
-.header-area {
-  margin-top: 2%;
-  margin-bottom: 2%;
-  text-align: left;
-  width: 90%;
-  font-size: 1.4rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: flex-start;
-  min-height: 15%;
-}
-
-.header-area h2 {
-  margin: 0;
-}
-
-.bento-grid {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  grid-template-rows: 1fr;
-  gap: 25px;
-  height: 100%;
-  width: 90%;
-  padding-bottom: 10%;
-}
-
-.main-card {
-  grid-column: 1 / 2;
-  padding: 30px;
-  display: flex;
-  min-width: 0;
-  flex-direction: column;
-  overflow-y: auto;
-}
-
-.sidebar {
-  grid-column: 2 / 3;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  min-width: 0;
-  gap: 5vh;
-}
-
-/* ==========================================================================
-   3. COMPOSANTS UI (BOUTONS, INPUTS, SOFT-UI)
-   ========================================================================== */
 .soft-ui {
   background: var(--card-bg);
   border-radius: var(--radius-bento);
@@ -211,613 +229,4 @@ small {
 .soft-textarea {
   resize: none;
   min-height: 120px;
-}
-
-/* ==========================================================================
-   4. WIDGETS SPÉCIFIQUES
-   ========================================================================== */
-
-/* --- 4.1 Mood Widget --- */
-.mood-widget {
-  padding: 25px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  min-height: 36vh;
-}
-
-.mood-grid {
-  display: flex;
-  gap: 5px;
-  margin: 15px 0;
-  justify-content: center;
-}
-
-.mood-btn {
-  font-size: 1.4rem;
-  flex: 1;
-  padding: 10px 0;
-  border-radius: 50px;
-}
-
-.mood-btn.active {
-  background: var(--color-lilas-vif);
-  box-shadow: inset 4px 4px 8px rgba(0, 0, 0, 0.15);
-  transform: scale(0.96);
-}
-
-.mood-btn:not(.active):hover {
-  background-color: var(--color-rose-poudre);
-  color: white;
-  box-shadow:
-    6px 6px 12px var(--shadow-dark),
-    -6px -6px 12px var(--shadow-light);
-  transform: translateY(-2px);
-}
-
-.mood-btn.active:hover {
-  filter: brightness(1.15);
-  box-shadow: inset 6px 6px 12px rgba(0, 0, 0, 0.25);
-}
-
-.mood-input-group {
-  margin-bottom: 15px;
-}
-
-.mood-history {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-bottom: 15px;
-  background-color: rgba(255, 255, 255, 0.4);
-  padding: 10px;
-  border-radius: 12px;
-}
-
-.mood-history-row {
-  display: flex;
-  align-items: center;
-}
-
-.mood-label {
-  font-weight: 700;
-  color: var(--color-lilas-doux);
-}
-
-.mood-emoji-display {
-  font-size: 1.1rem;
-}
-
-.mood-note-display {
-  font-style: italic;
-  opacity: 0.7;
-  font-size: 0.8rem;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  color: var(--color-profond);
-}
-
-.mood-list-container {
-  margin-top: 15px;
-  overflow-y: auto;
-  max-height: 250px;
-  padding-right: 5px;
-}
-
-.mood-list-container::-webkit-scrollbar {
-  width: 6px;
-}
-.mood-list-container::-webkit-scrollbar-track {
-  background: transparent;
-}
-.mood-list-container::-webkit-scrollbar-thumb {
-  background-color: var(--color-lilas-doux);
-  opacity: 0.5;
-  border-radius: 10px;
-}
-
-.mood-list-container .mood-history-row {
-  margin-bottom: 10px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-  padding-bottom: 5px;
-}
-
-.mood-list-container .mood-note-display {
-  white-space: normal;
-  overflow: visible;
-}
-
-/* --- 4.2 API Slider & Spotify --- */
-.api-slider-container {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  min-height: 200px; /* Important pour garder une taille fixe */
-}
-
-.api-content-box {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-}
-
-.api-icon {
-  font-size: 2.5rem;
-  display: block;
-  margin-bottom: 5px;
-}
-
-.api-value {
-  font-weight: bold;
-  font-size: 1.2rem;
-  margin: 5px 0;
-}
-
-.api-label {
-  color: var(--color-lilas-doux);
-  font-size: 0.8rem;
-}
-
-/* Nouvelles flèches sur les côtés */
-.api-nav-side-btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  border: none;
-  background: var(--card-bg);
-  color: var(--color-lilas-vif);
-  box-shadow:
-    2px 2px 5px var(--shadow-dark),
-    -2px -2px 5px var(--shadow-light);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.2rem;
-  z-index: 10;
-  transition: all 0.2s;
-  padding-bottom: 2px; /* Centre visuellement la flèche */
-}
-
-.api-nav-side-btn:hover {
-  background: var(--color-rose-poudre);
-  color: white;
-  box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.api-nav-side-btn.left {
-  left: 10px;
-}
-.api-nav-side-btn.right {
-  right: 10px;
-}
-
-/* Points en bas du widget */
-.api-dots-absolute {
-  position: absolute;
-  bottom: 15px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 6px;
-}
-
-.api-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--shadow-dark);
-  transition: 0.3s;
-}
-
-.api-dot.active {
-  background: var(--color-lilas-vif);
-}
-
-/* - Spécifique Spotify - */
-.spotify-widget-visual {
-  position: relative;
-  width: 50px;
-  height: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 12px;
-  overflow: hidden;
-  background: var(--color-bg);
-  margin: 0 auto;
-}
-
-.album-bg-blur {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0.4;
-  filter: blur(2px);
-  z-index: 1;
-}
-
-.api-icon-text {
-  position: relative;
-  z-index: 2;
-  font-size: 1.8rem;
-}
-
-.spotify-controls {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  margin-top: 8px;
-}
-
-.ctrl-btn {
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 1.1rem;
-  padding: 5px;
-  transition: transform 0.1s;
-  color: var(--color-profond);
-}
-
-.ctrl-btn:hover {
-  transform: scale(1.2);
-}
-.main-play {
-  font-size: 1.3rem;
-}
-
-.soft-btn-mini {
-  padding: 4px 12px;
-  font-size: 0.75rem;
-  border-radius: 20px;
-  background: var(--color-lilas-doux);
-  border: none;
-  cursor: pointer;
-  margin-top: 5px;
-  color: white;
-}
-
-/* --- 4.3 Daily Planner --- */
-.planner-container {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  margin-top: 20px;
-  margin: 10px;
-}
-
-.planner-item {
-  padding: 15px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex-shrink: 0;
-  box-shadow:
-    4px 4px 8px var(--shadow-dark),
-    -4px -4px 8px var(--shadow-light);
-  height: 70px;
-  box-sizing: border-box;
-}
-
-.planner-icon {
-  font-size: 1.2rem;
-}
-.planner-text {
-  font-weight: 600;
-}
-
-.planner-list {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-top: 10px;
-  max-height: calc((70px * 3) + (10px * 3));
-  overflow-y: auto;
-  padding-right: 10px;
-  padding-left: 5px;
-  padding-bottom: 15px;
-  padding-top: 15px;
-}
-
-.planner-list::-webkit-scrollbar {
-  width: 6px;
-}
-.planner-list::-webkit-scrollbar-track {
-  background: transparent;
-}
-.planner-list::-webkit-scrollbar-thumb {
-  background-color: var(--color-lilas-doux);
-  opacity: 0.5;
-  border-radius: 10px;
-}
-
-/* --- 4.4 Post-its (Pensées) --- */
-.daily-layout {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  justify-content: space-between;
-  overflow: hidden;
-}
-
-.planner-scroll-area {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-.post-it-area {
-  margin-top: 15px;
-  padding-top: 10px;
-  border-top: 2px dashed rgba(255, 255, 255, 0.5);
-  max-height: 180px;
-  width: 100%;
-}
-
-.post-it-grid {
-  display: flex;
-  gap: 15px;
-  flex-wrap: nowrap;
-  overflow-x: auto;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  scroll-behavior: smooth;
-  width: 100%;
-}
-
-.post-it-grid::-webkit-scrollbar {
-  height: 6px;
-}
-.post-it-grid::-webkit-scrollbar-track {
-  background: transparent;
-}
-.post-it-grid::-webkit-scrollbar-thumb {
-  background-color: var(--color-lilas-doux);
-  opacity: 0.5;
-  border-radius: 10px;
-}
-
-.post-it {
-  background-color: var(--color-rose-poudre);
-  color: white;
-  padding: 15px;
-  border-radius: 2px 2px 15px 2px;
-  box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2);
-  font-family: 'Quicksand', sans-serif;
-  font-size: 0.9rem;
-  font-style: italic;
-  min-width: 140px;
-  max-width: 140px;
-  min-height: 100px;
-  transform: rotate(-1deg);
-  transition: transform 0.2s;
-  position: relative;
-  display: flex;
-  flex: 0 0 auto;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  word-wrap: break-word;
-}
-
-.post-it:nth-child(even) {
-  transform: rotate(1deg);
-  background-color: var(--color-lilas-doux);
-}
-
-.post-it:hover {
-  transform: scale(1.05) rotate(0deg);
-  z-index: 10;
-}
-
-.post-it-pin {
-  position: absolute;
-  top: -8px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 1rem;
-}
-
-.post-it-close {
-  position: absolute;
-  top: 2px;
-  right: 5px;
-  font-style: normal;
-  font-weight: bold;
-  cursor: pointer;
-  color: rgba(255, 255, 255, 0.7);
-  font-size: 1.1rem;
-  transition: color 0.2s;
-  background: none;
-  border: none;
-  padding: 0;
-}
-
-.post-it-close:hover {
-  color: white;
-}
-
-/* --- 4.5 Write View (Atelier Écriture) --- */
-.write-grid {
-  display: flex;
-  flex-direction: column;
-  width: 90%;
-  height: 100%;
-}
-
-.category-selector {
-  display: flex;
-  gap: 12px;
-  margin-bottom: 25px;
-}
-
-.date-group {
-  margin-bottom: 20px;
-  display: flex;
-  gap: 15px;
-  justify-content: space-between;
-}
-
-.date-group .date {
-  width: 90%;
-}
-.date-group .hour {
-  width: 10%;
-}
-
-.date-label {
-  font-size: 0.8rem;
-  opacity: 0.7;
-  margin-bottom: 5px;
-  display: block;
-}
-
-.write-actions {
-  margin-top: 30px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-/* ==========================================================================
-   5. LOGIN & AUTHENTIFICATION
-   ========================================================================== */
-.login-container {
-  width: 100%;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: var(--bg-color);
-}
-
-.login-card {
-  width: 350px;
-  padding: 40px;
-  text-align: center;
-}
-
-.login-header h1 {
-  margin: 0;
-  color: var(--color-profond);
-  font-size: 2rem;
-}
-
-.login-header p {
-  color: var(--color-lilas-doux);
-  margin-bottom: 30px;
-  font-weight: 500;
-}
-
-.login-form {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.input-group {
-  text-align: left;
-}
-
-.login-submit {
-  margin-top: 10px;
-  width: 100%;
-  padding: 15px !important;
-  font-size: 1rem;
-}
-
-.login-error {
-  color: #e74c3c;
-  font-size: 0.85rem;
-  margin: 0;
-  font-weight: 600;
-}
-
-.logout-button {
-  -webkit-app-region: no-drag;
-  background: transparent;
-  border: 1px solid var(--color-lilas-doux);
-  color: var(--color-lilas-doux);
-  border-radius: 8px;
-  font-size: 0.7rem;
-  cursor: pointer;
-  margin-left: 15px;
-  margin-right: auto;
-  transition: all 0.2s;
-}
-
-.logout-button:hover {
-  background: var(--color-lilas-vif);
-  color: white;
-  border-color: var(--color-lilas-vif);
-}
-
-/* ==========================================================================
-   6. MODAL (OVERLAYS)
-   ========================================================================== */
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(70, 47, 95, 0.4);
-  backdrop-filter: blur(4px);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
-
-.modal-content {
-  width: 350px;
-  padding: 30px;
-  text-align: center;
-  -webkit-app-region: no-drag;
-  animation: modalPop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-.modal-title {
-  margin-top: 0;
-  color: var(--color-lilas-vif);
-  font-size: 1.5rem;
-  margin-bottom: 15px;
-}
-
-.modal-message {
-  color: var(--color-profond);
-  margin-bottom: 25px;
-  line-height: 1.4;
-}
-
-.modal-actions {
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-}
-
-@keyframes modalPop {
-  0% {
-    opacity: 0;
-    transform: scale(0.8);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
 }

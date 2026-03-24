@@ -1,0 +1,94 @@
+{
+  "greetings": [
+    "System online. Welcome back, Esiah.",
+    "The night is young. Let's get to work.",
+    "Mainframe synchronized. Awaiting input, Esiah.",
+    "Encryption protocols active. Secure session started.",
+    "The shadows await your command, Esiah."
+  ],
+  "login": {
+    "title": "WAYNE TECH ⚡",
+    "requestAccess": "Bypass Request",
+    "welcomeHome": "Biometric Authentication",
+    "username": "ENCRYPTED_ID",
+    "usernamePlaceholder": "Enter Identity",
+    "password": "PASSKEY",
+    "passwordPlaceholder": "••••••••",
+    "processing": "Decrypting...",
+    "join": "Initialize",
+    "unlock": "Authorize",
+    "toggleToLogin": "Return to Terminal",
+    "toggleToRegister": "Request System Override",
+    "modalWaitTitle": "Queueing",
+    "modalWaitMsg": "Access request added to the manual firewall queue.",
+    "modalOops": "Warning",
+    "modalErrorTitle": "Auth Breach",
+    "modalErrorUnreachable": "Bat-Computer Offline.",
+    "modalErrorUnexpected": "Kernel panic: unknown error.",
+    "modalErrorInvalidData": "Invalid credentials. Protocol Zero engaged."
+  },
+  "daily": {
+    "upcoming": "Tactical Overview 🚀",
+    "todayIs": "Timestamp:",
+    "loading": "Fetching mainframe data...",
+    "nothingPlanned": "No threats detected. Grid is clear.",
+    "for": "T-Date",
+    "deleteItem": "Purge",
+    "deleteNote": "Wipe",
+    "plannerTitle": "Mission Log 🚀",
+    "notesTitle": "Encrypted Intel 🧠",
+    "modalDeleteTitle": "Confirm Purge",
+    "modalDeleteMsg": "Permanently erase this record from the local drive?",
+    "modalDeleteError": "Erase command failed."
+  },
+  "mood": {
+    "back": "Return",
+    "history": "Archives",
+    "historyTitle": "Condition History",
+    "feelingTitle": "Current Vital Signs?",
+    "noHistory": "Logs purged.",
+    "yesterday": "Previous:",
+    "today": "Current:",
+    "placeholderUpdate": "Append status...",
+    "placeholderNew": "Quick report...",
+    "btnUpdate": "Sync",
+    "btnSubmit": "Commit Log",
+    "savedTitle": "Uploaded 🚀",
+    "savedMsg": "Biometric status synchronized.",
+    "errorTitle": "Failure",
+    "errorMsg": "Sync interrupt: database locked."
+  },
+  "write": {
+    "tabGoal": "🎯 Objective",
+    "tabEvent": "📅 Event",
+    "tabThought": "💭 Intel",
+    "lblDate": "Target:",
+    "lblTime": "Window:",
+    "placeholder": "Enter parameters...",
+    "btnCancel": "Abort",
+    "btnSave": "Execute",
+    "savedTitle": "Encrypted 🚀",
+    "savedMsg": "Data safely stored in the Bat-Cave servers.",
+    "errorTitle": "Error",
+    "errorMsg": "Write protected: partition full."
+  },
+  "bento": {
+    "weather": "Atmospheric Radar",
+    "now": "Current",
+    "tmrw": "+24h Forecast",
+    "spotify": "Frequencies",
+    "notPlaying": "Silent Mode",
+    "connect": "Link Comms"
+  },
+  "modal": {
+    "confirm": "Execute",
+    "cancel": "Abort",
+    "ok": "Acknowledge"
+  },
+  "app": {
+    "loading": "Booting WayneOS... 🚀",
+    "logout": "Terminal Exit",
+    "btnWrite": "New Command",
+    "btnDashboard": "Console"
+  }
+}

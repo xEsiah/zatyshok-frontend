@@ -1,0 +1,161 @@
+/* ==========================================================================
+   DAILY VIEW
+   ========================================================================== */
+.planner-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 20px;
+  margin: 10px;
+}
+
+.planner-item {
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+  box-shadow:
+    4px 4px 8px var(--shadow-dark),
+    -4px -4px 8px var(--shadow-light);
+  height: 70px;
+  box-sizing: border-box;
+}
+
+.planner-icon {
+  font-size: 1.2rem;
+}
+.planner-text {
+  font-weight: 600;
+}
+
+.planner-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+  max-height: calc((70px * 3) + (10px * 3));
+  overflow-y: auto;
+  padding-right: 10px;
+  padding-left: 5px;
+  padding-bottom: 15px;
+  padding-top: 15px;
+}
+
+.planner-list::-webkit-scrollbar {
+  width: 6px;
+}
+.planner-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+.planner-list::-webkit-scrollbar-thumb {
+  background-color: var(--color-lilas-doux);
+  opacity: 0.5;
+  border-radius: 10px;
+}
+
+/* --- 4.4 Post-its (Pensées) --- */
+.daily-layout {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-between;
+  overflow: hidden;
+}
+
+.planner-scroll-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.post-it-area {
+  margin-top: 15px;
+  padding-top: 10px;
+  border-top: 2px dashed rgba(255, 255, 255, 0.5);
+  max-height: 180px;
+  width: 100%;
+}
+
+.post-it-grid {
+  display: flex;
+  gap: 15px;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  scroll-behavior: smooth;
+  width: 100%;
+}
+
+.post-it-grid::-webkit-scrollbar {
+  height: 6px;
+}
+.post-it-grid::-webkit-scrollbar-track {
+  background: transparent;
+}
+.post-it-grid::-webkit-scrollbar-thumb {
+  background-color: var(--color-lilas-doux);
+  opacity: 0.5;
+  border-radius: 10px;
+}
+
+.post-it {
+  background-color: var(--color-rose-poudre);
+  color: white;
+  padding: 15px;
+  border-radius: 2px 2px 15px 2px;
+  box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2);
+  font-family: 'Quicksand', sans-serif;
+  font-size: 0.9rem;
+  font-style: italic;
+  min-width: 140px;
+  max-width: 140px;
+  min-height: 100px;
+  transform: rotate(-1deg);
+  transition: transform 0.2s;
+  position: relative;
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  word-wrap: break-word;
+}
+
+.post-it:nth-child(even) {
+  transform: rotate(1deg);
+  background-color: var(--color-lilas-doux);
+}
+
+.post-it:hover {
+  transform: scale(1.05) rotate(0deg);
+  z-index: 10;
+}
+
+.post-it-pin {
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1rem;
+}
+
+.post-it-close {
+  position: absolute;
+  top: 2px;
+  right: 5px;
+  font-style: normal;
+  font-weight: bold;
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1.1rem;
+  transition: color 0.2s;
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+.post-it-close:hover {
+  color: white;
+}
