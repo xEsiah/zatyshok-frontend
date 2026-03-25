@@ -1,11 +1,10 @@
-# Затишок (Zatyshok) 💌
+# Затишок (Zatyshok)
 
 > A cozy, minimalist moodboard and productivity suite built with Electron, React, and TypeScript.
 
 [![Framework](https://img.shields.io/badge/Framework-Electron-blue)](https://www.electronjs.org/)
 [![Library](https://img.shields.io/badge/Library-React-61dafb)](https://reactjs.org/)
 [![Language](https://img.shields.io/badge/Language-TypeScript-blue)](https://www.typescriptlang.org/)
-[![Style](https://img.shields.io/badge/Style-TailwindCSS-06b6d4)](https://tailwindcss.com/)
 
 **Zatyshok** (Ukrainian for _Cozy/Comfort_) is a personal desktop application designed to create a warm, organized digital space. It combines emotional tracking (moodboard) with functional productivity tools.
 
@@ -13,29 +12,19 @@
 
 ## ✨ Features
 
-- 🛠 **Productivity Hub**: Manage your daily tasks and schedule.
-- 🎭 **Mood Tracking**: Log and visualize your emotional journey.
-- 📅 **Calendar**: Keep track of upcoming events and goals.
-- 🔒 **Secure Access**: Manual validation system for private user access.
+- 🛠 **Productivity Hub**: Manage your daily tasks, schedule, and events.
+- 🎭 **Mood Tracking**: Log and visualize your emotional journey with a browsable history.
+- 🎵 **Spotify Integration**: Control your music and see what's currently playing directly in the app.
+- 🎨 **Customizable Themes**: Personalize the application's look and feel with custom palettes, powered by an i18n-like architecture for easy theming.
+- � **Secure Access**: Manual validation system for private user access.
 - 🖥 **Native Experience**: Cross-platform desktop app powered by Electron.
 
 ---
 
 ## 🗺️ Roadmap & Upcoming Updates
 
-### 🎨 UI/UX Enhancements
-
-- [ ] Improve scroll behavior (Horizontal for post-its, vertical for schedule).
-
-### 📊 Features & Modules
-
-- [ ] **Habit Tracker** : Integrated habit monitoring with tabular data visualization.
-- [ ] **Mood History** : Browsable archive for past statuses and mood logs.
-- [ ] **Smart Calendar Overview** : Apple-style event visualization and reminders.
-
-### ⚙️ Technical & Integrations
-
-- [ ] **Spotify API** : Real-time music control and "Now Playing" widgets.
+- [ ] **Smart Calendar View**: A redesigned, Apple-style calendar for a more intuitive overview of your events.
+- [ ] **Habit Tracker**: Track and visualize your habits to build better routines.
 
 ---
 
