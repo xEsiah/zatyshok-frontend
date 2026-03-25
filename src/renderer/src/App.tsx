@@ -19,10 +19,11 @@ function AppContent(): JSX.Element {
       const userId = Number(await window.api.getStoreValue('user_id'))
 
       if (token && userId) {
-        let role: 'him' | 'her' | 'default' = 'default'
+        let role: 'him' | 'her' | 'art' | 'default' = 'default'
 
         if (userId === 1) role = 'her'
         else if (userId === 2) role = 'him'
+        else if (userId === 3) role = 'art'
 
         setUserRole(role)
         document.documentElement.setAttribute('data-theme', role)

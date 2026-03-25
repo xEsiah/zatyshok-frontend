@@ -5,18 +5,18 @@
    VARIABLES & BASE (LES 3 THEMES)
    ========================================================================== */
 
-/* THÈME PAR DÉFAUT */
+/* --- THÈME PAR DÉFAUT (Vibe Cozy/Latte) --- */
 :root,
 [data-theme='default'] {
-  --color-rose-poudre: #a9a9a9;
-  --color-lilas-vif: #6c757d;
-  --color-lilas-doux: #adb5bd;
-  --color-profond: #343a40;
+  --color-rose-poudre: #d6ad94;
+  --color-lilas-vif: #8d7d77;
+  --color-lilas-doux: #bcaaa4;
+  --color-profond: #4e342e;
 
-  --bg-color: #f8f9fa;
-  --card-bg: #e9ecef;
+  --bg-color: #faf7f2;
+  --card-bg: #ffffff;
   --shadow-light: #ffffff;
-  --shadow-dark: #ced4da;
+  --shadow-dark: #e0d8cf;
   --radius-bento: 24px;
 }
 
@@ -34,8 +34,6 @@
 }
 
 /* THÈME POUR TOI (him) */
-@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&display=swap');
-
 [data-theme='him'] {
   --color-rose-poudre: #2c3e50;
   --color-lilas-vif: #ffd31d;
@@ -90,6 +88,39 @@
   background: #1c2128;
   border: 1px solid #2d3436;
   color: var(--color-lilas-vif);
+}
+
+/* --- THÈME ART (Terracotta & Teal) --- */
+[data-theme='art'] {
+  --color-rose-poudre: #d1603d;
+  --color-lilas-vif: #456b6f;
+  --color-lilas-doux: #8e9775;
+  --color-profond: #4a2e2b;
+
+  --bg-color: #f4ebd9;
+  --card-bg: #efe5d1;
+  --shadow-light: #fdfaf3;
+  --shadow-dark: #d8cdb8;
+  --radius-bento: 18px;
+
+  --font-art: 'Quicksand', sans-serif;
+}
+
+[data-theme='art'] body {
+  font-family: var(--font-art);
+}
+
+[data-theme='art'] .soft-ui {
+  border: 1px solid rgba(74, 46, 43, 0.1);
+}
+
+[data-theme='art'] .soft-input,
+[data-theme='art'] .soft-textarea {
+  background: #ebe0c8;
+  color: var(--color-profond);
+  box-shadow:
+    inset 3px 3px 6px #d8cdb8,
+    inset -3px -3px 6px #fdfaf3;
 }
 
 body {

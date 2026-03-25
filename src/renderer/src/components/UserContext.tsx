@@ -2,9 +2,10 @@ import { createContext, useContext, useState, JSX, ReactNode } from 'react'
 import herData from '../locales/her.json'
 import himData from '../locales/him.json'
 import defaultData from '../locales/default.json'
+import artData from '../locales/art.json'
 
 type Translation = typeof defaultData
-export type Role = 'him' | 'her' | 'default'
+export type Role = 'him' | 'her' | 'default' | 'art'
 
 interface UserContextType {
   userRole: Role
@@ -17,7 +18,8 @@ const UserContext = createContext<UserContextType | undefined>(undefined)
 const translations: Record<Role, Translation> = {
   him: himData,
   her: herData,
-  default: defaultData
+  default: defaultData,
+  art: artData
 }
 
 export function UserProvider({ children }: { children: ReactNode }): JSX.Element {
