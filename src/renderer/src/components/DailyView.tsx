@@ -133,7 +133,18 @@ export function DailyView(): JSX.Element {
           </small>
           <div className="post-it-grid">
             {thoughts.map((note) => (
-              <div key={note.id} className="post-it">
+              <div
+                key={note.id}
+                className="post-it"
+                style={{
+                  fontSize:
+                    note.text.length > 80
+                      ? '0.65rem'
+                      : note.text.length > 40
+                        ? '0.75rem'
+                        : '0.85rem'
+                }}
+              >
                 <div className="post-it-pin">📍</div>
                 <button
                   className="post-it-close"

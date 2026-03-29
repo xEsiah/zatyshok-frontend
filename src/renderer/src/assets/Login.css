@@ -11,8 +11,9 @@
 }
 
 .login-card {
-  width: 350px;
-  padding: 40px;
+  width: 90vw;
+  max-width: 400px;
+  padding: 5vh 5vw;
   text-align: center;
 }
 

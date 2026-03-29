@@ -77,9 +77,38 @@ function AppContent(): JSX.Element {
     <>
       <div className="title-bar">
         <h1>{t.login.title}</h1>
-        <button onClick={handleLogout} className="logout-button">
+        <button onClick={handleLogout} className="logout-button no-drag" title="Disconnect">
           {t.app.logout}
         </button>
+        <div className="layout-controls no-drag">
+          <button onClick={() => window.api.minimizeWindow()} title="Reduce" className="layout-btn">
+            &minus;
+          </button>
+          <button
+            onClick={() => window.api.setLayout('full')}
+            title="Full Screen"
+            className="layout-btn"
+          >
+            🔲
+          </button>
+          <button
+            onClick={() => window.api.setLayout('standard')}
+            title="80% Layout"
+            className="layout-btn"
+          >
+            ⬜
+          </button>
+          <button
+            onClick={() => window.api.setLayout('split')}
+            title="Split View (50%)"
+            className="layout-btn"
+          >
+            🌓
+          </button>
+          <button onClick={() => window.api.closeWindow()} title="Quitter" className="layout-btn">
+            &times;
+          </button>
+        </div>
       </div>
 
       <header className="header-area">
@@ -90,7 +119,9 @@ function AppContent(): JSX.Element {
         </button>
       </header>
 
-      {isWriting ? <WriteView onBack={() => setIsWriting(false)} /> : <BentoView />}
+      <main className="view-wrapper">
+        {isWriting ? <WriteView onBack={() => setIsWriting(false)} /> : <BentoView />}
+      </main>
     </>
   )
 }

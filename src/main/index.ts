@@ -1,4 +1,5 @@
-import { app, shell, BrowserWindow, dialog, ipcMain } from 'electron'
+/* eslint-disable prettier/prettier */
+import { app, shell, BrowserWindow, dialog, ipcMain, screen } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
@@ -20,24 +21,22 @@ autoUpdater.forceDevUpdateConfig = true
 const StoreClass = (Store as any).default || Store
 const store = new StoreClass()
 
+let mainWindow: BrowserWindow
+
 function createWindow(): void {
-  const mainWindow = new BrowserWindow({
-    width: 1600,
-    height: 900,
-    minWidth: 960,
-    minHeight: 900,
-    maxHeight: 1080,
-    maxWidth: 1920,
+  const { width, height } = screen.getPrimaryDisplay().workAreaSize
+
+  mainWindow = new BrowserWindow({
+    width: Math.floor(width * 0.8), // Layout 2 par défaut
+    height: Math.floor(height * 0.8), // Layout 2 par défaut
+    minWidth: Math.floor(width * 0.4), // Un peu moins de 50% pour éviter les blocages de rounding
+    minHeight: Math.floor(height * 0.4),
+    resizable: false,
     show: false,
     frame: false,
     autoHideMenuBar: true,
     backgroundColor: '#E8E5EE',
     titleBarStyle: 'hidden',
-    titleBarOverlay: {
-      color: '#e8e5ee00',
-      symbolColor: '#7D5C9B',
-      height: 35
-    },
     ...(process.platform === 'linux' ? { icon } : { icon }),
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
@@ -46,6 +45,7 @@ function createWindow(): void {
   })
 
   mainWindow.on('ready-to-show', () => {
+    mainWindow.maximize() // Démarre l'appli en plein écran
     mainWindow.show()
     // On ne vérifie les updates que si on n'est pas en développement
     if (!is.dev) {
@@ -108,6 +108,58 @@ app.whenReady().then(() => {
   ipcMain.on('delete-store', (_, key) => {
     store.delete(key)
   })
+
+  // --- GESTION DES 3 LAYOUTS ---
+  ipcMain.on('set-layout', (_, layout: 'full' | 'standard' | 'split') => {
+    if (!mainWindow) return
+
+    // Récupère l'écran où se trouve actuellement la fenêtre
+    const currentDisplay = screen.getDisplayMatching(mainWindow.getBounds())
+    const { width: dW, height: dH, x: dX, y: dY } = currentDisplay.workArea
+
+    // On autorise temporairement le redimensionnement pour appliquer le changement
+    mainWindow.setResizable(true)
+
+    if (layout === 'full') {
+      mainWindow.maximize()
+    } else {
+      // Pour les modes non-full, on doit quitter l'état maximisé avant de changer les dimensions
+      if (mainWindow.isMaximized()) {
+        mainWindow.unmaximize()
+      }
+
+      if (layout === 'standard') {
+        const w = Math.floor(dW * 0.8)
+        const h = Math.floor(dH * 0.8)
+        mainWindow.setBounds({
+          x: dX + Math.floor((dW - w) / 2),
+          y: dY + Math.floor((dH - h) / 2),
+          width: w,
+          height: h
+        })
+      } else if (layout === 'split') {
+        const bounds = mainWindow.getBounds()
+        const targetW = Math.floor(dW * 0.5)
+        const isAlreadySplit = Math.abs(bounds.width - targetW) < 20
+
+        if (isAlreadySplit) {
+          const isOnLeft = Math.abs(bounds.x - dX) < 50
+          const newX = isOnLeft ? dX + (dW - targetW) : dX
+          mainWindow.setPosition(newX, dY)
+        } else {
+          mainWindow.setBounds({ x: dX, y: dY, width: targetW, height: dH })
+        }
+      }
+    }
+
+    // On verrouille à nouveau la fenêtre après un court délai pour laisser le temps à l'OS de finir
+    setTimeout(() => {
+      if (mainWindow) mainWindow.setResizable(false)
+    }, 100)
+  })
+
+  ipcMain.on('window-close', () => mainWindow?.close())
+  ipcMain.on('window-minimize', () => mainWindow?.minimize())
 
   createWindow()
 
