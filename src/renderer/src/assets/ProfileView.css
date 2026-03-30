@@ -145,13 +145,20 @@
     -3px -3px 6px var(--shadow-light);
 }
 
+.soft-btn-mini:hover {
+  transform: translateY(-1px);
+  color: var(--color-profond);
+  box-shadow: 6px 6px 12px var(--shadow-dark);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 .soft-btn-mini.save {
-  background: #a5d6a7;
-  color: #2e7d32;
+  background: var(--color-lilas-vif);
+  color: white;
 }
 .soft-btn-mini.cancel {
-  background: #ef9a9a;
-  color: #c62828;
+  background-color: var(--color-rose-poudre);
+  color: white;
 }
 
 /* Statistiques */

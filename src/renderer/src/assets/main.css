@@ -356,7 +356,7 @@ small {
 .soft-input,
 .soft-textarea {
   width: 100%;
-  background: #e8e5ee;
+  background: var(--bg-color);
   border: none;
   padding: 12px 15px;
   border-radius: 12px;

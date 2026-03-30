@@ -1,6 +1,10 @@
 /* ==========================================================================
    WRITE VIEW
    ========================================================================== */
+[data-theme='him'] input:is([type='date'], [type='time'])::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+  cursor: pointer;
+}
 .write-container {
   display: flex;
   justify-content: center;

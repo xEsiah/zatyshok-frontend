@@ -54,9 +54,10 @@ export function Login({ onLoginSuccess }: LoginProps): JSX.Element {
           window.api.setStoreValue('user_id', String(data.userId))
           window.api.setStoreValue('user_role', data.role || 'default')
 
+          window.api.setStoreValue('profile_picture', data.profilePicture || '')
+
           setUserId(String(data.userId))
           setProfilePicture(data.profilePicture || null)
-
           setUserRole((data.role as Role) || 'default')
 
           onLoginSuccess()

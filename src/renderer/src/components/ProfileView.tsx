@@ -69,7 +69,7 @@ export function ProfileView({ onBack }: { onBack: () => void }): JSX.Element {
     if (!emailRegex.test(cleanEmail)) {
       showModal({
         title: t.login.modalOops,
-        message: t.profile.errorEmail, // Traduction dynamique
+        message: t.profile.errorEmail,
         type: 'alert'
       })
       return
@@ -78,7 +78,7 @@ export function ProfileView({ onBack }: { onBack: () => void }): JSX.Element {
     if (cleanUsername.length < 3) {
       showModal({
         title: t.login.modalOops,
-        message: t.profile.errorUsername, // Traduction dynamique
+        message: t.profile.errorUsername,
         type: 'alert'
       })
       return
