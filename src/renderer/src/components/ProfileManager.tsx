@@ -12,13 +12,14 @@ export function ProfileManager({ onOpen }: { onOpen: () => void }): JSX.Element 
 
   return (
     <img
+      title="Edit profile"
       src={currentImg}
       alt="Profile"
       className="profile-img-nav"
       onClick={onOpen}
       style={{
-        width: '40px',
-        height: '40px',
+        width: '80px',
+        height: '80px',
         borderRadius: '50%',
         cursor: 'pointer',
         border: '2px solid var(--color-lilas-vif)',

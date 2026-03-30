@@ -62,7 +62,7 @@ function AppContent(): JSX.Element {
     window.api.deleteStoreValue('user_token')
     window.api.deleteStoreValue('username')
     window.api.deleteStoreValue('user_id')
-    window.api.deleteStoreValue('user_role') // NOUVEAU
+    window.api.deleteStoreValue('user_role')
     window.api.deleteStoreValue('profile_picture')
 
     setIsAuthenticated(false)
@@ -129,6 +129,7 @@ function AppContent(): JSX.Element {
         <div className="navigation-bar">
           <div className="nav-left">
             <button
+              title="Toggle Write/ Dashboard view"
               onClick={() => {
                 setIsWriting(!isWriting)
                 setIsProfileOpen(false)

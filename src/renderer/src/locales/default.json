@@ -87,11 +87,15 @@
     "btnDashboard": "Dashboard"
   },
   "profile": {
-    "title": "My Profile 👤",
-    "statsMoods": "Moods ✨",
+    "title": "Profile 👤",
+    "statsMoods": "Moods",
     "statsGoals": "Goals 🎯",
-    "statsEvents": "Events 📅",
+    "statsEvents": "Events",
     "statsNotes": "Notes 📝",
-    "btnBack": "Back to Dashboard"
+    "btnBack": "Back",
+    "errorEmail": "The email address is invalid. ❌",
+    "errorUsername": "Username must be at least 3 characters.",
+    "errorAvatar": "Failed to upload profile picture. 🖼️",
+    "errorUpdate": "An error occurred while updating."
   }
 }

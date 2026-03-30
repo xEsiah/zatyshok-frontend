@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&display=swap');
 
 /* ==========================================================================
-   VARIABLES & BASE (LES 3 THEMES)
+   VARIABLES & BASE (LES 4 THÈMES)
    ========================================================================== */
 
 /* --- THÈME PAR DÉFAUT (Vibe Cozy/Latte) --- */
@@ -20,7 +20,7 @@
   --radius-bento: 24px;
 }
 
-/* THÈME POUR ELLE (cute) */
+/* --- THÈME POUR ELLE (Her - Pink/Purple) --- */
 [data-theme='her'] {
   --color-rose-poudre: #d0a3c9;
   --color-lilas-vif: #b174e8;
@@ -33,7 +33,7 @@
   --shadow-dark: #c4bccb;
 }
 
-/* THÈME POUR TOI (him) */
+/* --- THÈME POUR TOI (Him - Wayne Tech) --- */
 [data-theme='him'] {
   --color-rose-poudre: #2c3e50;
   --color-lilas-vif: #ffd31d;
@@ -45,24 +45,37 @@
   --shadow-light: #1a1e26;
   --shadow-dark: #000000;
   --radius-bento: 12px;
-
   --font-dev: 'Fira Code', monospace;
 }
 
+/* --- THÈME ART & ART-FR (Terracotta & Teal) --- */
+[data-theme='art'],
+[data-theme='artFR'],
+[data-role='art'],
+[data-role='artFR'] {
+  --color-rose-poudre: #d1603d; /* Terracotta */
+  --color-lilas-vif: #456b6f; /* Teal */
+  --color-lilas-doux: #8e9775; /* Sage */
+  --color-profond: #4a2e2b;
+
+  --bg-color: #f4ebd9; /* Papier parchemin */
+  --card-bg: #efe5d1;
+  --shadow-light: #fdfaf3;
+  --shadow-dark: #d8cdb8;
+  --radius-bento: 18px;
+  --font-art: 'Quicksand', sans-serif;
+}
+
+/* ==========================================================================
+   SPÉCIFICITÉS PAR THÈME
+   ========================================================================== */
+
+/* --- Overrides HIM --- */
 [data-theme='him'] body,
 [data-theme='him'] button,
 [data-theme='him'] input,
 [data-theme='him'] textarea {
   font-family: var(--font-dev) !important;
-}
-
-[data-theme='him'] small,
-[data-theme='him'] .mood-label,
-[data-theme='him'] .api-label {
-  color: var(--color-lilas-doux) !important;
-  opacity: 1;
-  text-transform: uppercase;
-  letter-spacing: 1px;
 }
 
 [data-theme='him'] .soft-ui {
@@ -72,56 +85,34 @@
     -5px -5px 15px #151921;
 }
 
-[data-theme='him'] .soft-input,
-[data-theme='him'] .soft-textarea {
-  background: #080a0e;
-  color: var(--color-lilas-vif);
-  border: 1px solid #1c2128;
-}
-
-[data-theme='him'] .soft-btn-primary {
-  background: var(--color-lilas-vif);
-  color: #000000;
-}
-
-[data-theme='him'] .nav-button {
-  background: #1c2128;
-  border: 1px solid #2d3436;
-  color: var(--color-lilas-vif);
-}
-
-/* --- THÈME ART (Terracotta & Teal) --- */
-[data-theme='art'] {
-  --color-rose-poudre: #d1603d;
-  --color-lilas-vif: #456b6f;
-  --color-lilas-doux: #8e9775;
-  --color-profond: #4a2e2b;
-
-  --bg-color: #f4ebd9;
-  --card-bg: #efe5d1;
-  --shadow-light: #fdfaf3;
-  --shadow-dark: #d8cdb8;
-  --radius-bento: 18px;
-
-  --font-art: 'Quicksand', sans-serif;
-}
-
-[data-theme='art'] body {
+/* --- Overrides ART / ART-FR --- */
+/* Correction des espaces ici pour que les classes enfants soient ciblées */
+[data-theme='art'] body,
+[data-theme='artFR'] body,
+[data-role='art'] body,
+[data-role='artFR'] body {
   font-family: var(--font-art);
 }
 
-[data-theme='art'] .soft-ui {
-  border: 1px solid rgba(74, 46, 43, 0.1);
+/* On cible les éléments soft-ui à l'intérieur du thème art */
+:is([data-theme='art'], [data-theme='artFR'], [data-role='art'], [data-role='artFR']) .soft-ui {
+  border: 1px solid rgba(74, 46, 43, 0.15);
+  background: var(--card-bg);
 }
 
-[data-theme='art'] .soft-input,
-[data-theme='art'] .soft-textarea {
+:is([data-theme='art'], [data-theme='artFR'], [data-role='art'], [data-role='artFR']) .soft-input,
+:is([data-theme='art'], [data-theme='artFR'], [data-role='art'], [data-role='artFR'])
+  .soft-textarea {
   background: #ebe0c8;
   color: var(--color-profond);
   box-shadow:
     inset 3px 3px 6px #d8cdb8,
     inset -3px -3px 6px #fdfaf3;
 }
+
+/* ==========================================================================
+   BASE STYLES
+   ========================================================================== */
 
 body {
   margin: 0;
@@ -334,13 +325,16 @@ small {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 90%;
-  margin-bottom: 20px;
+  width: 100%;
 }
 
-.nav-left {
-  display: flex;
-  gap: 15px;
+.nav-right {
+  img:hover {
+    filter: brightness(1.15);
+    transform: scale(1.05);
+    transition: transform 0.2s;
+    box-shadow: inset 4px 4px 8px rgba(0, 0, 0, 0.15);
+  }
 }
 
 .profile-img-btn {

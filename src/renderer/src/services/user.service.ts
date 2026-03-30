@@ -19,9 +19,11 @@ export const getMe = async (): Promise<UserProfileResponse> => {
     method: 'GET',
     headers
   })
-  const data = await response.json()
-  if (!response.ok) throw new Error(data.error || 'Failed to fetch profile')
-  return data
+  if (!response.ok) {
+    const data = await response.json().catch(() => ({}))
+    throw new Error(data.error || 'Failed to fetch profile')
+  }
+  return response.json()
 }
 
 export const uploadAvatar = async (formData: FormData): Promise<{ imageUrl: string }> => {
@@ -31,20 +33,34 @@ export const uploadAvatar = async (formData: FormData): Promise<{ imageUrl: stri
     headers,
     body: formData
   })
-  const data = await response.json()
-  if (!response.ok) throw new Error(data.error || 'Upload failed')
-  return data
+  if (!response.ok) {
+    const data = await response.json().catch(() => ({}))
+    throw new Error(data.error || 'Upload failed')
+  }
+  return response.json()
 }
 
 export const updateUserInfo = async (
   username: string,
   email: string
 ): Promise<{ message: string }> => {
-  const headers = await getHeaders(false)
+  const baseHeaders = await getHeaders(false)
+
+  const headers = {
+    ...baseHeaders,
+    'Content-Type': 'application/json'
+  }
+
   const response = await fetch(`${API_URL}/user/update-info`, {
     method: 'PATCH',
     headers,
     body: JSON.stringify({ username, email })
   })
+
+  if (!response.ok) {
+    const data = await response.json().catch(() => ({ error: 'Erreur serveur (HTML)' }))
+    throw new Error(data.error || `Update failed with status ${response.status}`)
+  }
+
   return response.json()
 }

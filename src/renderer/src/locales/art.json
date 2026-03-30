@@ -1,88 +1,92 @@
 {
   "greetings": [
-    "Prête à ajouter de la couleur aujourd'hui ?",
-    "Chaque coup de pinceau compte.",
-    "Bienvenue à la galerie, Dhélia.",
-    "Un nouveau chef-d'œuvre en vue, Dhélia ?"
+    "Ready to add some color today?",
+    "Every brushstroke counts.",
+    "Welcome to the gallery!",
+    "A new masterpiece in sight?"
   ],
   "login": {
-    "title": "ATELIER 🎨",
-    "requestAccess": "Demander une invitation",
-    "welcomeHome": "Entrée de l'Atelier",
-    "username": "ID d'Artiste",
-    "usernamePlaceholder": "Votre signature...",
-    "password": "Code d'accès",
+    "title": "STUDIO 🎨",
+    "requestAccess": "Request an invitation",
+    "welcomeHome": "Studio Entrance",
+    "username": "Artist ID",
+    "usernamePlaceholder": "Your signature...",
+    "password": "Access code",
     "passwordPlaceholder": "••••••••",
-    "badPassordConfirmation": "Les mots de passe ne correspondent pas.",
-    "processing": "Mélange des pigments...",
-    "join": "Postuler",
-    "unlock": "Entrer dans l'Atelier",
-    "toggleToLogin": "Retourner à l'Exposition",
-    "toggleToRegister": "Demander une palette"
+    "badPassordConfirmation": "Passwords do not match.",
+    "processing": "Mixing pigments...",
+    "join": "Apply",
+    "unlock": "Enter the Studio",
+    "toggleToLogin": "Return to the Exhibition",
+    "toggleToRegister": "Request a palette"
   },
   "daily": {
-    "upcoming": "Programme de l'Exposition 🖼️",
-    "todayIs": "Date de composition :",
-    "loading": "Préparation du chevalet...",
-    "nothingPlanned": "Aucun croquis aujourd'hui. Inspiration pure.",
-    "for": "Prévu pour",
-    "deleteItem": "Rayer",
-    "deleteNote": "Brûler le croquis",
-    "plannerTitle": "Plan du Chef-d'œuvre 🎨",
-    "notesTitle": "Recherches Visuelles ✍️"
+    "upcoming": "Exhibition Program 🖼️",
+    "todayIs": "Composition date:",
+    "loading": "Preparing the easel...",
+    "nothingPlanned": "No sketches today. Pure inspiration.",
+    "for": "Scheduled for",
+    "deleteItem": "Cross out",
+    "deleteNote": "Burn the sketch",
+    "plannerTitle": "Masterpiece Plan 🎨",
+    "notesTitle": "Visual Research ✍️"
   },
   "mood": {
-    "back": "Galerie",
+    "back": "Gallery",
     "history": "Collection",
-    "historyTitle": "Registres Esthétiques",
-    "feelingTitle": "Quelle est votre palette du jour ?",
-    "noHistory": "Aucun chef-d'œuvre répertorié.",
-    "yesterday": "Œuvre précédente :",
-    "today": "Tonalité actuelle :",
-    "placeholderUpdate": "Affiner les détails...",
-    "placeholderNew": "Rapide fusain...",
-    "btnUpdate": "Vernir",
-    "btnSubmit": "Signer la toile"
+    "historyTitle": "Aesthetic Records",
+    "feelingTitle": "What is your palette today?",
+    "noHistory": "No masterpieces cataloged.",
+    "yesterday": "Previous work:",
+    "today": "Current tone:",
+    "placeholderUpdate": "Refining details...",
+    "placeholderNew": "Quick charcoal sketch...",
+    "btnUpdate": "Varnish",
+    "btnSubmit": "Sign the canvas"
   },
   "write": {
     "tabGoal": "🎯 Perspective",
-    "tabEvent": "📅 Vernissage",
+    "tabEvent": "📅 Opening Night",
     "tabThought": "💭 Inspiration",
-    "lblDate": "Date de création :",
-    "lblTime": "Heure Dorée :",
-    "placeholder": "Esquissez vos pensées ici...",
-    "btnCancel": "Abandonner",
-    "btnSave": "Vernir",
-    "savedTitle": "Encadré ! ✨",
-    "savedMsg": "Votre œuvre a été ajoutée à la galerie.",
-    "errorTitle": "Erreur de pinceau",
-    "errorMsg": "Échec de sauvegarde du chef-d'œuvre."
+    "lblDate": "Creation date:",
+    "lblTime": "Golden Hour:",
+    "placeholder": "Sketch your thoughts here...",
+    "btnCancel": "Abandon",
+    "btnSave": "Varnish",
+    "savedTitle": "Framed! ✨",
+    "savedMsg": "Your work has been added to the gallery.",
+    "errorTitle": "Brush error",
+    "errorMsg": "Failed to save the masterpiece."
   },
   "bento": {
-    "weather": "Atmosphère",
-    "now": "L'Instant",
-    "tmrw": "Demain",
-    "spotify": "Bande Son",
+    "weather": "Atmosphere",
+    "now": "The Instant",
+    "tmrw": "Tomorrow",
+    "spotify": "Soundtrack",
     "notPlaying": "Silence",
-    "connect": "Lier Media"
+    "connect": "Link"
   },
   "modal": {
-    "confirm": "Exposer",
-    "cancel": "Jeter",
-    "ok": "Compris"
+    "confirm": "Exhibit",
+    "cancel": "Discard",
+    "ok": "Understood"
   },
   "app": {
-    "loading": "Installation du chevalet... 🎨",
-    "logout": "Quitter l'Atelier",
-    "btnWrite": "Nouvelle Toile",
-    "btnDashboard": "Vue de la Galerie"
+    "loading": "Setting up the easel... 🎨",
+    "logout": "Leave the Studio",
+    "btnWrite": "New Canvas",
+    "btnDashboard": "Gallery View"
   },
   "profile": {
-    "title": "Ma Galerie 🖼️",
-    "statsMoods": "Nuances 🎨",
-    "statsGoals": "Perspectives ✍️",
-    "statsEvents": "Vernissages 🥂",
-    "statsNotes": "Inspirations 📖",
-    "btnBack": "Retour à l'Atelier 🎨"
+    "title": "Self-Portrait 🎨",
+    "statsMoods": "Palettes",
+    "statsGoals": "Perspectives 🖼️",
+    "statsEvents": "Openings",
+    "statsNotes": "Inspiration 💭",
+    "btnBack": "Back to Studio",
+    "errorEmail": "Invalid signature. Incorrect email format. 🖌️",
+    "errorUsername": "Alias too short for the canvas.",
+    "errorAvatar": "Failed to load the canvas.",
+    "errorUpdate": "The varnish hasn't dried. Update failed. 🎭"
   }
 }

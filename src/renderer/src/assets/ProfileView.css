@@ -12,9 +12,11 @@
 
 .profile-grid {
   width: 95%;
+  height: 100%;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   gap: 2.5vw;
   padding: 5vh 5vw !important;
   border-radius: var(--radius-bento);
@@ -62,7 +64,7 @@
 .edit-overlay-modern {
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.3); /* Semi-transparent */
+  background: rgba(0, 0, 0, 0.3);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -76,7 +78,7 @@
 
 .profile-avatar-wrapper:hover .edit-overlay-modern {
   opacity: 1;
-  background: rgba(0, 0, 0, 0.5); /* Se fonce au hover */
+  background: rgba(0, 0, 0, 0.5);
 }
 
 .info-row {

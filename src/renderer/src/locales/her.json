@@ -47,7 +47,7 @@
     "back": "Back",
     "history": "History",
     "historyTitle": "Mood History 📖",
-    "feelingTitle": "How are you feeling today?",
+    "feelingTitle": "How are you feeling today? 🎀",
     "noHistory": "No history yet...",
     "yesterday": "Yesterday:",
     "today": "Today:",
@@ -61,8 +61,8 @@
     "errorMsg": "Error saving mood. Please try again."
   },
   "write": {
-    "tabGoal": "🎯 Goal",
-    "tabEvent": "📅 Event",
+    "tabGoal": "🎯 Dreams",
+    "tabEvent": "📅 Moments",
     "tabThought": "💭 Thought",
     "lblDate": "Date:",
     "lblTime": "Time:",
@@ -94,11 +94,15 @@
     "btnDashboard": "Dashboard"
   },
   "profile": {
-    "title": "My Secret Garden 🌸",
-    "statsMoods": "Feelings 🥰",
-    "statsGoals": "Wishes ✨",
-    "statsEvents": "Special Days 🎀",
-    "statsNotes": "Sweet Notes 💌",
-    "btnBack": "Go Home 🏠"
+    "title": "My Little Corner ✨",
+    "statsMoods": "Feelings 🎀",
+    "statsGoals": "Dreams ☁️",
+    "statsEvents": "Moments 📅",
+    "statsNotes": "Thoughts 💭",
+    "btnBack": "Go back",
+    "errorEmail": "Oops! That doesn't look like a real email... 🥺",
+    "errorUsername": "Your name is a bit too short, sweetie!",
+    "errorAvatar": "The picture didn't want to save... Try again? ✨",
+    "errorUpdate": "A tiny error stopped the update. 🌸"
   }
 }

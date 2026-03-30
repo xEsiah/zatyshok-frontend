@@ -1,0 +1,92 @@
+{
+  "greetings": [
+    "Prête à ajouter de la couleur aujourd'hui ?",
+    "Chaque coup de pinceau compte.",
+    "Bienvenue à la galerie, Dhélia.",
+    "Un nouveau chef-d'œuvre en vue, Dhélia ?"
+  ],
+  "login": {
+    "title": "ATELIER 🎨",
+    "requestAccess": "Demander une invitation",
+    "welcomeHome": "Entrée de l'Atelier",
+    "username": "ID d'Artiste",
+    "usernamePlaceholder": "Ta signature...",
+    "password": "Code d'accès",
+    "passwordPlaceholder": "••••••••",
+    "badPassordConfirmation": "Les mots de passe ne correspondent pas.",
+    "processing": "Mélange des pigments...",
+    "join": "Postuler",
+    "unlock": "Entrer dans l'Atelier",
+    "toggleToLogin": "Retourner à l'Exposition",
+    "toggleToRegister": "Demander une palette"
+  },
+  "daily": {
+    "upcoming": "Programme de l'Exposition 🖼️",
+    "todayIs": "Date de composition :",
+    "loading": "Préparation du chevalet...",
+    "nothingPlanned": "Aucun croquis aujourd'hui. Inspiration pure.",
+    "for": "Prévu pour",
+    "deleteItem": "Rayer",
+    "deleteNote": "Brûler le croquis",
+    "plannerTitle": "Plan du Chef-d'œuvre 🎨",
+    "notesTitle": "Recherches Visuelles ✍️"
+  },
+  "mood": {
+    "back": "Galerie",
+    "history": "Collection",
+    "historyTitle": "Registres Esthétiques",
+    "feelingTitle": "Quelle est ta palette du jour ?",
+    "noHistory": "Aucun chef-d'œuvre répertorié.",
+    "yesterday": "Œuvre précédente :",
+    "today": "Tonalité actuelle :",
+    "placeholderUpdate": "Affiner les détails...",
+    "placeholderNew": "Rapide fusain...",
+    "btnUpdate": "Vernir",
+    "btnSubmit": "Signer la toile"
+  },
+  "write": {
+    "tabGoal": "🎯 Perspective",
+    "tabEvent": "📅 Vernissage",
+    "tabThought": "💭 Inspiration",
+    "lblDate": "Date de création :",
+    "lblTime": "Heure Dorée :",
+    "placeholder": "Esquissez vos pensées ici...",
+    "btnCancel": "Abandonner",
+    "btnSave": "Vernir",
+    "savedTitle": "Encadré ! ✨",
+    "savedMsg": "Votre œuvre a été ajoutée à la galerie.",
+    "errorTitle": "Erreur de pinceau",
+    "errorMsg": "Échec de sauvegarde du chef-d'œuvre."
+  },
+  "bento": {
+    "weather": "Atmosphère",
+    "now": "L'Instant",
+    "tmrw": "Demain",
+    "spotify": "Bande Son",
+    "notPlaying": "Silence",
+    "connect": "Lier"
+  },
+  "modal": {
+    "confirm": "Exposer",
+    "cancel": "Jeter",
+    "ok": "Compris"
+  },
+  "app": {
+    "loading": "Installation du chevalet... 🎨",
+    "logout": "Quitter l'Atelier",
+    "btnWrite": "Nouvelle Toile",
+    "btnDashboard": "Vue de la Galerie"
+  },
+  "profile": {
+    "title": "Autoportrait 🎨",
+    "statsMoods": "Palettes",
+    "statsGoals": "Perspectives 🖼️",
+    "statsEvents": "Vernissages",
+    "statsNotes": "Inspiration 💭",
+    "btnBack": "Retour au Studio",
+    "errorEmail": "Signature invalide. Format email incorrect. 🖌️",
+    "errorUsername": "Alias trop court pour la toile.",
+    "errorAvatar": "Échec du chargement du canevas.",
+    "errorUpdate": "Le vernis n'a pas séché. Échec de l'envoi. 🎭"
+  }
+}

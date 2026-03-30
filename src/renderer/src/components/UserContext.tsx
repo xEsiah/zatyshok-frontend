@@ -5,9 +5,10 @@ import herData from '../locales/her.json'
 import himData from '../locales/him.json'
 import defaultData from '../locales/default.json'
 import artData from '../locales/art.json'
+import artDataFR from '../locales/artFR.json'
 
 type Translation = typeof defaultData
-export type Role = 'him' | 'her' | 'default' | 'art'
+export type Role = 'him' | 'her' | 'default' | 'art' | 'artFR'
 
 interface UserContextType {
   userRole: Role
@@ -25,7 +26,8 @@ const translations: Record<Role, Translation> = {
   him: himData as Translation,
   her: herData as Translation,
   default: defaultData as Translation,
-  art: artData as Translation
+  art: artData as Translation,
+  artFR: artDataFR as Translation
 }
 
 export function UserProvider({ children }: { children: ReactNode }): JSX.Element {

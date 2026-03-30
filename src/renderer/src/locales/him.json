@@ -61,8 +61,8 @@
   },
   "write": {
     "tabGoal": "🎯 Objective",
-    "tabEvent": "📅 Event",
-    "tabThought": "💭 Intel",
+    "tabEvent": "⚡ Operations",
+    "tabThought": "💾 Intel",
     "lblDate": "Target:",
     "lblTime": "Window:",
     "placeholder": "Enter parameters...",
@@ -93,11 +93,15 @@
     "btnDashboard": "Console"
   },
   "profile": {
-    "title": "KNIGHT_DOSSIER.exe 🦇",
-    "statsMoods": "Biometric Sync 📈",
-    "statsGoals": "Active Directives 🎯",
-    "statsEvents": "Tactical Ops ⚡",
-    "statsNotes": "Encrypted Intel 📁",
-    "btnBack": "Close Terminal 🖥️"
+    "title": "OPERATIONAL PROFILE 🚀",
+    "statsMoods": "Biometrics 🦾",
+    "statsGoals": "Objectives 🎯",
+    "statsEvents": "Operations ⚡",
+    "statsNotes": "Intel 💾",
+    "btnBack": "Return to Terminal",
+    "errorEmail": "Invalid frequency. Email format unrecognized. ⚠️",
+    "errorUsername": "Identity too short. 3 characters min.",
+    "errorAvatar": "Upload failure. Encryption corrupted.",
+    "errorUpdate": "System error during synchronization. 🛠️"
   }
 }

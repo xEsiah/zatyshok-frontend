@@ -1,8 +1,10 @@
 /* eslint-disable prettier/prettier */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useUser } from './UserContext'
 import { useRef, JSX, useState, useEffect, useCallback } from 'react'
 import { API_URL } from '../services/apiClient'
 import { api } from '../services'
+import { useModal } from './ModalContext'
 import '../assets/ProfileView.css'
 
 interface UserFullProfile {
@@ -14,11 +16,12 @@ interface UserFullProfile {
 
 export function ProfileView({ onBack }: { onBack: () => void }): JSX.Element {
   const { profilePicture, setProfilePicture, t } = useUser()
+  const { showModal } = useModal()
   const [profileData, setProfileData] = useState<UserFullProfile | null>(null)
 
-  // États pour l'édition
   const [isEditing, setIsEditing] = useState<boolean>(false)
   const [editForm, setEditForm] = useState({ username: '', email: '' })
+  const [isSaving, setIsSaving] = useState(false)
 
   const fileInputRef = useRef<HTMLInputElement>(null)
 
@@ -27,8 +30,8 @@ export function ProfileView({ onBack }: { onBack: () => void }): JSX.Element {
       const data = (await api.getMe()) as UserFullProfile
       setProfileData(data)
       setEditForm({ username: data.username, email: data.email })
-    } catch (err) {
-      console.error(err)
+    } catch (_err) {
+      console.error('Failed to fetch profile')
     }
   }, [])
 
@@ -48,19 +51,54 @@ export function ProfileView({ onBack }: { onBack: () => void }): JSX.Element {
         setProfilePicture(data.imageUrl)
         window.api.setStoreValue('profile_picture', data.imageUrl)
         fetchFullProfile()
-      } catch (err) {
-        console.error('Upload error', err)
+      } catch (_err) {
+        showModal({
+          title: t.login.modalErrorTitle,
+          message: t.profile.errorAvatar, // Traduction dynamique
+          type: 'alert'
+        })
       }
     }
   }
 
   const saveInfo = async (): Promise<void> => {
+    const cleanUsername = editForm.username.trim()
+    const cleanEmail = editForm.email.trim()
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+
+    if (!emailRegex.test(cleanEmail)) {
+      showModal({
+        title: t.login.modalOops,
+        message: t.profile.errorEmail, // Traduction dynamique
+        type: 'alert'
+      })
+      return
+    }
+
+    if (cleanUsername.length < 3) {
+      showModal({
+        title: t.login.modalOops,
+        message: t.profile.errorUsername, // Traduction dynamique
+        type: 'alert'
+      })
+      return
+    }
+
+    setIsSaving(true)
     try {
-      await api.updateUserInfo(editForm.username, editForm.email)
+      await api.updateUserInfo(cleanUsername, cleanEmail)
       setIsEditing(false)
-      fetchFullProfile()
-    } catch (err) {
-      console.error('Update error', err)
+      await fetchFullProfile()
+      window.api.setStoreValue('username', cleanUsername)
+    } catch (err: unknown) {
+      const errorMessage = err instanceof Error ? err.message : t.profile.errorUpdate
+      showModal({
+        title: t.login.modalOops,
+        message: errorMessage,
+        type: 'alert'
+      })
+    } finally {
+      setIsSaving(false)
     }
   }
 
@@ -76,7 +114,11 @@ export function ProfileView({ onBack }: { onBack: () => void }): JSX.Element {
         </div>
 
         <div className="profile-hero">
-          <div className="profile-avatar-wrapper" onClick={() => fileInputRef.current?.click()}>
+          <div
+            title="Edit profile picture"
+            className="profile-avatar-wrapper"
+            onClick={() => fileInputRef.current?.click()}
+          >
             <img src={currentImg} alt="Profile" className="profile-main-img" />
             <div className="edit-overlay-modern">
               <span>✎</span>
@@ -88,7 +130,11 @@ export function ProfileView({ onBack }: { onBack: () => void }): JSX.Element {
               <>
                 <div className="info-row">
                   <h1>{profileData?.username || t.app.loading}</h1>
-                  <button className="edit-info-btn" onClick={() => setIsEditing(true)}>
+                  <button
+                    title="Edit username, password & email"
+                    className="edit-info-btn"
+                    onClick={() => setIsEditing(true)}
+                  >
                     ✎
                   </button>
                 </div>
@@ -100,19 +146,25 @@ export function ProfileView({ onBack }: { onBack: () => void }): JSX.Element {
                   className="soft-input-mini"
                   value={editForm.username}
                   onChange={(e) => setEditForm({ ...editForm, username: e.target.value })}
-                  placeholder="Pseudo"
+                  disabled={isSaving}
+                  placeholder={t.login.usernamePlaceholder}
                 />
                 <input
                   className="soft-input-mini"
                   value={editForm.email}
                   onChange={(e) => setEditForm({ ...editForm, email: e.target.value })}
+                  disabled={isSaving}
                   placeholder="Email"
                 />
                 <div className="edit-confirm-actions">
-                  <button className="soft-btn-mini save" onClick={saveInfo}>
-                    ✓
+                  <button className="soft-btn-mini save" onClick={saveInfo} disabled={isSaving}>
+                    {isSaving ? '...' : '✓'}
                   </button>
-                  <button className="soft-btn-mini cancel" onClick={() => setIsEditing(false)}>
+                  <button
+                    className="soft-btn-mini cancel"
+                    onClick={() => setIsEditing(false)}
+                    disabled={isSaving}
+                  >
                     ✕
                   </button>
                 </div>
