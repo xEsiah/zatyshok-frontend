@@ -6,12 +6,14 @@
     <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
     <meta
       http-equiv="Content-Security-Policy"
-      content="default-src 'self'; 
-           script-src 'self'; 
-           style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; 
-           font-src 'self' https://fonts.gstatic.com; 
-           connect-src 'self' https://zatyshok.esiah.dev; 
-           img-src 'self' data: https://i.scdn.co https://cdn.weatherapi.com; style-src 'self' 'unsafe-inline';"
+      content="
+    default-src 'self'; 
+    script-src 'self'; 
+    style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; 
+    font-src 'self' https://fonts.gstatic.com; 
+    connect-src 'self' https://zatyshok.esiah.dev https://api.weatherapi.com; 
+    img-src 'self' data: https://i.scdn.co https://cdn.weatherapi.com https://zatyshok.esiah.dev;
+  "
     />
     <icon rel="icon" href="/src/assets/icon.png" />
   </head>

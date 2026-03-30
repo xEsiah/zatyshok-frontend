@@ -12,12 +12,14 @@
 
 ## ✨ Features
 
-- 🛠 **Productivity Hub**: Manage your daily tasks, schedule, and events.
+- 🎭 **Dynamic User Profiles**: Manage your identity with a dedicated profile view.
+- 📊 **Real-time Statistics**: Visualize your productivity at a glance (Moods, Goals, Events, and Notes counts).
+- 🖼️ **Avatar Management**: Custom profile picture upload with automatic server-side cleanup of legacy files.
+- 🛠 **Productivity Hub**: Manage your daily tasks, schedule, and events in a unified "Soft-UI" interface.
 - 🎭 **Mood Tracking**: Log and visualize your emotional journey with a browsable history.
 - 🎵 **Spotify Integration**: Control your music and see what's currently playing directly in the app.
-- 🎨 **Customizable Themes**: Personalize the application's look and feel with custom palettes, powered by an i18n-like architecture for easy theming.
-- � **Secure Access**: Manual validation system for private user access.
-- 🖥 **Native Experience**: Cross-platform desktop app powered by Electron.
+- 🎨 **Role-Based Theming**: Automatic theme switching (Her, Him, Art) based on your database-assigned role.
+- 🖥 **Native Experience**: Secured with custom Content Security Policies (CSP) for a safe desktop experience.
 
 ---
 
@@ -30,11 +32,12 @@
 
 ## 🛠 Tech Stack
 
-- **Frontend** : React.js, TypeScript, Vite
-- **Desktop Framework** : Electron
-- **State Management** : React Hooks
-- **Backend (API)** : Node.js, Express, MariaDB (via `mysql2`)
-- **Security** : Bcrypt (Password hashing), JWT/Session Tokens
+- **Frontend**: React.js, TypeScript, Vite, Tailwind CSS
+- **Desktop Framework**: Electron
+- **Backend (API)**: Node.js (Express), MariaDB
+- **File Handling**: Multer (Image processing) & FS Promises (File system cleanup)
+- **Security**: Bcrypt, Session Tokens, Strict CSP
+- **i18n**: Custom JSON-based internationalization for themes and content.
 
 ---
 

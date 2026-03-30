@@ -1,38 +1,46 @@
+/* eslint-disable prettier/prettier */
 import { JSX, useState, useEffect } from 'react'
 import { BentoView } from './components/BentoView'
 import { WriteView } from './components/WriteView'
 import { Login } from './components/Login'
 import { ModalProvider } from './components/ModalContext'
-import { UserProvider, useUser } from './components/UserContext'
+import { UserProvider, useUser, Role } from './components/UserContext'
+import { ProfileManager } from './components/ProfileManager'
+import { ProfileView } from './components/ProfileView'
 
 function AppContent(): JSX.Element {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false)
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const [isWriting, setIsWriting] = useState(false)
-  const [greeting, setGreeting] = useState<string>('')
+  const [isProfileOpen, setIsProfileOpen] = useState(false)
 
-  const { setUserRole, t } = useUser()
+  const [greeting, setGreeting] = useState<string>('')
+  const { setUserRole, setUserId, setProfilePicture, t } = useUser()
 
   const loadSession = async (): Promise<void> => {
     try {
       const token = await window.api.getStoreValue('user_token')
-      const userId = Number(await window.api.getStoreValue('user_id'))
+      const storedUserId = await window.api.getStoreValue('user_id')
+      const storedRole = await window.api.getStoreValue('user_role')
 
-      if (token && userId) {
-        let role: 'him' | 'her' | 'art' | 'default' = 'default'
-
-        if (userId === 1) role = 'her'
-        else if (userId === 2) role = 'him'
-        else if (userId === 3) role = 'art'
+      if (token && storedUserId) {
+        const userId = Number(storedUserId)
+        const role = (storedRole as Role) || 'default'
 
         setUserRole(role)
+        setUserId(String(userId))
         document.documentElement.setAttribute('data-theme', role)
+
+        const storedPdp = await window.api.getStoreValue('profile_picture')
+        setProfilePicture(typeof storedPdp === 'string' ? storedPdp : null)
+
         setIsAuthenticated(true)
       } else {
         setIsAuthenticated(false)
       }
     } catch (error) {
-      console.error('Erreur lors du chargement de la session', error)
+      console.error('Erreur session:', error)
+      setIsAuthenticated(false)
     } finally {
       setIsLoading(false)
     }
@@ -54,8 +62,13 @@ function AppContent(): JSX.Element {
     window.api.deleteStoreValue('user_token')
     window.api.deleteStoreValue('username')
     window.api.deleteStoreValue('user_id')
+    window.api.deleteStoreValue('user_role') // NOUVEAU
+    window.api.deleteStoreValue('profile_picture')
+
     setIsAuthenticated(false)
     setUserRole('default')
+    setUserId(null)
+    setProfilePicture(null)
     document.documentElement.removeAttribute('data-theme')
   }
 
@@ -63,7 +76,7 @@ function AppContent(): JSX.Element {
     return (
       <div className="login-container">
         <div className="soft-ui login-card" style={{ textAlign: 'center' }}>
-          <h2>{t.app.loading}</h2>{' '}
+          <h2>{t?.app?.loading || 'Chargement...'}</h2>
         </div>
       </div>
     )
@@ -105,7 +118,7 @@ function AppContent(): JSX.Element {
           >
             🌓
           </button>
-          <button onClick={() => window.api.closeWindow()} title="Quitter" className="layout-btn">
+          <button onClick={() => window.api.closeWindow()} title="Quit" className="layout-btn">
             &times;
           </button>
         </div>
@@ -113,14 +126,37 @@ function AppContent(): JSX.Element {
 
       <header className="header-area">
         <h2>{greeting}</h2>
-
-        <button onClick={() => setIsWriting(!isWriting)} className="nav-button">
-          {isWriting ? t.app.btnDashboard : t.app.btnWrite}
-        </button>
+        <div className="navigation-bar">
+          <div className="nav-left">
+            <button
+              onClick={() => {
+                setIsWriting(!isWriting)
+                setIsProfileOpen(false)
+              }}
+              className="nav-button"
+            >
+              {isWriting ? t.app.btnDashboard : t.app.btnWrite}
+            </button>
+          </div>
+          <div className="nav-right">
+            <ProfileManager
+              onOpen={() => {
+                setIsProfileOpen(true)
+                setIsWriting(false)
+              }}
+            />
+          </div>
+        </div>
       </header>
 
       <main className="view-wrapper">
-        {isWriting ? <WriteView onBack={() => setIsWriting(false)} /> : <BentoView />}
+        {isProfileOpen ? (
+          <ProfileView onBack={() => setIsProfileOpen(false)} />
+        ) : isWriting ? (
+          <WriteView onBack={() => setIsWriting(false)} />
+        ) : (
+          <BentoView />
+        )}
       </main>
     </>
   )

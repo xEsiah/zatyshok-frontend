@@ -8,6 +8,7 @@
     "usernamePlaceholder": "Your name",
     "password": "Password",
     "passwordPlaceholder": "••••••••",
+    "badPassordConfirmation": "Passwords do not match.",
     "processing": "Processing...",
     "join": "Join",
     "unlock": "Login",
@@ -84,5 +85,13 @@
     "logout": "Logout",
     "btnWrite": "Write",
     "btnDashboard": "Dashboard"
+  },
+  "profile": {
+    "title": "My Profile 👤",
+    "statsMoods": "Moods ✨",
+    "statsGoals": "Goals 🎯",
+    "statsEvents": "Events 📅",
+    "statsNotes": "Notes 📝",
+    "btnBack": "Back to Dashboard"
   }
 }

@@ -14,6 +14,7 @@
     "usernamePlaceholder": "Enter Identity",
     "password": "PASSKEY",
     "passwordPlaceholder": "••••••••",
+    "badPassordConfirmation": "Passwords do not match.",
     "processing": "Decrypting...",
     "join": "Initialize",
     "unlock": "Authorize",
@@ -90,5 +91,13 @@
     "logout": "Terminal Exit",
     "btnWrite": "New Command",
     "btnDashboard": "Console"
+  },
+  "profile": {
+    "title": "KNIGHT_DOSSIER.exe 🦇",
+    "statsMoods": "Biometric Sync 📈",
+    "statsGoals": "Active Directives 🎯",
+    "statsEvents": "Tactical Ops ⚡",
+    "statsNotes": "Encrypted Intel 📁",
+    "btnBack": "Close Terminal 🖥️"
   }
 }

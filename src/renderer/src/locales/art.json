@@ -13,6 +13,7 @@
     "usernamePlaceholder": "Votre signature...",
     "password": "Code d'accès",
     "passwordPlaceholder": "••••••••",
+    "badPassordConfirmation": "Les mots de passe ne correspondent pas.",
     "processing": "Mélange des pigments...",
     "join": "Postuler",
     "unlock": "Entrer dans l'Atelier",
@@ -75,5 +76,13 @@
     "logout": "Quitter l'Atelier",
     "btnWrite": "Nouvelle Toile",
     "btnDashboard": "Vue de la Galerie"
+  },
+  "profile": {
+    "title": "Ma Galerie 🖼️",
+    "statsMoods": "Nuances 🎨",
+    "statsGoals": "Perspectives ✍️",
+    "statsEvents": "Vernissages 🥂",
+    "statsNotes": "Inspirations 📖",
+    "btnBack": "Retour à l'Atelier 🎨"
   }
 }

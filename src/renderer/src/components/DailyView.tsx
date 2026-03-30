@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import '../assets/DailyView.css'
 import { JSX, useEffect, useState, useCallback } from 'react'
 import { api, CalendarEntry } from '../services'

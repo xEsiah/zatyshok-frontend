@@ -330,6 +330,34 @@ small {
   transform: translateY(-2px);
 }
 
+.navigation-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+  margin-bottom: 20px;
+}
+
+.nav-left {
+  display: flex;
+  gap: 15px;
+}
+
+.profile-img-btn {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  cursor: pointer;
+  object-fit: cover;
+  border: 2px solid var(--color-lilas-vif);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s;
+}
+
+.profile-img-btn:hover {
+  transform: scale(1.05);
+}
+
 /* -- Inputs & Textareas -- */
 .soft-input,
 .soft-textarea {

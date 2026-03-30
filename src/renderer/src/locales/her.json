@@ -15,6 +15,7 @@
     "usernamePlaceholder": "Your lovely name",
     "password": "Password",
     "passwordPlaceholder": "••••••••",
+    "badPassordConfirmation": "Passwords do not match. 🥺",
     "processing": "Opening door...",
     "join": "Join",
     "unlock": "Unlock",
@@ -91,5 +92,13 @@
     "logout": "Logout",
     "btnWrite": "Write",
     "btnDashboard": "Dashboard"
+  },
+  "profile": {
+    "title": "My Secret Garden 🌸",
+    "statsMoods": "Feelings 🥰",
+    "statsGoals": "Wishes ✨",
+    "statsEvents": "Special Days 🎀",
+    "statsNotes": "Sweet Notes 💌",
+    "btnBack": "Go Home 🏠"
   }
 }

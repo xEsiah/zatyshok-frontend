@@ -37,4 +37,6 @@ export interface AuthResponse {
   token?: string
   username?: string
   userId?: number
+  profilePicture?: string | null
+  role?: string
 }

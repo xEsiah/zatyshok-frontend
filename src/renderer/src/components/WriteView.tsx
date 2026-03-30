@@ -48,7 +48,6 @@ export function WriteView({ onBack }: { onBack: () => void }): JSX.Element {
 
   return (
     <div className="write-container">
-      {/* On a retiré le style={} en ligne ici ! */}
       <div className="soft-ui write-grid">
         <div className="category-selector">
           <button
