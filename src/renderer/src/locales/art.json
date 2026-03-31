@@ -29,7 +29,12 @@
     "deleteItem": "Cross out",
     "deleteNote": "Burn the sketch",
     "plannerTitle": "Masterpiece Plan 🎨",
-    "notesTitle": "Visual Research ✍️"
+    "notesTitle": "Visual Research ✍️",
+    "iconGoal": "🎯",
+    "iconEvent": "📅",
+    "modalDeleteTitle": "Deletion",
+    "modalDeleteMsg": "Are you sure you want to remove this item?",
+    "modalDeleteError": "Failed to delete item."
   },
   "mood": {
     "back": "Gallery",

@@ -91,7 +91,9 @@ export function DailyView(): JSX.Element {
                   className="soft-ui planner-item"
                   style={{ position: 'relative' }}
                 >
-                  <span className="planner-icon">{entry.category === 'goal' ? '🎯' : '📅'}</span>
+                  <span className="planner-icon">
+                    {entry.category === 'goal' ? t.daily.iconGoal : t.daily.iconEvent}
+                  </span>
                   <div style={{ flex: 1 }}>
                     <span className="planner-text">{entry.text}</span>
                     {entryDate !== todayStr && (

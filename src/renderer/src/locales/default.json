@@ -32,6 +32,8 @@
     "deleteNote": "Delete note",
     "plannerTitle": "Daily Planner",
     "notesTitle": "Notes",
+    "iconGoal": "🎯",
+    "iconEvent": "📅",
     "modalDeleteTitle": "Deletion",
     "modalDeleteMsg": "Are you sure you want to remove this item?",
     "modalDeleteError": "Failed to delete item."
@@ -90,7 +92,7 @@
     "title": "Profile 👤",
     "statsMoods": "Moods",
     "statsGoals": "Goals 🎯",
-    "statsEvents": "Events",
+    "statsEvents": "Events 📅",
     "statsNotes": "Notes 📝",
     "btnBack": "Back",
     "errorEmail": "The email address is invalid. ❌",

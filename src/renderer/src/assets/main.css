@@ -145,6 +145,7 @@ body {
   min-height: 0;
   width: 100%;
   scrollbar-gutter: stable;
+  padding-top: 0.5vh;
   margin-bottom: 2vh;
 }
 
@@ -186,6 +187,7 @@ small {
   h1 {
     margin: 0;
     padding-left: 1%;
+    font-size: 2rem;
   }
 }
 
@@ -200,8 +202,8 @@ small {
 .layout-btn {
   background: var(--card-bg);
   border: none;
-  width: 28px;
-  height: 28px;
+  width: 32px;
+  height: 32px;
   border-radius: 8px;
   display: flex;
   align-items: center;
@@ -216,9 +218,8 @@ small {
 }
 
 .layout-btn:hover {
-  color: var(--color-profond);
   transform: translateY(-1px);
-  background-color: var(--bg-color);
+  background-color: var(--shadow-dark);
 }
 
 .layout-btn:active {

@@ -28,8 +28,13 @@
     "for": "Prévu pour",
     "deleteItem": "Rayer",
     "deleteNote": "Brûler le croquis",
-    "plannerTitle": "Plan du Chef-d'œuvre 🎨",
-    "notesTitle": "Recherches Visuelles ✍️"
+    "plannerTitle": "Plan du Chef-d'œuvre",
+    "notesTitle": "Recherches Visuelles ✍️",
+    "iconGoal": "🎯",
+    "iconEvent": "📅",
+    "modalDeleteTitle": "Effacement",
+    "modalDeleteMsg": "Veux-tu vraiment effacer ce dessin ?",
+    "modalDeleteError": "Echec de l'effacement."
   },
   "mood": {
     "back": "Galerie",
@@ -80,8 +85,8 @@
   "profile": {
     "title": "Autoportrait 🎨",
     "statsMoods": "Palettes",
-    "statsGoals": "Perspectives 🖼️",
-    "statsEvents": "Vernissages",
+    "statsGoals": "Perspectives 🎯",
+    "statsEvents": "Vernissages 📅",
     "statsNotes": "Inspiration 💭",
     "btnBack": "Retour au Studio",
     "errorEmail": "Signature invalide. Format email incorrect. 🖌️",

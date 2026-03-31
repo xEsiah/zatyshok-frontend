@@ -38,6 +38,8 @@
     "deleteNote": "Wipe",
     "plannerTitle": "Mission Log 🚀",
     "notesTitle": "Encrypted Intel 🧠",
+    "iconGoal": "🎯",
+    "iconEvent": "📅",
     "modalDeleteTitle": "Confirm Purge",
     "modalDeleteMsg": "Permanently erase this record from the local drive?",
     "modalDeleteError": "Erase command failed."

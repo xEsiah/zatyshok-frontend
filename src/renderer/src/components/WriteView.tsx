@@ -14,7 +14,7 @@ export function WriteView({ onBack }: { onBack: () => void }): JSX.Element {
   const todayStr = new Date().toLocaleDateString('en-CA')
 
   const { showModal } = useModal()
-  const { t } = useUser() // 👈
+  const { t } = useUser()
 
   useEffect((): void => {
     textareaRef.current?.focus()
@@ -24,12 +24,23 @@ export function WriteView({ onBack }: { onBack: () => void }): JSX.Element {
     if (!text.trim()) return
     const finalText = time ? `[${time}] ${text}` : text
 
+    let momentValue: 'morning' | 'afternoon' | 'evening' | 'night' = 'morning'
+    const hourToCheck = time ? parseInt(time.split(':')[0], 10) : new Date().getHours()
+
+    if (hourToCheck >= 12 && hourToCheck < 18) {
+      momentValue = 'afternoon'
+    } else if (hourToCheck >= 18 && hourToCheck < 22) {
+      momentValue = 'evening'
+    } else if (hourToCheck >= 22 || hourToCheck < 5) {
+      momentValue = 'night'
+    }
+
     try {
       await api.postCalendar({
         text: finalText,
         category,
         date: hasDate ? date : todayStr,
-        moment: 'morning'
+        moment: momentValue
       })
       showModal({
         title: t.write.savedTitle,

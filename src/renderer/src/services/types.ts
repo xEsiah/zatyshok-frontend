@@ -2,7 +2,7 @@ export interface CalendarEntry {
   id?: number
   text: string
   date?: string | null
-  moment: 'morning' | 'afternoon' | 'evening'
+  moment: 'morning' | 'afternoon' | 'evening' | 'night'
   category: 'note' | 'goal' | 'event'
 }
 

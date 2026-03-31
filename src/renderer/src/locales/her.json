@@ -39,6 +39,8 @@
     "deleteNote": "Delete note",
     "plannerTitle": "Your lovely day 🌸",
     "notesTitle": "Notes & Thoughts 🍃",
+    "iconGoal": "🎯",
+    "iconEvent": "📅",
     "modalDeleteTitle": "Are you sure? 🥺",
     "modalDeleteMsg": "Do you really want to remove this?",
     "modalDeleteError": "Couldn't delete it."

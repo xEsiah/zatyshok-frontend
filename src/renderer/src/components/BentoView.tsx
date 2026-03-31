@@ -1,11 +1,13 @@
 import '../assets/BentoView.css'
 import { useState, useEffect, JSX, useCallback } from 'react'
 import { DailyView } from './DailyView'
+import { CalendarWidget } from './CalendarWidget'
 import { MoodWidget } from './MoodWidget'
 import { api, SpotifyTrack } from '../services'
 import { useUser } from './UserContext'
 
 export function BentoView(): JSX.Element {
+  const [mainView, setMainView] = useState<'daily' | 'calendar'>('daily')
   const [apiIndex, setApiIndex] = useState(0)
   const [weatherToday, setWeatherToday] = useState<string>('--°C')
   const [weatherTomorrow, setWeatherTomorrow] = useState<string>('--°C')
@@ -102,7 +104,6 @@ export function BentoView(): JSX.Element {
       ),
       value: (
         <div className="spotify-display">
-          {/* 1. TEXTE EN PREMIER */}
           <div className="spotify-text-details">
             <div className="spotify-artist">{spotifyData.artist || t.bento.spotify}</div>
             <div className="track-info-scroll-container">
@@ -137,8 +138,16 @@ export function BentoView(): JSX.Element {
 
   return (
     <div className="bento-grid">
-      <div className="soft-ui main-card">
-        <DailyView />
+      <div className="soft-ui main-card" style={{ position: 'relative' }}>
+        <button
+          className="layout-btn switch-view-daily"
+          onClick={() => setMainView(mainView === 'daily' ? 'calendar' : 'daily')}
+          title={mainView === 'daily' ? 'Calendrier' : 'Liste'}
+        >
+          {mainView === 'daily' ? '📆' : '📋'}
+        </button>
+
+        {mainView === 'daily' ? <DailyView /> : <CalendarWidget />}
       </div>
       <div className="sidebar">
         <MoodWidget />
