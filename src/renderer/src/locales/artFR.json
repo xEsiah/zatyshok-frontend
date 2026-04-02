@@ -1,24 +1,43 @@
 {
   "greetings": [
-    "Prête à ajouter de la couleur aujourd'hui ?",
-    "Chaque coup de pinceau compte.",
-    "Bienvenue à la galerie, Dhélia.",
-    "Un nouveau chef-d'œuvre en vue, Dhélia ?"
+    "Prête à ajouter de la couleur aujourd'hui {username} ?",
+    "Chaque coup de pinceau compte {username}.",
+    "Bienvenue à la galerie, {username}.",
+    "Un nouveau chef-d'œuvre en vue, {username} ?"
   ],
   "login": {
     "title": "ATELIER 🎨",
-    "requestAccess": "Demander une invitation",
-    "welcomeHome": "Entrée de l'Atelier",
-    "username": "ID d'Artiste",
-    "usernamePlaceholder": "Ta signature...",
-    "password": "Code d'accès",
+    "requestAccess": "Demander l'accès",
+    "welcomeHome": "Bienvenue",
+    "username": "Nom d'utilisateur 🎨",
+    "usernamePlaceholder": "Ton nom...",
+    "password": "Mot de passe 🔑",
     "passwordPlaceholder": "••••••••",
     "badPassordConfirmation": "Les mots de passe ne correspondent pas.",
-    "processing": "Mélange des pigments...",
-    "join": "Postuler",
-    "unlock": "Entrer dans l'Atelier",
+    "processing": "Chargement...",
+    "join": "Rejoindre",
+    "unlock": "Connexion",
     "toggleToLogin": "Retourner à l'Exposition",
-    "toggleToRegister": "Demander une palette"
+    "toggleToRegister": "Demander une palette",
+    "modalWaitTitle": "Bienvenue !",
+    "modalWaitMsg": "Demande envoyée ! Attendez la validation manuelle.",
+    "modalOops": "Oups...",
+    "modalErrorTitle": "Erreur ⚠️",
+    "modalErrorUnreachable": "Serveur injoignable 🌐",
+    "modalErrorUnexpected": "Erreur inattendue 🛑",
+    "modalErrorInvalidData": "Données invalides 🛑",
+    "errorUsernameTaken": "Ce pseudo est déjà utilisé. 🎨",
+    "errorEmailTaken": "Email déjà enregistré dans la galerie. ✉️",
+    "errorPending": "Ta demande d'exposition est en cours d'examen. ⏳",
+    "errorInvalidCredentials": "Identifiants incorrects. Accès refusé. 🖌️",
+    "savedTitle": "Enregistré ! ✨",
+    "forgotPassword": "Mot de passe oublié ? 🎨",
+    "resetTitle": "Réinitialisation 🖼️",
+    "resetCode": "Code de vérification 🔑",
+    "newPassword": "Nouveau mot de passe 🔒",
+    "confirmNewPassword": "Confirmation 🔒",
+    "sendCode": "Envoyer le code ✉️",
+    "resetBtn": "Réinitialiser 🖌️"
   },
   "daily": {
     "upcoming": "Programme de l'Exposition 🖼️",
@@ -47,7 +66,11 @@
     "placeholderUpdate": "Affiner les détails...",
     "placeholderNew": "Rapide fusain...",
     "btnUpdate": "Vernir",
-    "btnSubmit": "Signer la toile"
+    "btnSubmit": "Signer la toile",
+    "savedTitle": "Sauvegardé",
+    "savedMsg": "Palette sauvegardée ✨",
+    "errorTitle": "Oops...",
+    "errorMsg": "Erreur de sauvegarde de la palette..."
   },
   "write": {
     "tabGoal": "🎯 Perspective",
@@ -92,6 +115,13 @@
     "errorEmail": "Signature invalide. Format email incorrect. 🖌️",
     "errorUsername": "Alias trop court pour la toile.",
     "errorAvatar": "Échec du chargement du canevas.",
-    "errorUpdate": "Le vernis n'a pas séché. Échec de l'envoi. 🎭"
+    "errorPasswordStrength": "Le trait est trop fin. 16+ caractères, une majuscule et une texture spéciale requises. 🎨",
+    "errorPasswordOld": "Le code de palette actuel est incorrect. 🔑",
+    "errorPasswordSame": "Le nouveau pigment doit être différent du précédent. 🖌️",
+    "errorUpdate": "Le vernis n'a pas séché. Échec de l'envoi. 🎭",
+    "changePasswordTitle": "Changer le mot de passe 🖌️",
+    "oldPassword": "Mot de passe actuel 🔑",
+    "passwordSuccess": "Palette mise à jour ! 🎨",
+    "passwordMismatch": "Les mots de passe ne correspondent pas."
   }
 }

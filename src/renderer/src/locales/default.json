@@ -20,7 +20,19 @@
     "modalErrorTitle": "Error",
     "modalErrorUnreachable": "Server unreachable",
     "modalErrorUnexpected": "An unexpected error occurred",
-    "modalErrorInvalidData": "Invalid connection data returned by the server."
+    "modalErrorInvalidData": "Invalid connection data returned by the server.",
+    "errorUsernameTaken": "Username already taken. 👤",
+    "errorEmailTaken": "Email already taken. 📧",
+    "errorPending": "Account pending approval. ⏳",
+    "errorInvalidCredentials": "Invalid credentials. ❌",
+    "savedTitle": "Success",
+    "forgotPassword": "Forgot password?",
+    "resetTitle": "Reset password",
+    "resetCode": "Reset code",
+    "newPassword": "New password",
+    "confirmNewPassword": "Confirm new password",
+    "sendCode": "Send code",
+    "resetBtn": "Reset"
   },
   "daily": {
     "upcoming": "Upcoming Schedule",
@@ -98,6 +110,13 @@
     "errorEmail": "The email address is invalid. ❌",
     "errorUsername": "Username must be at least 3 characters.",
     "errorAvatar": "Failed to upload profile picture. 🖼️",
-    "errorUpdate": "An error occurred while updating."
+    "errorPasswordStrength": "Password must be at least 16 characters long, contain one uppercase letter and one special character. 🔐",
+    "errorPasswordOld": "Incorrect current password. 🔑",
+    "errorPasswordSame": "New password must be different from the current one. 🛑",
+    "errorUpdate": "An error occurred while updating.",
+    "changePasswordTitle": "Change Password",
+    "oldPassword": "Old password",
+    "passwordSuccess": "Password updated successfully! 🚀",
+    "passwordMismatch": "Passwords do not match."
   }
 }

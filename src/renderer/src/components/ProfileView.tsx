@@ -54,7 +54,7 @@ export function ProfileView({ onBack }: { onBack: () => void }): JSX.Element {
       } catch (_err) {
         showModal({
           title: t.login.modalErrorTitle,
-          message: t.profile.errorAvatar, // Traduction dynamique
+          message: t.profile.errorAvatar,
           type: 'alert'
         })
       }
@@ -91,7 +91,12 @@ export function ProfileView({ onBack }: { onBack: () => void }): JSX.Element {
       await fetchFullProfile()
       window.api.setStoreValue('username', cleanUsername)
     } catch (err: unknown) {
-      const errorMessage = err instanceof Error ? err.message : t.profile.errorUpdate
+      let errorMessage = err instanceof Error ? err.message : t.profile.errorUpdate
+      if (errorMessage.includes('Username already taken')) {
+        errorMessage = t.login.errorUsernameTaken
+      } else if (errorMessage.includes('Email already taken')) {
+        errorMessage = t.login.errorEmailTaken
+      }
       showModal({
         title: t.login.modalOops,
         message: errorMessage,
@@ -99,6 +104,52 @@ export function ProfileView({ onBack }: { onBack: () => void }): JSX.Element {
       })
     } finally {
       setIsSaving(false)
+    }
+  }
+
+  const isPasswordValid = (pass: string): boolean =>
+    pass.length >= 16 && /[A-Z]/.test(pass) && /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(pass)
+
+  const [passForm, setPassForm] = useState({ old: '', newP: '', confirm: '' })
+  const handleUpdatePassword = async (): Promise<void> => {
+    if (passForm.newP !== passForm.confirm) {
+      showModal({
+        title: t.login.modalOops,
+        message: t.profile.passwordMismatch,
+        type: 'alert'
+      })
+      return
+    }
+
+    if (passForm.old === passForm.newP) {
+      showModal({
+        title: t.login.modalOops,
+        message: t.profile.errorPasswordSame,
+        type: 'alert'
+      })
+      return
+    }
+
+    if (!isPasswordValid(passForm.newP)) {
+      showModal({
+        title: t.login.modalOops,
+        message: t.profile.errorPasswordStrength,
+        type: 'alert'
+      })
+      return
+    }
+
+    try {
+      await api.updatePassword(passForm.old, passForm.newP)
+      showModal({ title: t.login.savedTitle, message: t.profile.passwordSuccess, type: 'alert' })
+      setPassForm({ old: '', newP: '', confirm: '' })
+    } catch (err: unknown) {
+      let msg = err instanceof Error ? err.message : t.profile.errorUpdate
+      if (msg.includes('Ancien mot de passe')) msg = t.profile.errorPasswordOld
+      if (msg.includes("différent de l'ancien")) msg = t.profile.errorPasswordSame
+      if (msg.includes('16 caractères')) msg = t.profile.errorPasswordStrength
+
+      showModal({ title: t.login.modalOops, message: msg, type: 'alert' })
     }
   }
 
@@ -185,6 +236,36 @@ export function ProfileView({ onBack }: { onBack: () => void }): JSX.Element {
               <span className="stat-label">{stat.label}</span>
             </div>
           ))}
+        </div>
+
+        <div className="soft-ui password-change-section">
+          <h3>{t.profile.changePasswordTitle}</h3>
+          <div className="password-inputs-row">
+            <input
+              type="password"
+              className="soft-input-mini"
+              placeholder={t.profile.oldPassword}
+              value={passForm.old}
+              onChange={(e) => setPassForm({ ...passForm, old: e.target.value })}
+            />
+            <input
+              type="password"
+              className="soft-input-mini"
+              placeholder={t.login.passwordPlaceholder}
+              value={passForm.newP}
+              onChange={(e) => setPassForm({ ...passForm, newP: e.target.value })}
+            />
+            <input
+              type="password"
+              className="soft-input-mini"
+              placeholder="Confirm"
+              value={passForm.confirm}
+              onChange={(e) => setPassForm({ ...passForm, confirm: e.target.value })}
+            />
+            <button className="soft-btn active" onClick={handleUpdatePassword}>
+              OK
+            </button>
+          </div>
         </div>
 
         <div className="profile-actions">

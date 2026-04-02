@@ -1,24 +1,43 @@
 {
   "greetings": [
-    "Ready to add some color today?",
-    "Every brushstroke counts.",
-    "Welcome to the gallery!",
-    "A new masterpiece in sight?"
+    "Ready to add some color today, {username}?",
+    "Every brushstroke counts {username}.",
+    "Welcome to the gallery {username} !",
+    "Hey {username}, a new masterpiece in sight?"
   ],
   "login": {
     "title": "STUDIO 🎨",
-    "requestAccess": "Request an invitation",
-    "welcomeHome": "Studio Entrance",
-    "username": "Artist ID",
-    "usernamePlaceholder": "Your signature...",
-    "password": "Access code",
+    "requestAccess": "Request an access",
+    "welcomeHome": "Welcome",
+    "username": "Username 🎨",
+    "usernamePlaceholder": "Your name...",
+    "password": "Password 🔑",
     "passwordPlaceholder": "••••••••",
     "badPassordConfirmation": "Passwords do not match.",
-    "processing": "Mixing pigments...",
-    "join": "Apply",
-    "unlock": "Enter the Studio",
+    "processing": "Loading...",
+    "join": "Join",
+    "unlock": "Login",
     "toggleToLogin": "Return to the Exhibition",
-    "toggleToRegister": "Request a palette"
+    "toggleToRegister": "Request a palette",
+    "modalWaitTitle": "Queueing",
+    "modalWaitMsg": "Access request added to the manual firewall queue.",
+    "modalOops": "Warning",
+    "modalErrorTitle": "Error ⚠️",
+    "modalErrorUnreachable": "Server unreachable 🌐",
+    "modalErrorUnexpected": "Unexpected error 🛑",
+    "modalErrorInvalidData": "Invalid data 🛑",
+    "errorUsernameTaken": "This signature is already in use. 🎨",
+    "errorEmailTaken": "Email already registered in the gallery. ✉️",
+    "errorPending": "Your exhibition request is being reviewed. ⏳",
+    "errorInvalidCredentials": "Incorrect pigments. Access denied. 🖌️",
+    "savedTitle": "Success! ✨",
+    "forgotPassword": "Forgot password? 🎨",
+    "resetTitle": "Reset Password 🖼️",
+    "resetCode": "Reset Code 🔑",
+    "newPassword": "New Password 🔒",
+    "confirmNewPassword": "Confirmation 🔒",
+    "sendCode": "Send Code ✉️",
+    "resetBtn": "Reset 🖌️"
   },
   "daily": {
     "upcoming": "Exhibition Program 🖼️",
@@ -47,7 +66,11 @@
     "placeholderUpdate": "Refining details...",
     "placeholderNew": "Quick charcoal sketch...",
     "btnUpdate": "Varnish",
-    "btnSubmit": "Sign the canvas"
+    "btnSubmit": "Sign the canvas",
+    "savedTitle": "Saved",
+    "savedMsg": "Sketch saved.",
+    "errorTitle": "Oops...",
+    "errorMsg": "Error saving mood. Please try again."
   },
   "write": {
     "tabGoal": "🎯 Perspective",
@@ -86,12 +109,19 @@
     "title": "Self-Portrait 🎨",
     "statsMoods": "Palettes",
     "statsGoals": "Perspectives 🖼️",
-    "statsEvents": "Openings",
+    "statsEvents": "Openings 📅",
     "statsNotes": "Inspiration 💭",
     "btnBack": "Back to Studio",
     "errorEmail": "Invalid signature. Incorrect email format. 🖌️",
     "errorUsername": "Alias too short for the canvas.",
     "errorAvatar": "Failed to load the canvas.",
-    "errorUpdate": "The varnish hasn't dried. Update failed. 🎭"
+    "errorPasswordStrength": "The stroke is too thin. 16+ characters, one uppercase pigment, and a special texture required. 🎨",
+    "errorPasswordOld": "The current palette code is incorrect. 🔑",
+    "errorPasswordSame": "The new pigment must differ from the previous one. 🖌️",
+    "errorUpdate": "The varnish hasn't dried. Update failed. 🎭",
+    "changePasswordTitle": "Change Password 🖌️",
+    "oldPassword": "Current Password 🔑",
+    "passwordSuccess": "Palette updated! 🎨",
+    "passwordMismatch": "Passwords don't match."
   }
 }

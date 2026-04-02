@@ -64,3 +64,23 @@ export const updateUserInfo = async (
 
   return response.json()
 }
+
+export const updatePassword = async (
+  oldPassword: string,
+  newPassword: string
+): Promise<{ message: string }> => {
+  const headers = await getHeaders(true)
+
+  const response = await fetch(`${API_URL}/user/update-password`, {
+    method: 'PATCH',
+    headers,
+    body: JSON.stringify({ oldPassword, newPassword })
+  })
+
+  if (!response.ok) {
+    const data = await response.json().catch(() => ({}))
+    throw new Error(data.error || 'Failed to update password')
+  }
+
+  return response.json()
+}

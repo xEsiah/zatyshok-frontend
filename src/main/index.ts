@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import { app, shell, BrowserWindow, dialog, ipcMain, screen } from 'electron'
-import { join } from 'path'
+import path, { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
 import { autoUpdater } from 'electron-updater'
@@ -23,6 +23,25 @@ const store = new StoreClass()
 
 let mainWindow: BrowserWindow
 
+// --- GESTION DE L'INSTANCE UNIQUE & DEEP LINKING ---
+const gotTheLock = app.requestSingleInstanceLock()
+
+if (!gotTheLock) {
+  app.quit()
+} else {
+  app.on('second-instance', (_event, commandLine) => {
+    if (mainWindow) {
+      if (mainWindow.isMinimized()) mainWindow.restore()
+      mainWindow.focus()
+
+      const url = commandLine.pop()
+      if (url?.includes('zatyshok://')) {
+        mainWindow.webContents.send('protocol-link', url)
+      }
+    }
+  })
+}
+
 function createWindow(): void {
   const { width, height } = screen.getPrimaryDisplay().workAreaSize
 
@@ -35,7 +54,7 @@ function createWindow(): void {
     show: false,
     frame: false,
     autoHideMenuBar: true,
-    backgroundColor: '#E8E5EE',
+    backgroundColor: '#faf7f2', // Couleur neutre/default pour éviter le flash
     titleBarStyle: 'hidden',
     ...(process.platform === 'linux' ? { icon } : { icon }),
     webPreferences: {
@@ -91,6 +110,14 @@ autoUpdater.on('error', (err) => {
 })
 
 app.whenReady().then(() => {
+  if (process.defaultApp) {
+    if (process.argv.length >= 2) {
+      app.setAsDefaultProtocolClient('zatyshok', process.execPath, [path.resolve(process.argv[1])])
+    }
+  } else {
+    app.setAsDefaultProtocolClient('zatyshok')
+  }
+
   electronApp.setAppUserModelId('com.zatyshok.app')
 
   app.on('browser-window-created', (_, window) => {

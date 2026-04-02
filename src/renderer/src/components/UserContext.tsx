@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable react-refresh/only-export-components */
-import { createContext, useContext, useState, JSX, ReactNode } from 'react'
+import { createContext, useContext, useState, JSX, ReactNode, useMemo } from 'react'
 import herData from '../locales/her.json'
 import himData from '../locales/him.json'
 import defaultData from '../locales/default.json'
@@ -18,6 +18,8 @@ interface UserContextType {
   setProfilePicture: (url: string | null) => void
   userId: string | null
   setUserId: (id: string | null) => void
+  currentUsername: string | null
+  setCurrentUsername: (username: string | null) => void
 }
 
 const UserContext = createContext<UserContextType | undefined>(undefined)
@@ -34,17 +36,30 @@ export function UserProvider({ children }: { children: ReactNode }): JSX.Element
   const [userRole, setUserRole] = useState<Role>('default')
   const [profilePicture, setProfilePicture] = useState<string | null>(null)
   const [userId, setUserId] = useState<string | null>(null)
+  const [currentUsername, setCurrentUsername] = useState<string | null>(null)
+
+  const t = useMemo(() => {
+    const base = translations[userRole]
+    if (!currentUsername) return base
+
+    return {
+      ...base,
+      greetings: base.greetings.map((msg) => msg.replace('{username}', currentUsername))
+    }
+  }, [userRole, currentUsername])
 
   return (
     <UserContext.Provider
       value={{
         userRole,
         setUserRole,
-        t: translations[userRole] as Translation,
+        t,
         profilePicture,
         setProfilePicture,
         userId,
-        setUserId
+        setUserId,
+        currentUsername,
+        setCurrentUsername
       }}
     >
       {children}

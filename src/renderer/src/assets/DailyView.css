@@ -18,8 +18,8 @@
   box-shadow:
     4px 4px 8px var(--shadow-dark),
     -4px -4px 8px var(--shadow-light);
-  min-height: 70px; /* Hauteur minimale de confort */
-  height: auto; /* S'étire si le texte prend 2, 3 ou 4 lignes */
+  min-height: 70px;
+  height: auto;
   box-sizing: border-box;
 }
 
@@ -30,7 +30,7 @@
   font-weight: 600;
   word-break: break-word;
   line-height: 1.3;
-  display: block; /* Mieux que inline-block pour forcer le retour à la ligne */
+  display: block;
   width: 100%;
 }
 

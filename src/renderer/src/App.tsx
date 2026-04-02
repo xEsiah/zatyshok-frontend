@@ -14,8 +14,8 @@ function AppContent(): JSX.Element {
   const [isWriting, setIsWriting] = useState(false)
   const [isProfileOpen, setIsProfileOpen] = useState(false)
 
-  const [greeting, setGreeting] = useState<string>('')
-  const { setUserRole, setUserId, setProfilePicture, t } = useUser()
+  const [greeting, setGreeting] = useState<string>('') // This will now hold the processed greeting
+  const { setUserRole, setUserId, setProfilePicture, setCurrentUsername, t } = useUser()
 
   const loadSession = async (): Promise<void> => {
     try {
@@ -30,6 +30,7 @@ function AppContent(): JSX.Element {
         setUserRole(role)
         setUserId(String(userId))
         document.documentElement.setAttribute('data-theme', role)
+        setCurrentUsername((await window.api.getStoreValue('username')) as string)
 
         const storedPdp = await window.api.getStoreValue('profile_picture')
         setProfilePicture(typeof storedPdp === 'string' ? storedPdp : null)
@@ -52,7 +53,10 @@ function AppContent(): JSX.Element {
   }, [])
 
   useEffect(() => {
-    if (isAuthenticated && t && t.greetings) {
+    // t.greetings is now an array of strings with {username} replaced
+    // We need to ensure t.greetings is an array before picking a random one
+    // and that it's already processed by the UserContext
+    if (isAuthenticated && t && Array.isArray(t.greetings) && t.greetings.length > 0) {
       const randomMsg = t.greetings[Math.floor(Math.random() * t.greetings.length)]
       setGreeting(randomMsg)
     }
@@ -69,6 +73,7 @@ function AppContent(): JSX.Element {
     setUserRole('default')
     setUserId(null)
     setProfilePicture(null)
+    setCurrentUsername(null)
     document.documentElement.removeAttribute('data-theme')
   }
 
@@ -82,16 +87,16 @@ function AppContent(): JSX.Element {
     )
   }
 
-  if (!isAuthenticated) {
+  if (!isAuthenticated || !t) {
     return <Login onLoginSuccess={loadSession} />
   }
 
   return (
     <>
       <div className="title-bar">
-        <h1>{t.login.title}</h1>
+        <h1>{t.login?.title || 'Zatyshok'}</h1>
         <button onClick={handleLogout} className="logout-button no-drag" title="Disconnect">
-          {t.app.logout}
+          {t.app?.logout || 'Logout'}
         </button>
         <div className="layout-controls no-drag">
           <button onClick={() => window.api.minimizeWindow()} title="Reduce" className="layout-btn">

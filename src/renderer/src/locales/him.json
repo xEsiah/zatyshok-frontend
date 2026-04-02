@@ -1,10 +1,10 @@
 {
   "greetings": [
-    "System online. Welcome back, Esiah.",
+    "System online. Welcome back, {username}.",
+    "Mainframe synchronized. Awaiting input, {username}.",
+    "The shadows await your command, {username}.",
     "The night is young. Let's get to work.",
-    "Mainframe synchronized. Awaiting input, Esiah.",
-    "Encryption protocols active. Secure session started.",
-    "The shadows await your command, Esiah."
+    "Encryption protocols active. Secure session started."
   ],
   "login": {
     "title": "WAYNE TECH ⚡",
@@ -26,7 +26,19 @@
     "modalErrorTitle": "Auth Breach",
     "modalErrorUnreachable": "Bat-Computer Offline.",
     "modalErrorUnexpected": "Kernel panic: unknown error.",
-    "modalErrorInvalidData": "Invalid credentials. Protocol Zero engaged."
+    "modalErrorInvalidData": "Invalid credentials. Protocol Zero engaged.",
+    "errorUsernameTaken": "Identity already exists in database. 👤",
+    "errorEmailTaken": "Frequency already registered. 📧",
+    "errorPending": "Access request in firewall queue. ⏳",
+    "errorInvalidCredentials": "Authorization failed. Biometrics rejected. ❌",
+    "savedTitle": "ACCESS GRANTED",
+    "forgotPassword": "Forgot Passkey?",
+    "resetTitle": "Override Protocols",
+    "resetCode": "Bypass Code",
+    "newPassword": "New Passkey",
+    "confirmNewPassword": "Confirm Passkey",
+    "sendCode": "Dispatch Code",
+    "resetBtn": "Execute Override"
   },
   "daily": {
     "upcoming": "Tactical Overview 🚀",
@@ -104,6 +116,13 @@
     "errorEmail": "Invalid frequency. Email format unrecognized. ⚠️",
     "errorUsername": "Identity too short. 3 characters min.",
     "errorAvatar": "Upload failure. Encryption corrupted.",
-    "errorUpdate": "System error during synchronization. 🛠️"
+    "errorPasswordStrength": "Passkey encryption too weak. Minimum 16 characters, 1 uppercase signature, and 1 special symbol required. ⚡",
+    "errorPasswordOld": "Current passkey hash mismatch. 🔑",
+    "errorPasswordSame": "New passkey must differ from existing record. Redundancy protocol engaged. 🛡️",
+    "errorUpdate": "System error during synchronization. 🛠️",
+    "changePasswordTitle": "Encryption Update",
+    "oldPassword": "Current Hash",
+    "passwordSuccess": "Neural link updated.",
+    "passwordMismatch": "Checksum error: Passwords do not match."
   }
 }
