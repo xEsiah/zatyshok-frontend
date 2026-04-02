@@ -7,7 +7,6 @@ import { useUser } from './UserContext'
 export function CalendarWidget(): JSX.Element {
   const [currentDate, setCurrentDate] = useState(new Date())
   const [entries, setEntries] = useState<CalendarEntry[]>([])
-  const [hoveredDay, setHoveredDay] = useState<string | null>(null)
   const { userRole, t } = useUser()
 
   const loadEntries = useCallback(async () => {
@@ -63,12 +62,16 @@ export function CalendarWidget(): JSX.Element {
       <div
         key={d}
         className={`calendar-day ${isToday(d) ? 'is-today' : ''} ${displayEntries.length > 0 ? 'has-entries' : ''}`}
-        onMouseEnter={(): void => {
-          if (displayEntries.length > 0) setHoveredDay(dateStr)
-        }}
-        onMouseLeave={(): void => setHoveredDay(null)}
       >
-        {hoveredDay === dateStr && displayEntries.length > 0 ? (
+        <div className="day-content-wrapper">
+          <span className="day-num">{d}</span>
+          <div className="pastilles">
+            {goals.length > 0 && <span className="dot goal"></span>}
+            {events.length > 0 && <span className="dot event"></span>}
+          </div>
+        </div>
+
+        {displayEntries.length > 0 && (
           <div className="calendar-day-details">
             {displayEntries.map((e, idx) => (
               <div key={idx} className="day-detail-item" title={e.text}>
@@ -79,14 +82,6 @@ export function CalendarWidget(): JSX.Element {
               </div>
             ))}
           </div>
-        ) : (
-          <>
-            <span className="day-num">{d}</span>
-            <div className="pastilles">
-              {goals.length > 0 && <span className="dot goal"></span>}
-              {events.length > 0 && <span className="dot event"></span>}
-            </div>
-          </>
         )}
       </div>
     )

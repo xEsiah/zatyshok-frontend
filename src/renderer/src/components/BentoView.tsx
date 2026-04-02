@@ -138,7 +138,7 @@ export function BentoView(): JSX.Element {
 
   return (
     <div className="bento-grid">
-      <div className="soft-ui main-card" style={{ position: 'relative' }}>
+      <div className="soft-ui main-card" style={{ position: 'relative', overflow: 'visible' }}>
         <button
           className="layout-btn switch-view-daily"
           onClick={() => setMainView(mainView === 'daily' ? 'calendar' : 'daily')}

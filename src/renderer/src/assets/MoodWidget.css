@@ -79,6 +79,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   color: var(--color-profond);
+  padding-right: 0.5vw;
 }
 
 .mood-list-container {
