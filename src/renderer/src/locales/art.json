@@ -103,7 +103,40 @@
     "loading": "Setting up the easel... 🎨",
     "logout": "Leave the Studio",
     "btnWrite": "New Canvas",
-    "btnDashboard": "Gallery View"
+    "btnDashboard": "Gallery View",
+    "btnBudget": "Treasury"
+  },
+  "budget": {
+    "title": "Treasury Management 💰",
+    "outcome": "Investissments",
+    "income": "Commissions",
+    "addIncome": "Record a sale",
+    "addIncomeCategory": "New Patronage",
+    "addCategory": "New Range",
+    "newCategoryPlaceholder": "Name your range (e.g., Oils, Brushes)...",
+    "addExpense": "Place a pigment",
+    "amount": "Amount",
+    "description": "Details",
+    "category": "Category",
+    "save": "Collect",
+    "chart": "Palette Distribution",
+    "modalSaved": "The treasury has been updated ✨",
+    "categoryAdded": "New range added to the palette! 🎨",
+    "modalError": "Artistic transaction failed...",
+    "modalErrorLoad": "Failed to load treasury data.",
+    "categoryNameRequired": "Range name is required.",
+    "categoryExists": "A range with this name already exists.",
+    "invalidAmount": "Please enter a valid amount (positive number).",
+    "categoryRequired": "Please select a category.",
+    "descriptionRequired": "A description is required for the expense.",
+    "historyTitle": "Financial Archives",
+    "balance": "Potential savings ✨",
+    "latestExpensesTitle": "Latest Brushstrokes",
+    "noRecentExpenses": "No recent brushstrokes to display.",
+    "filterMonth": "This month",
+    "filter3months": "3 months",
+    "filter6months": "6 months",
+    "filterYear": "Year"
   },
   "profile": {
     "title": "Self-Portrait 🎨",
@@ -122,6 +155,6 @@
     "changePasswordTitle": "Change Password 🖌️",
     "oldPassword": "Current Password 🔑",
     "passwordSuccess": "Palette updated! 🎨",
-    "passwordMismatch": "Passwords don't match."
+    "passwordMismatch": "Passwords do not match."
   }
 }

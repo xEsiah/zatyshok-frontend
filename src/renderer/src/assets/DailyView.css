@@ -125,14 +125,14 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  word-break: break-word; /* Casse les mots longs */
-  overflow-y: auto; /* Scroll interne si le texte est énorme */
-  scrollbar-width: none; /* Cache la scrollbar sur Firefox */
+  word-break: break-word;
+  overflow-y: auto;
+  scrollbar-width: none;
   line-height: 1.2;
 }
 
 .post-it::-webkit-scrollbar {
-  display: none; /* Cache la scrollbar sur Chrome/Electron */
+  display: none;
 }
 
 .post-it:nth-child(even) {

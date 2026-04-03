@@ -40,3 +40,18 @@ export interface AuthResponse {
   profilePicture?: string | null
   role?: string
 }
+
+export interface BudgetCategory {
+  id: number
+  name: string
+  type: 'expense' | 'income'
+}
+
+export interface Expense {
+  id?: number
+  amount: number
+  description: string
+  category_id: number | null
+  date: string
+  type: 'expense' | 'income'
+}

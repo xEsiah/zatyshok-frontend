@@ -5,6 +5,7 @@ import * as weatherService from './weather.service'
 import * as spotifyService from './spotify.service'
 import * as calendarService from './calendar.service'
 import * as moodService from './mood.service'
+import * as budgetService from './budget.service'
 import * as user from './user.service'
 
 export const api = {
@@ -13,6 +14,7 @@ export const api = {
   ...spotifyService,
   ...calendarService,
   ...moodService,
+  ...budgetService,
   ...user
 }
 

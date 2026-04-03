@@ -7,14 +7,14 @@ import { ModalProvider } from './components/ModalContext'
 import { UserProvider, useUser, Role } from './components/UserContext'
 import { ProfileManager } from './components/ProfileManager'
 import { ProfileView } from './components/ProfileView'
+import { Budgetizer } from './components/Budgetizer'
 
 function AppContent(): JSX.Element {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false)
   const [isLoading, setIsLoading] = useState<boolean>(true)
-  const [isWriting, setIsWriting] = useState(false)
-  const [isProfileOpen, setIsProfileOpen] = useState(false)
+  const [currentView, setCurrentView] = useState<'bento' | 'write' | 'profile' | 'budget'>('bento')
 
-  const [greeting, setGreeting] = useState<string>('') // This will now hold the processed greeting
+  const [greeting, setGreeting] = useState<string>('')
   const { setUserRole, setUserId, setProfilePicture, setCurrentUsername, t } = useUser()
 
   const loadSession = async (): Promise<void> => {
@@ -53,9 +53,6 @@ function AppContent(): JSX.Element {
   }, [])
 
   useEffect(() => {
-    // t.greetings is now an array of strings with {username} replaced
-    // We need to ensure t.greetings is an array before picking a random one
-    // and that it's already processed by the UserContext
     if (isAuthenticated && t && Array.isArray(t.greetings) && t.greetings.length > 0) {
       const randomMsg = t.greetings[Math.floor(Math.random() * t.greetings.length)]
       setGreeting(randomMsg)
@@ -132,37 +129,37 @@ function AppContent(): JSX.Element {
       <header className="header-area">
         <h2>{greeting}</h2>
         <div className="navigation-bar">
-          <div className="nav-left">
+          <div className="nav-left" style={{ display: 'flex', gap: '10px' }}>
             <button
-              title="Toggle Write/ Dashboard view"
-              onClick={() => {
-                setIsWriting(!isWriting)
-                setIsProfileOpen(false)
-              }}
-              className="nav-button"
+              onClick={() => setCurrentView('bento')}
+              className={`nav-button ${currentView === 'bento' ? 'active' : ''}`}
             >
-              {isWriting ? t.app.btnDashboard : t.app.btnWrite}
+              {t.app.btnDashboard}
+            </button>
+            <button
+              onClick={() => setCurrentView('write')}
+              className={`nav-button ${currentView === 'write' ? 'active' : ''}`}
+            >
+              {t.app.btnWrite}
+            </button>
+            <button
+              onClick={() => setCurrentView('budget')}
+              className={`nav-button ${currentView === 'budget' ? 'active' : ''}`}
+            >
+              {t.app.btnBudget}
             </button>
           </div>
           <div className="nav-right">
-            <ProfileManager
-              onOpen={() => {
-                setIsProfileOpen(true)
-                setIsWriting(false)
-              }}
-            />
+            <ProfileManager onOpen={() => setCurrentView('profile')} />
           </div>
         </div>
       </header>
 
       <main className="view-wrapper">
-        {isProfileOpen ? (
-          <ProfileView onBack={() => setIsProfileOpen(false)} />
-        ) : isWriting ? (
-          <WriteView onBack={() => setIsWriting(false)} />
-        ) : (
-          <BentoView />
-        )}
+        {currentView === 'profile' && <ProfileView onBack={() => setCurrentView('bento')} />}
+        {currentView === 'write' && <WriteView onBack={() => setCurrentView('bento')} />}
+        {currentView === 'budget' && <Budgetizer />}
+        {currentView === 'bento' && <BentoView />}
       </main>
     </>
   )

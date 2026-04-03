@@ -145,8 +145,7 @@ body {
   min-height: 0;
   width: 100%;
   scrollbar-gutter: stable;
-  padding-top: 0.5vh;
-  margin-bottom: 2vh;
+  padding-top: 2vh;
 }
 
 .view-wrapper::-webkit-scrollbar {
@@ -160,6 +159,7 @@ body {
   opacity: 0.5;
   border-radius: 10px;
 }
+
 @media (max-width: 1350px) {
   .view-wrapper {
     overflow-y: auto;
@@ -320,6 +320,14 @@ small {
 .nav-button:hover {
   filter: brightness(1.15);
   transform: translateY(-2px);
+}
+
+.nav-button.active {
+  background: var(--color-lilas-vif);
+  box-shadow: inset 2px 2px 8px rgba(0, 0, 0, 0.2);
+  transform: scale(1.05);
+  font-weight: 700;
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .navigation-bar {

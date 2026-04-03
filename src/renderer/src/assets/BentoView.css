@@ -27,7 +27,6 @@
   flex-direction: column;
   justify-content: space-between;
   min-width: 0;
-  gap: 5vh;
 }
 
 .header-area {
@@ -264,16 +263,18 @@
   }
 }
 
-/* Threshold 70% : Bascule en mode "Bento Adapté" synchronisé avec main.css */
 @media (max-width: 1350px) {
   .bento-grid {
     grid-template-columns: 1fr;
     grid-template-rows: auto;
-    height: auto; /* Permet à la grille de grandir pour le scroll */
+    height: auto;
     width: 90%;
   }
   .sidebar {
     grid-column: 1 / 2;
     gap: 3vh;
+  }
+  .widget-card {
+    margin-bottom: 20px;
   }
 }

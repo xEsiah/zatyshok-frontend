@@ -18,6 +18,7 @@
 - 🛠 **Productivity Hub**: Manage your daily tasks, schedule, and events in a unified "Soft-UI" interface.
 - 🎭 **Mood Tracking**: Log and visualize your emotional journey with a browsable history.
 - 🎵 **Spotify Integration**: Control your music and see what's currently playing directly in the app.
+- 💰 **Budget Management**: Track income and expenses with category-based pie charts and time filters.
 - 🎨 **Role-Based Theming**: Automatic theme switching (Her, Him, Art) based on your database-assigned role.
 - 🖥 **Native Experience**: Secured with custom Content Security Policies (CSP) for a safe desktop experience.
 
@@ -25,14 +26,13 @@
 
 ## 🗺️ Roadmap & Upcoming Updates
 
-- [ ] **Smart Calendar View**: A redesigned, Apple-style calendar for a more intuitive overview of your events.
 - [ ] **Habit Tracker**: Track and visualize your habits to build better routines.
 
 ---
 
 ## 🛠 Tech Stack
 
-- **Frontend**: React.js, TypeScript, Vite, Tailwind CSS
+- **Frontend**: React.js, TypeScript, Vite
 - **Desktop Framework**: Electron
 - **Backend (API)**: Node.js (Express), MariaDB
 - **File Handling**: Multer (Image processing) & FS Promises (File system cleanup)
