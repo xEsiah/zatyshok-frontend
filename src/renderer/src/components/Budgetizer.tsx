@@ -184,22 +184,15 @@ export function Budgetizer(): JSX.Element {
   const grandTotal = totalPerCat.reduce((sum, c) => sum + c.total, 0)
 
   const pieChartData = useMemo(() => {
-    const CIRCUMFERENCE = 2 * Math.PI * 25
-
     return totalPerCat.map((c, index, array) => {
-      const fraction = grandTotal > 0 ? c.total / grandTotal : 0
+      const percentage = grandTotal > 0 ? (c.total / grandTotal) * 100 : 0
       const previousSum = array.slice(0, index).reduce((sum, item) => sum + item.total, 0)
-      const offsetFraction = grandTotal > 0 ? previousSum / grandTotal : 0
-
-      const dashLength = fraction * CIRCUMFERENCE
-      const gapLength = CIRCUMFERENCE - dashLength
-
-      const strokeDashoffset = CIRCUMFERENCE - offsetFraction * CIRCUMFERENCE
+      const offsetPercentage = grandTotal > 0 ? (previousSum / grandTotal) * 100 : 0
 
       return {
         ...c,
-        strokeDasharray: `${dashLength} ${gapLength}`,
-        strokeDashoffset
+        strokeDasharray: `${percentage} 100`,
+        strokeDashoffset: -offsetPercentage
       }
     })
   }, [totalPerCat, grandTotal])
@@ -351,9 +344,11 @@ export function Budgetizer(): JSX.Element {
           {grandTotal > 0 ? (
             <div className="budget-chart-container">
               <svg viewBox="0 0 100 100" width="100%" height="100%" className="budget-pie-svg">
+                {/* Cercle de fond pour combler les artefacts au centre et aux jonctions */}
+                <circle cx="50" cy="50" r="50" fill={getCategoryColor(pieChartData[0].id)} />
                 {pieChartData.map((c) => (
                   <circle
-                    key={c.name}
+                    key={c.id}
                     cx="50"
                     cy="50"
                     r="25"
@@ -380,19 +375,18 @@ export function Budgetizer(): JSX.Element {
               <span>{t.budget.income} :</span>
               <b className="total-in">+{totalIncomePeriod.toFixed(2)}€</b>
             </div>
-            {mode === 'income' && (
-              <div className="sidebar-total-row balance">
-                <span>{t.budget.balance || 'Balance'} :</span>
-                <b className={totalIncomePeriod - totalExpensePeriod >= 0 ? 'pos' : 'neg'}>
-                  {(totalIncomePeriod - totalExpensePeriod).toFixed(2)}€
-                </b>
-              </div>
-            )}
+
+            <div className="sidebar-total-row balance">
+              <span>{t.budget.balance || 'Balance'} :</span>
+              <b className={totalIncomePeriod - totalExpensePeriod >= 0 ? 'pos' : 'neg'}>
+                {(totalIncomePeriod - totalExpensePeriod).toFixed(2)}€
+              </b>
+            </div>
           </div>
 
           <div className="budget-legend-area">
-            {pieChartData.map((c, i) => (
-              <div key={i} className="budget-legend-item">
+            {pieChartData.map((c) => (
+              <div key={c.id} className="budget-legend-item">
                 <span>
                   <span style={{ color: getCategoryColor(c.id) }}>●</span> {c.name}
                 </span>

@@ -47,18 +47,6 @@
   padding-top: 15px;
 }
 
-.planner-list::-webkit-scrollbar {
-  width: 6px;
-}
-.planner-list::-webkit-scrollbar-track {
-  background: transparent;
-}
-.planner-list::-webkit-scrollbar-thumb {
-  background-color: var(--color-lilas-doux);
-  opacity: 0.5;
-  border-radius: 10px;
-}
-
 /* --- 4.4 Post-its (Pensées) --- */
 .daily-layout {
   display: flex;
@@ -76,7 +64,7 @@
 
 .post-it-area {
   margin-top: 15px;
-  padding-top: 10px;
+  margin-bottom: 10px;
   border-top: 2px dashed rgba(255, 255, 255, 0.5);
   max-height: 180px;
   width: 100%;
@@ -87,7 +75,6 @@
   gap: 15px;
   flex-wrap: nowrap;
   overflow-x: auto;
-  padding-top: 10px;
   padding-bottom: 10px;
   scroll-behavior: smooth;
   width: 100%;
@@ -95,14 +82,6 @@
 
 .post-it-grid::-webkit-scrollbar {
   height: 6px;
-}
-.post-it-grid::-webkit-scrollbar-track {
-  background: transparent;
-}
-.post-it-grid::-webkit-scrollbar-thumb {
-  background-color: var(--color-lilas-doux);
-  opacity: 0.5;
-  border-radius: 10px;
 }
 
 .post-it {
