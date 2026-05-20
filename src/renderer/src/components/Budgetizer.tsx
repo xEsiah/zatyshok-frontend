@@ -6,7 +6,7 @@ import { useModal } from './ModalContext'
 import '../assets/Budgetizer.css'
 
 export function Budgetizer(): JSX.Element {
-  const { t } = useUser()
+  const { t, userRole } = useUser()
   const { showModal } = useModal()
 
   const [mode, setMode] = useState<'expense' | 'income'>('expense')
@@ -309,7 +309,14 @@ export function Budgetizer(): JSX.Element {
                   className={`soft-btn ${filter === f ? 'active' : ''}`}
                   onClick={() => setFilter(f)}
                 >
-                  {t.budget[`filter${f.charAt(0).toUpperCase() + f.slice(1)}`]}
+                  {(() => {
+                    const isFR = userRole === 'artFR'
+                    if (f === 'month') return isFR ? 'Ce mois' : 'This month'
+                    else if (f === 'year') return isFR ? 'Année' : 'Year'
+                    else if (f === '3months') return isFR ? '3 mois' : '3 months'
+                    else if (f === '6months') return isFR ? '6 mois' : '6 months'
+                    return f
+                  })()}
                 </button>
               ))}
             </div>
