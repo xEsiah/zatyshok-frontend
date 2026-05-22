@@ -99,7 +99,20 @@
   transform: rotate(-1deg);
   transition: transform 0.2s;
   position: relative;
+}
+
+.post-it-content {
+  flex: 1;
+  overflow-y: auto;
+  scrollbar-width: 2px;
+  /* padding: 10px; */
   display: flex;
+  flex-direction: column;
+  -webkit-line-clamp: 6;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-word;
   flex: 0 0 auto;
   align-items: center;
   justify-content: center;
@@ -109,12 +122,18 @@
   scrollbar-width: none;
   line-height: 1.2;
 }
-
-.post-it::-webkit-scrollbar {
-  display: none;
+.post-it::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 30px;
+  background: linear-gradient(transparent, var(--shadow-dark));
+  pointer-events: none;
 }
 
-.post-it:nth-child(even) {
+.post-it-content:nth-child(even) {
   transform: rotate(1deg);
   background-color: var(--color-lilas-doux);
 }

@@ -141,25 +141,27 @@ export function DailyView(): JSX.Element {
                 className="post-it"
                 style={{
                   fontSize:
-                    note.text.length > 80
+                    note.text.length > 150
                       ? '0.65rem'
-                      : note.text.length > 40
+                      : note.text.length > 80
                         ? '0.75rem'
                         : '0.85rem'
                 }}
               >
-                <div className="post-it-pin">📍</div>
-                <button
-                  className="post-it-close"
-                  onClick={(e) => {
-                    e.stopPropagation()
-                    handleDeleteEntry(note.id)
-                  }}
-                  title={t.daily.deleteNote}
-                >
-                  ✕
-                </button>
-                {note.text}
+                <div key={note.id} className="post-it">
+                  <div className="post-it-pin">📍</div>
+                  <button
+                    className="post-it-close"
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      handleDeleteEntry(note.id)
+                    }}
+                    title={t.daily.deleteNote}
+                  >
+                    ✕
+                  </button>
+                  <div className="post-it-content"> {note.text}</div>
+                </div>
               </div>
             ))}
           </div>
