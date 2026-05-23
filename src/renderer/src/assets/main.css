@@ -18,6 +18,11 @@
   --shadow-light: #ffffff;
   --shadow-dark: #e0d8cf;
   --radius-bento: 24px;
+
+  --postit-bg-odd: var(--color-rose-poudre);
+  --postit-text-odd: var(--shadow-light);
+  --postit-bg-even: var(--color-lilas-doux);
+  --postit-text-even: #3e2723;
 }
 
 /* --- THÈME POUR ELLE (Her - Pink/Purple) --- */
@@ -31,6 +36,11 @@
   --card-bg: #f4f1f8;
   --shadow-light: #ffffff;
   --shadow-dark: #c4bccb;
+
+  --postit-bg-odd: var(--color-rose-poudre);
+  --postit-text-odd: #351e4a;
+  --postit-bg-even: var(--color-lilas-doux);
+  --postit-text-even: var(--shadow-light);
 }
 
 /* --- THÈME POUR TOI (Him - Wayne Tech) --- */
@@ -46,6 +56,11 @@
   --shadow-dark: #000000;
   --radius-bento: 12px;
   --font-dev: 'Fira Code', monospace;
+
+  --postit-bg-odd: var(--color-rose-poudre);
+  --postit-text-odd: var(--color-profond);
+  --postit-bg-even: var(--color-lilas-doux);
+  --postit-text-even: #0a0b10;
 }
 
 /* --- THÈME ART & ART-FR (Terracotta & Teal) --- */
@@ -53,17 +68,22 @@
 [data-theme='artFR'],
 [data-role='art'],
 [data-role='artFR'] {
-  --color-rose-poudre: #d1603d; /* Terracotta */
-  --color-lilas-vif: #456b6f; /* Teal */
-  --color-lilas-doux: #8e9775; /* Sage */
+  --color-rose-poudre: #d1603d;
+  --color-lilas-vif: #456b6f;
+  --color-lilas-doux: #8e9775;
   --color-profond: #4a2e2b;
 
-  --bg-color: #f4ebd9; /* Papier parchemin */
+  --bg-color: #f4ebd9;
   --card-bg: #efe5d1;
   --shadow-light: #fdfaf3;
   --shadow-dark: #d8cdb8;
   --radius-bento: 18px;
   --font-art: 'Quicksand', sans-serif;
+
+  --postit-bg-odd: var(--color-rose-poudre);
+  --postit-text-odd: var(--shadow-light);
+  --postit-bg-even: var(--color-lilas-doux);
+  --postit-text-even: var(--shadow-light);
 }
 
 /* ==========================================================================

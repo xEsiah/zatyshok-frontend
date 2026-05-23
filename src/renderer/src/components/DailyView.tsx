@@ -134,36 +134,44 @@ export function DailyView(): JSX.Element {
           <small>
             {t.daily.notesTitle} ({thoughts.length})
           </small>
-          <div className="post-it-grid">
-            {thoughts.map((note) => (
-              <div
-                key={note.id}
-                className="post-it"
-                style={{
-                  fontSize:
-                    note.text.length > 150
-                      ? '0.65rem'
-                      : note.text.length > 80
-                        ? '0.75rem'
-                        : '0.85rem'
-                }}
-              >
-                <div key={note.id} className="post-it">
-                  <div className="post-it-pin">📍</div>
-                  <button
-                    className="post-it-close"
-                    onClick={(e) => {
-                      e.stopPropagation()
-                      handleDeleteEntry(note.id)
-                    }}
-                    title={t.daily.deleteNote}
-                  >
-                    ✕
-                  </button>
-                  <div className="post-it-content"> {note.text}</div>
-                </div>
-              </div>
-            ))}
+          <div className="post-it-scroll-container">
+            <div className="post-it-grid">
+              {thoughts.map((note) => {
+                const len = note.text.length
+                const dynamicFontSize =
+                  len > 90
+                    ? '0.75rem'
+                    : len > 75
+                      ? '0.80rem'
+                      : len > 60
+                        ? '0.85rem'
+                        : len > 45
+                          ? '0.90rem'
+                          : len > 30
+                            ? '0.95rem'
+                            : len > 15
+                              ? '1.05rem'
+                              : '1.2rem'
+                return (
+                  <div key={note.id} className="post-it">
+                    <div className="post-it-pin">📍</div>
+                    <button
+                      className="post-it-close"
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        handleDeleteEntry(note.id)
+                      }}
+                      title={t.daily.deleteNote}
+                    >
+                      ✕
+                    </button>
+                    <div className="post-it-content" style={{ fontSize: dynamicFontSize }}>
+                      {note.text}
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
           </div>
         </div>
       )}
