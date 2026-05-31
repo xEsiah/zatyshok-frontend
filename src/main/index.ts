@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { app, shell, BrowserWindow, dialog, ipcMain, screen } from 'electron'
 import path, { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
@@ -22,8 +21,7 @@ const StoreClass = (Store as any).default || Store
 const store = new StoreClass()
 
 let mainWindow: BrowserWindow
-
-// --- GESTION DE L'INSTANCE UNIQUE & DEEP LINKING ---
+// --- GESTION DE L'INSTANCE UNIQUE & DEEP LINKING --
 const gotTheLock = app.requestSingleInstanceLock()
 
 if (!gotTheLock) {
@@ -46,15 +44,15 @@ function createWindow(): void {
   const { width, height } = screen.getPrimaryDisplay().workAreaSize
 
   mainWindow = new BrowserWindow({
-    width: Math.floor(width * 0.8), // Layout 2 par défaut
-    height: Math.floor(height * 0.8), // Layout 2 par défaut
-    minWidth: Math.floor(width * 0.4), // Un peu moins de 50% pour éviter les blocages de rounding
+    width: Math.floor(width * 0.8),
+    height: Math.floor(height * 0.8),
+    minWidth: Math.floor(width * 0.4),
     minHeight: Math.floor(height * 0.4),
     resizable: false,
     show: false,
     frame: false,
     autoHideMenuBar: true,
-    backgroundColor: '#faf7f2', // Couleur neutre/default pour éviter le flash
+    backgroundColor: '#faf7f2',
     titleBarStyle: 'hidden',
     ...(process.platform === 'linux' ? { icon } : { icon }),
     webPreferences: {
@@ -64,9 +62,8 @@ function createWindow(): void {
   })
 
   mainWindow.on('ready-to-show', () => {
-    mainWindow.maximize() // Démarre l'appli en plein écran
+    mainWindow.maximize()
     mainWindow.show()
-    // On ne vérifie les updates que si on n'est pas en développement
     if (!is.dev) {
       autoUpdater.checkForUpdatesAndNotify()
     }
@@ -140,49 +137,64 @@ app.whenReady().then(() => {
   ipcMain.on('set-layout', (_, layout: 'full' | 'standard' | 'split') => {
     if (!mainWindow) return
 
-    // Récupère l'écran où se trouve actuellement la fenêtre
     const currentDisplay = screen.getDisplayMatching(mainWindow.getBounds())
     const { width: dW, height: dH, x: dX, y: dY } = currentDisplay.workArea
 
-    // On autorise temporairement le redimensionnement pour appliquer le changement
     mainWindow.setResizable(true)
 
     if (layout === 'full') {
       mainWindow.maximize()
+      if (process.platform !== 'linux') {
+        setTimeout(() => {}, 100)
+      }
     } else {
-      // Pour les modes non-full, on doit quitter l'état maximisé avant de changer les dimensions
-      if (mainWindow.isMaximized()) {
-        mainWindow.unmaximize()
+      const applyBounds = (): void => {
+        if (layout === 'standard') {
+          const w = Math.floor(dW * 0.8)
+          const h = Math.floor(dH * 0.8)
+          mainWindow.setBounds({
+            x: dX + Math.floor((dW - w) / 2),
+            y: dY + Math.floor((dH - h) / 2),
+            width: w,
+            height: h
+          })
+        } else if (layout === 'split') {
+          const bounds = mainWindow.getBounds()
+          const targetW = Math.floor(dW * 0.5)
+          const isAlreadySplit = Math.abs(bounds.width - targetW) < 20
+
+          if (isAlreadySplit) {
+            const isOnLeft = Math.abs(bounds.x - dX) < 50
+            const newX = isOnLeft ? dX + (dW - targetW) : dX
+            if (mainWindow) mainWindow.setResizable(false)
+            mainWindow.setPosition(newX, dY)
+          } else {
+            mainWindow.setBounds({ x: dX, y: dY, width: targetW, height: dH })
+          }
+        }
+
+        setTimeout(
+          () => {
+            if (mainWindow) mainWindow.setResizable(false)
+          },
+          process.platform === 'linux' ? 400 : 100
+        )
       }
 
-      if (layout === 'standard') {
-        const w = Math.floor(dW * 0.8)
-        const h = Math.floor(dH * 0.8)
-        mainWindow.setBounds({
-          x: dX + Math.floor((dW - w) / 2),
-          y: dY + Math.floor((dH - h) / 2),
-          width: w,
-          height: h
-        })
-      } else if (layout === 'split') {
-        const bounds = mainWindow.getBounds()
-        const targetW = Math.floor(dW * 0.5)
-        const isAlreadySplit = Math.abs(bounds.width - targetW) < 20
-
-        if (isAlreadySplit) {
-          const isOnLeft = Math.abs(bounds.x - dX) < 50
-          const newX = isOnLeft ? dX + (dW - targetW) : dX
-          mainWindow.setPosition(newX, dY)
+      if (mainWindow.isMaximized()) {
+        if (process.platform === 'linux') {
+          mainWindow.once('unmaximize', () => {
+            setTimeout(applyBounds, 50)
+          })
+          mainWindow.unmaximize()
         } else {
-          mainWindow.setBounds({ x: dX, y: dY, width: targetW, height: dH })
+          mainWindow.unmaximize()
+          applyBounds()
         }
+      } else {
+        applyBounds()
       }
     }
-
-    // On verrouille à nouveau la fenêtre après un court délai pour laisser le temps à l'OS de finir
-    setTimeout(() => {
-      if (mainWindow) mainWindow.setResizable(false)
-    }, 100)
   })
 
   ipcMain.on('window-close', () => mainWindow?.close())

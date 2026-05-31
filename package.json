@@ -1,6 +1,6 @@
 {
   "name": "zatyshok",
-  "version": "1.6.7",
+  "version": "1.6.8",
   "description": "An Electron moodboard & planner application with React and TypeScript (originally) for the prettiest girl",
   "main": "./out/main/index.js",
   "author": "Esiah",
@@ -75,6 +75,14 @@
         }
       ],
       "icon": "resources/icon.png"
+    },
+    "linux": {
+      "target": [
+        "rpm",
+        "AppImage"
+      ],
+      "icon": "resources/icon.png",
+      "category": "Office"
     },
     "nsis": {
       "oneClick": false,
